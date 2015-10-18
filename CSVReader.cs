@@ -20,7 +20,7 @@ namespace CSharpScriptTest
         {
             rawData = csvFile.text;
 	    makeArray();
-	    rollerCoasterSet();
+	    rollerCoasterGenerator();
         }
 
         static public void makeArray()
@@ -53,7 +53,7 @@ namespace CSharpScriptTest
                 Console.WriteLine();
             }
         }
-        static public void rollerCoasterSet()
+        static public void rollerCoasterGenerator()
         {
             string[,] daySort;
             string[] dates = new string[lines];
