@@ -1,0 +1,6 @@
+C:\Users\justis\Documents\Final Semester\CSC 4996\oculus_data_vis\CSharpScriptTest\CSharpScriptTest\bin\Debug\CSharpScriptTest.exe.config
+C:\Users\justis\Documents\Final Semester\CSC 4996\oculus_data_vis\CSharpScriptTest\CSharpScriptTest\bin\Debug\CSharpScriptTest.exe
+C:\Users\justis\Documents\Final Semester\CSC 4996\oculus_data_vis\CSharpScriptTest\CSharpScriptTest\bin\Debug\CSharpScriptTest.pdb
+C:\Users\justis\Documents\Final Semester\CSC 4996\oculus_data_vis\CSharpScriptTest\CSharpScriptTest\obj\Debug\CSharpScriptTest.csprojResolveAssemblyReference.cache
+C:\Users\justis\Documents\Final Semester\CSC 4996\oculus_data_vis\CSharpScriptTest\CSharpScriptTest\obj\Debug\CSharpScriptTest.exe
+C:\Users\justis\Documents\Final Semester\CSC 4996\oculus_data_vis\CSharpScriptTest\CSharpScriptTest\obj\Debug\CSharpScriptTest.pdb

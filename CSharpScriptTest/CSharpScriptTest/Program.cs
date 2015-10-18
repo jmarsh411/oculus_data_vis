@@ -1,26 +1,46 @@
-//Usage: Put CSV file in a text asset named csvFile, attach this to an object named CSVReader, assign a string[,] array to call CSVReader.rollerCoasterSet()
-//Format: date, number of voters, candidate 1 name, candidate 1 percent, ... , candidate 9 name, candidate 9 percent
-using UnityEngine;
-using System;
+﻿using System;
 using System.IO;
 using System.Collections.Generic;
 
 namespace CSharpScriptTest
 {
-    public class CSVReader : MonoBehaviour
+    //public class CSVReader : MonoBehaviour
+    public class Program
     {
         static string[,] rawGrid;
         static string rawData;
         static int lines;
         static int categories = 29;
-        public TextAsset csvFile;
+        /*public TextAsset csvFile;
 
         public void Awake()
         {
             rawData = csvFile.text;
             makeArray();
-        }
+        }*/
 
+        static int Main(String[] args)
+        {
+            string path = "statesData.csv";
+            if (File.Exists(path))
+            {
+                rawData = File.ReadAllText(path);
+                makeArray();
+                //debugRawOutput();
+                string[,] test = rollerCoasterSet();
+                for (int i = 0; i <= test.GetUpperBound(0); i++)
+                {
+                    for (int j = 0; j <= test.GetUpperBound(1); j++)
+                    {
+                        Console.Write(test[i, j] + " ");
+                    }
+                    Console.WriteLine();
+                }
+            }
+            else
+                Console.WriteLine("File not found");
+            return 0;
+        }
         static public void makeArray()
         {
             string[] lineData = rawData.Split('\n');
