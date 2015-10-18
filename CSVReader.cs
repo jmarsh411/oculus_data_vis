@@ -10,6 +10,7 @@ namespace CSharpScriptTest
     public class CSVReader : MonoBehaviour
     {
         static string[,] rawGrid;
+	static string[.] rollerCoasterSet;
         static string rawData;
         static int lines;
         static int categories = 29;
@@ -18,7 +19,8 @@ namespace CSharpScriptTest
         public void Awake()
         {
             rawData = csvFile.text;
-            makeArray();
+	    makeArray();
+	    rollerCoasterSet();
         }
 
         static public void makeArray()
@@ -51,7 +53,7 @@ namespace CSharpScriptTest
                 Console.WriteLine();
             }
         }
-        static public string[,] rollerCoasterSet()
+        static public void rollerCoasterSet()
         {
             string[,] daySort;
             string[] dates = new string[lines];
@@ -84,7 +86,7 @@ namespace CSharpScriptTest
                     }
                 }
             }
-            return daySort;
+            rollerCoasterSet = daySort;
         }
     }
 }
