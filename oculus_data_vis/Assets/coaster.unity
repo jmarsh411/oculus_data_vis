@@ -696,6 +696,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 1
+<<<<<<< HEAD
 --- !u!114 &1761820438
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -780,6 +781,8 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 5
+=======
+>>>>>>> master
 --- !u!1 &1970176074
 GameObject:
   m_ObjectHideFlags: 0
