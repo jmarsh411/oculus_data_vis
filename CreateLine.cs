@@ -12,6 +12,12 @@ public class CreateLine : MonoBehaviour {
 	float[] GingrichArray = {25,15,18,11,6,6};
 	float[] DanielsArray = {0,2,1,0,0,0};
 	
+	Vector3[] DanielsPositions;
+	int pMark;
+	Vector3 test;
+	Vector3 boost = new Vector3(0,.8f,0);
+
+	
 	// Use this for initialization
 	void createLine (float candNum, float[] candArray, string color) {
 	
@@ -26,8 +32,10 @@ public class CreateLine : MonoBehaviour {
 							 new Vector3 { x = candNum, y = candArray[5], z = 60}
 		
 							};
-		
-		
+
+	
+	DanielsPositions = positions;
+	
 		//Debug.Log("Script is running.");
 		
 		for (int i = 0; i < (positions.Length - 1); i++)
@@ -47,8 +55,8 @@ public class CreateLine : MonoBehaviour {
 
 		}
 		
-		Vector3 boost = new Vector3(0,2,0);
-		GetComponent<Camera>().transform.position = positions[0] + boost;
+		
+		
 		
 		
 
@@ -57,11 +65,15 @@ public class CreateLine : MonoBehaviour {
 	void Start()
 	
 	{
-		
+		createLine(2, DanielsArray, "Blue");
 		createLine(0, RomneyArray, "Red");
 		createLine(1, GingrichArray, "Yellow");
-		createLine(2, DanielsArray, "Blue");
-
+		
+		
+		pMark = 1;
+		transform.position = DanielsPositions[0] + boost;//initiate camera location to first point
+		//GetComponent<Camera>().transform.LookAt(DanielsPositions[1] + boost);//initiate camera aim to second point
+		test = DanielsPositions[1] + boost; //initiate travel-to point to second point
 		
 	}
 	
@@ -69,10 +81,25 @@ public class CreateLine : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		
-		float speed = .5f;
-		Vector3 test = new Vector3 (10,4,20);
-
-		GetComponent<Camera>().transform.position = Vector3.MoveTowards(transform.position, test, speed * Time.deltaTime);
+		float speed = 2f;
+		float camSpeed = 2f;
+		
+			if(transform.position.z >= test[2])
+			{
+				pMark = pMark+1;
+				
+				test = DanielsPositions[pMark] += boost;
+				
+				//var targetRotation = Quaternion.LookRotation(test - GetComponent<Camera>().transform.position);//Smooth rotation code from unity forums
+				//GetComponent<Camera>().transform.rotation = Quaternion.Slerp(GetComponent<Camera>().transform.rotation, targetRotation, camSpeed * Time.deltaTime);//
+				
+				//GetComponent<Camera>().transform.LookAt(test);//aim camera at next point
+			}
+				
+				
+				transform.position = Vector3.MoveTowards(transform.position, test, speed * Time.deltaTime);
+				//GetComponent<Camera>().transform.position += boost;
+			
 		
 	
 	}
