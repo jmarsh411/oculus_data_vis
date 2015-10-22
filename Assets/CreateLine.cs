@@ -71,8 +71,8 @@ public class CreateLine : MonoBehaviour {
 		
 		
 		pMark = 1;
-		GetComponent<Camera>().transform.position = DanielsPositions[0] + boost;//initiate camera location to first point
-		GetComponent<Camera>().transform.LookAt(DanielsPositions[1] + boost);//initiate camera aim to second point
+		transform.position = DanielsPositions[0] + boost;//initiate camera location to first point
+		transform.LookAt(DanielsPositions[1] + boost);//initiate camera aim to second point
 		test = DanielsPositions[1] + boost; //initiate travel-to point to second point
 		
 	}
@@ -84,20 +84,20 @@ public class CreateLine : MonoBehaviour {
 		float speed = 2f;
 		float camSpeed = 2f;
 		
-			if(GetComponent<Camera>().transform.position.z >= test[2])
+			if(transform.position.z >= test[2])
 			{
 				pMark = pMark+1;
 				
 				test = DanielsPositions[pMark] += boost;
 				
-				var targetRotation = Quaternion.LookRotation(test - GetComponent<Camera>().transform.position);//Smooth rotation code from unity forums
-				//GetComponent<Camera>().transform.rotation = Quaternion.Slerp(GetComponent<Camera>().transform.rotation, targetRotation, camSpeed * Time.deltaTime);//
+				//var targetRotation = Quaternion.LookRotation(test - transform.position);//Smooth rotation code from unity forums
+				//transform.rotation = Quaternion.Slerp(GetComponent<Camera>().transform.rotation, targetRotation, camSpeed * Time.deltaTime);//
 				
-				GetComponent<Camera>().transform.LookAt(test);//aim camera at next point
+				transform.LookAt(test);//aim camera at next point
 			}
 				
 				
-				GetComponent<Camera>().transform.position = Vector3.MoveTowards(transform.position, test, speed * Time.deltaTime);
+				transform.position = Vector3.MoveTowards(transform.position, test, speed * Time.deltaTime);
 				//GetComponent<Camera>().transform.position += boost;
 			
 		
