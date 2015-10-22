@@ -8,7 +8,7 @@ using System.Collections.Generic;
 public class CSVReader : MonoBehaviour
 {
 	static string[,] rawGrid;
-	static string[.] rollerCoasterSet;
+static string[.] rollerCoasterSet;
 	static string rawData;
 	static int lines;
 	static int categories = 29;

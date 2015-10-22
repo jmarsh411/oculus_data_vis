@@ -9,7 +9,6 @@ namespace CSharpScriptTest
     {
         static string[,] rawGrid;
         static string rawData;
-        static string[,] rollerCoasterSet;
         static int lines;
         static int categories = 29;
         /*public TextAsset csvFile;
@@ -28,13 +27,14 @@ namespace CSharpScriptTest
                 rawData = File.ReadAllText(path);
                 makeArray();
                 //debugRawOutput();
-                rollerCoasterGenerator()
-                for (int i = 0; i <= rollerCoasterSet.GetUpperBound(0); i++)
+                string[,] test = rollerCoasterSet();
+                for (int i = 0; i <= test.GetUpperBound(0); i++)
                 {
-                    for (int j = 0; j <= rollerCoasterSet.GetUpperBound(1); j++)
+                    for (int j = 0; j <= test.GetUpperBound(1); j++)
                     {
-                        Console.Write(rollerCoasterSet[i, j] + " ");
+                        Console.Write(test[i, j] + " ");
                     }
+                    Console.WriteLine();
                 }
             }
             else
@@ -71,7 +71,7 @@ namespace CSharpScriptTest
                 Console.WriteLine();
             }
         }
-        static public string[,] rollerCoasterGenerator()
+        static public string[,] rollerCoasterSet()
         {
             string[,] daySort;
             string[] dates = new string[lines];
