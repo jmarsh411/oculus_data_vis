@@ -15,7 +15,7 @@ public class CreateLine : MonoBehaviour {
 	Vector3[] DanielsPositions;
 	int pMark;
 	Vector3 test;
-	Vector3 boost = new Vector3(0,.8f,0);
+	Vector3 boost = new Vector3(0,2,0);
 
 	
 	// Use this for initialization
