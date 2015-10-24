@@ -12,6 +12,7 @@ public class CreateLine : MonoBehaviour {
 	public float[] GingrichArray = {25,15,18,11,6,6};
 	public float[] DanielsArray = {0,2,1,0,0,0};
 	
+<<<<<<< HEAD
 	public Vector3[] Positions1; //Collection of positions for 1st line graph
 	public Vector3[] Positions2; //Collection of positions for 2nd line graph
 	public Vector3[] Positions3; //Collection of positions for 3rd line graph
@@ -19,6 +20,12 @@ public class CreateLine : MonoBehaviour {
 	public int pMark; //Marker to find current position of cart.
 	//public Vector3 test;
 	//public Vector3 boost = new Vector3(0,.8f,0);
+=======
+	Vector3[] DanielsPositions;
+	int pMark;
+	Vector3 test;
+	Vector3 boost = new Vector3(0,2,0);
+>>>>>>> master
 
 	
 	// Use this for initialization
