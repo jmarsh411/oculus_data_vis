@@ -8,18 +8,21 @@ public class CreateLine : MonoBehaviour {
 	 //public static CSVReader reader = GameObject.FindGameObjectWithTag("CSVReader").GetComponent<CSVReader>();
 	 //string testString = reader.test;
 	
-	float[] RomneyArray = {18,15,31,24,16,31};
-	float[] GingrichArray = {25,15,18,11,6,6};
-	float[] DanielsArray = {0,2,1,0,0,0};
+	public float[] RomneyArray = {18,15,31,24,16,31};
+	public float[] GingrichArray = {25,15,18,11,6,6};
+	public float[] DanielsArray = {0,2,1,0,0,0};
 	
-	Vector3[] DanielsPositions;
-	int pMark;
-	Vector3 test;
-	Vector3 boost = new Vector3(0,.8f,0);
+	public Vector3[] DanielsPositions;
+	public Vector3[] Positions2;
+	public Vector3[] Positions3;
+	
+	public int pMark;
+	public Vector3 test;
+	public Vector3 boost = new Vector3(0,.8f,0);
 
 	
 	// Use this for initialization
-	void createLine (float candNum, float[] candArray, string color) {
+	public void createLine (int candNum, float[] candArray, string color) {
 	
 	float TrackLength;
 	candNum = candNum * 5; // Space candidates apart horizontally by 5 units.
@@ -33,8 +36,38 @@ public class CreateLine : MonoBehaviour {
 		
 							};
 
+		
+		if (candNum/5 == 0)
+		{
+			Positions2 = positions;
+			Debug.Log("ok0.");
+		}
+
+		else if (candNum/5 == 1)
+		{
+			DanielsPositions = positions;
+			Debug.Log("ok1.");
+			
+		}
+		else if (candNum/5 == 2)
+		{
+			Positions3 = positions;
+			Debug.Log("ok2.");
+			
+		}
+		
+		else
+		{
+			
+			Debug.Log("Invalid Candidate Number");
+			
+		}		
+				
+			
+			
+		
 	
-	DanielsPositions = positions;
+
 	
 		//Debug.Log("Script is running.");
 		
@@ -65,15 +98,10 @@ public class CreateLine : MonoBehaviour {
 	void Start()
 	
 	{
-		createLine(2, DanielsArray, "Blue");
-		createLine(0, RomneyArray, "Red");
-		createLine(1, GingrichArray, "Yellow");
 		
 		
-		pMark = 1;
-		transform.position = DanielsPositions[0] + boost;//initiate camera location to first point
-		transform.LookAt(DanielsPositions[1] + boost);//initiate camera aim to second point
-		test = DanielsPositions[1] + boost; //initiate travel-to point to second point
+		
+	
 		
 	}
 	
@@ -81,25 +109,6 @@ public class CreateLine : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		
-		float speed = 2f;
-		float camSpeed = 2f;
-		
-			if(transform.position.z >= test[2])
-			{
-				pMark = pMark+1;
-				
-				test = DanielsPositions[pMark] += boost;
-				
-				//var targetRotation = Quaternion.LookRotation(test - transform.position);//Smooth rotation code from unity forums
-				//transform.rotation = Quaternion.Slerp(GetComponent<Camera>().transform.rotation, targetRotation, camSpeed * Time.deltaTime);//
-				
-				transform.LookAt(test);//aim camera at next point
-			}
-				
-				
-				transform.position = Vector3.MoveTowards(transform.position, test, speed * Time.deltaTime);
-				//GetComponent<Camera>().transform.position += boost;
-			
 		
 	
 	}
