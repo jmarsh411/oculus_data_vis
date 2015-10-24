@@ -272,10 +272,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 1539583241}
   m_RootOrder: 0
-  m_AnchorMin: {x: .5, y: .5}
-  m_AnchorMax: {x: .5, y: .5}
+  m_AnchorMin: {x: .100000001, y: .100000001}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 100, y: 100}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: .5, y: .5}
 --- !u!114 &361195660
 MonoBehaviour:
@@ -308,7 +308,9 @@ MonoBehaviour:
   Margin: {x: 0, y: 0}
   Points:
   - {x: 0, y: 0}
-  - {x: 1, y: 1}
+  - {x: 50, y: 70}
+  - {x: 80, y: 25}
+  - {x: 150, y: 130}
   relativeSize: 0
 --- !u!222 &361195661
 CanvasRenderer:
@@ -1269,7 +1271,7 @@ RectTransform:
   - {fileID: 361195659}
   m_Father: {fileID: 643016078}
   m_RootOrder: 1
-  m_AnchorMin: {x: .00999999978, y: .5}
+  m_AnchorMin: {x: .00999999978, y: .600000024}
   m_AnchorMax: {x: .300000012, y: .99000001}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}

@@ -11,7 +11,7 @@ public class CreateLine : MonoBehaviour {
 	public float[] RomneyArray = {18,15,31,24,16,31};
 	public float[] GingrichArray = {25,15,18,11,6,6};
 	public float[] DanielsArray = {0,2,1,0,0,0};
-	
+
 	public Vector3[] Positions1; //Collection of positions for 1st line graph
 	public Vector3[] Positions2; //Collection of positions for 2nd line graph
 	public Vector3[] Positions3; //Collection of positions for 3rd line graph
