@@ -77,7 +77,7 @@ public class Cart : MonoBehaviour {
 		
 		
 		
-		boost = createLine.boost;
+		//boost = createLine.boost;
 		
 		
 
