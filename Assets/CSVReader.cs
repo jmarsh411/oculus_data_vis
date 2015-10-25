@@ -115,7 +115,7 @@ public class CSVReader : MonoBehaviour
         //build candidate set, of format: all candidates sorted by occurence order, holding one poll object for each occurrence, sorted by datetime
         candidateSet = new PollObject[nameOccurrences.Count, (rollerCoasterSet.GetUpperBound(0) + 1)];
         int candidateIterator = 0;
-        foreach (KeyValuePair<string,int> candidate in nameOccurrences.OrderBy(key => key.Value))
+        foreach (KeyValuePair<string,int> candidate in nameOccurrences.OrderByDescending(key => key.Value))
         {
             int pollIterator = 0;
             for (int i = 0; i <= rollerCoasterSet.GetUpperBound(0); i++)
@@ -125,11 +125,12 @@ public class CSVReader : MonoBehaviour
                 for (int j = 0; j < numAttributes; j++)
                 {
                     string name = rollerCoasterSet[i, (j + j + 2)];
-                    if (name != null)
+					string percent = rollerCoasterSet[i, (j + j + 3)];
+                    if (!String.IsNullOrEmpty(name) && !String.IsNullOrEmpty(percent))
                     {
                         if (candidate.Key.Equals(name))
                         {
-                            string percent = rollerCoasterSet[i, (j + j + 3)];
+                            
                             candidateSet[candidateIterator, pollIterator++] = new PollObject(candidate.Key, date, numPollers, percent);
                         }
                     }
@@ -142,15 +143,15 @@ public class CSVReader : MonoBehaviour
     {
         for (int i = 0; i <= candidateSet.GetUpperBound(0); i++)
         {
+            string msg = i + " ";
             for (int j = 0; j <= candidateSet.GetUpperBound(1); j++)
             {
-                string msg = "";
                 if (candidateSet[i,j] != null)
                 {
-                    msg += candidateSet[i, j].name + " " + candidateSet[i, j].date + " " + candidateSet[i, j].pollers + " " + candidateSet[i, j].percent;
+                    msg += candidateSet[i, j].name + " " + candidateSet[i, j].date + " ";
                 }
-                print(msg);
             }
+            print(msg);
         }
     }
 }
