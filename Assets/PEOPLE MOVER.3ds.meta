@@ -1,0 +1,123 @@
+fileFormatVersion: 2
+guid: 20110cd862f26a847a618241efd4d073
+timeCreated: 1445734397
+licenseType: Free
+ModelImporter:
+  serializedVersion: 18
+  fileIDToRecycleName:
+    100000: CAR
+    100002: //RootNode
+    100004: Railing01
+    100006: SEAT_BACK
+    100008: SEAT_BACK0
+    100010: SEAT_BACK1
+    100012: SEAT_BACK2
+    100014: SEAT_BACK3
+    100016: SEAT_BACK4
+    100018: WHEEL_COV1
+    100020: WHEEL_COVE
+    400000: CAR
+    400002: //RootNode
+    400004: Railing01
+    400006: SEAT_BACK
+    400008: SEAT_BACK0
+    400010: SEAT_BACK1
+    400012: SEAT_BACK2
+    400014: SEAT_BACK3
+    400016: SEAT_BACK4
+    400018: WHEEL_COV1
+    400020: WHEEL_COVE
+    2300000: CAR
+    2300002: Railing01
+    2300004: SEAT_BACK
+    2300006: SEAT_BACK0
+    2300008: SEAT_BACK1
+    2300010: SEAT_BACK2
+    2300012: SEAT_BACK3
+    2300014: SEAT_BACK4
+    2300016: WHEEL_COV1
+    2300018: WHEEL_COVE
+    3300000: CAR
+    3300002: Railing01
+    3300004: SEAT_BACK
+    3300006: SEAT_BACK0
+    3300008: SEAT_BACK1
+    3300010: SEAT_BACK2
+    3300012: SEAT_BACK3
+    3300014: SEAT_BACK4
+    3300016: WHEEL_COV1
+    3300018: WHEEL_COVE
+    4300000: CAR
+    4300002: WHEEL_COVE
+    4300004: WHEEL_COV1
+    4300006: SEAT_BACK
+    4300008: SEAT_BACK0
+    4300010: SEAT_BACK1
+    4300012: SEAT_BACK2
+    4300014: SEAT_BACK3
+    4300016: SEAT_BACK4
+    4300018: Railing01
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: .5
+    animationPositionError: .5
+    animationScaleError: .5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    splitTangentsAcrossUV: 1
+    normalImportMode: 0
+    tangentImportMode: 1
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: .5
+    foreArmTwist: .5
+    upperLegTwist: .5
+    legTwist: .5
+    armStretch: .0500000007
+    legStretch: .0500000007
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 0
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
