@@ -65,10 +65,7 @@ public class Cart : MonoBehaviour {
 		
 		slot3.transform.position = createLine.Positions3[0];//initiate camera location to first point
 		slot3.transform.LookAt(createLine.Positions3[1]);//initiate camera aim to second point
-		
-		
-		
-		
+	
 		waypointCart = createLine.Positions1[1]; //initiate travel-to point to second point
 		candPositions = createLine.Positions1;
 		
@@ -77,10 +74,6 @@ public class Cart : MonoBehaviour {
 		
 		waypointCart2 = createLine.Positions3[1]; //initiate travel-to point to second point
 		candPositions2 = createLine.Positions3;
-		
-		
-		
-		
 		
 		//boost = createLine.boost;
 		
@@ -110,22 +103,14 @@ public class Cart : MonoBehaviour {
 				waypointCart = candPositions[pMark];
 				waypointCart1 = candPositions1[pMark];
 				waypointCart2 = candPositions2[pMark];
-				
-				
-				
-
 			
 			}
 			        slot.transform.LookAt(waypointCart);//aim camera at next point
 					slot.transform.position = Vector3.MoveTowards(slot.transform.position, waypointCart, speed1 * Time.deltaTime);
-					
-				
-			
+
 					slot2.transform.LookAt(waypointCart1);//aim camera at next point
 					slot2.transform.position = Vector3.MoveTowards(slot2.transform.position, waypointCart1, speed2 * Time.deltaTime);
-					
-					
-				
+
 					slot3.transform.LookAt(waypointCart2);//aim camera at next point
 					slot3.transform.position = Vector3.MoveTowards(slot3.transform.position, waypointCart2, speed3 * Time.deltaTime);
 				
@@ -147,8 +132,7 @@ public class Cart : MonoBehaviour {
 					
 					transform.LookAt(waypointCart2);
 					transform.position = Vector3.MoveTowards(slot3.transform.position, waypointCart2, speed3 * Time.deltaTime);
-					
-					
+		
 				}
 				
 				//transform.position = Vector3.MoveTowards(transform.position, waypointCart1, speed * Time.deltaTime);
@@ -177,12 +161,8 @@ public class Cart : MonoBehaviour {
 				waypointCart = candPositions[pMark];
 				waypointCart1 = candPositions1[pMark];
 				waypointCart2 = candPositions2[pMark];
-				
-				
-
-			
-			}
-			      
+	
+			}		      
 					slot.transform.position = Vector3.MoveTowards(slot.transform.position, candPositions[pMark], speed1 * Time.deltaTime);					
 					slot2.transform.position = Vector3.MoveTowards(slot2.transform.position, candPositions1[pMark], speed2 * Time.deltaTime);					
 					slot3.transform.position = Vector3.MoveTowards(slot3.transform.position, candPositions2[pMark], speed3 * Time.deltaTime);
@@ -191,7 +171,6 @@ public class Cart : MonoBehaviour {
 				{
 					//transform.parent = slot.transform;
 					transform.position = Vector3.MoveTowards(slot.transform.position, candPositions[pMark], speed * Time.deltaTime);
-		
 				}
 				else if (state == 2)
 				{
