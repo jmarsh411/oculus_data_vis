@@ -14,7 +14,7 @@ public class CSVReader : MonoBehaviour
 	static int lines;
 	static int categories = 29;
 
-	public static void Awake()
+	void Awake()
 	{
         TextAsset csvFile = Resources.Load("statesData") as TextAsset;
         rawData = csvFile.text;

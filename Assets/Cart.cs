@@ -24,7 +24,6 @@ public class Cart : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-        CSVReader.Awake();
 		GameObject cart = GameObject.Find("Cart"); // cart
 		GameObject slot = GameObject.Find("CartSlot"); // slot for cart to fit into on first graph
 		GameObject slot2 = GameObject.Find("CartSlot1"); // slot for cart to fit into on second graph
