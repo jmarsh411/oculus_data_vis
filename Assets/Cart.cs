@@ -198,8 +198,25 @@ public class Cart : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+	
+    if (Input.GetKeyDown(KeyCode.JoystickButton7))
+        {
+            if (state == 1)
+                state = 3;
+            else
+                state--;
+            print("button 7 shift right");
+        }	
 		
-		
+    if (Input.GetKeyDown(KeyCode.JoystickButton6))
+        {
+            if (state == 3)
+                state = 1;
+            else
+                state++;
+            print("button 6 shift left");
+        }
+
 	if (Input.GetKeyDown("space")) // switches cart location to other graphs
 	{
 		if (state == 1)
@@ -216,13 +233,14 @@ public class Cart : MonoBehaviour {
 		}
 	}
 	
-	if (Input.GetKey("right")) //fast forward
+	if (Input.GetKey("right") || Input.GetKey(KeyCode.JoystickButton5)) //fast forward
 	{
 		speed = 7;
 		Move();
+            print("button 5 fast forward");
 	}
 
-	if (Input.GetKeyDown("p")) //pause
+	if (Input.GetKeyDown("p") || Input.GetKeyDown(KeyCode.JoystickButton9)) //pause
 	{
 		if(pause == 1)
 		{
@@ -236,11 +254,13 @@ public class Cart : MonoBehaviour {
 		{
 			pause = 0;
 		}
+            print("button 9 pause");
 	}
 	
-	if (Input.GetKey("left")) //rewind
+	if (Input.GetKey("left") || Input.GetKey(KeyCode.JoystickButton4)) //rewind
 	{
 		MoveBackwards();
+            print("button 4 rewind");
 	}
 
 	
