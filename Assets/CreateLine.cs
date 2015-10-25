@@ -9,7 +9,7 @@ public class CreateLine : MonoBehaviour {
 	 //string testString = reader.test;
 	
 	public float[] RomneyArray = {18,15,31,24,16,31};
-	public float[] GingrichArray = {25,15,18,11,6,6};
+    public float[] GingrichArray = {25,15,18,11,6,6};
 	public float[] DanielsArray = {0,2,1,0,0,0};
 
 	public Vector3[] Positions1; //Collection of positions for 1st line graph
@@ -22,17 +22,17 @@ public class CreateLine : MonoBehaviour {
 
 	
 	// Use this for initialization
-	public void createLine (int candNum, float[] candArray, string color) {
+	public void createLine (int candNum, string color) {
 	
 	float TrackLength;
 	candNum = candNum * 5; // Space candidates apart horizontally by 5 units.
 	
-	Vector3[] positions = { new Vector3 { x = candNum, y = candArray[0], z = 10 }, 
-                             new Vector3 { x = candNum, y = candArray[1], z = 20},
-							 new Vector3 { x = candNum, y = candArray[2], z = 30},
-							 new Vector3 { x = candNum, y = candArray[3], z = 40},
-							 new Vector3 { x = candNum, y = candArray[4], z = 50},
-							 new Vector3 { x = candNum, y = candArray[5], z = 60}
+	Vector3[] positions = { new Vector3 { x = candNum, y = CSVReader.candidateSet[candNum+1,0].percent, z = 10 }, 
+                             new Vector3 { x = candNum, y = CSVReader.candidateSet[candNum+1,1].percent, z = 20},
+							 new Vector3 { x = candNum, y = CSVReader.candidateSet[candNum+1,2].percent, z = 30},
+							 new Vector3 { x = candNum, y = CSVReader.candidateSet[candNum+1,3].percent, z = 40},
+							 new Vector3 { x = candNum, y = CSVReader.candidateSet[candNum+1,4].percent, z = 50},
+							 new Vector3 { x = candNum, y = CSVReader.candidateSet[candNum+1,5].percent, z = 60}
 		
 							};
 

@@ -24,7 +24,7 @@ public class Cart : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		
+        CSVReader.Awake();
 		GameObject cart = GameObject.Find("Cart"); // cart
 		GameObject slot = GameObject.Find("CartSlot"); // slot for cart to fit into on first graph
 		GameObject slot2 = GameObject.Find("CartSlot1"); // slot for cart to fit into on second graph
@@ -32,9 +32,9 @@ public class Cart : MonoBehaviour {
 		
 	    CreateLine createLine = cart.GetComponent<CreateLine>();
 		
-		createLine.createLine(2, createLine.DanielsArray, "Blue"); // create 1st graph that cart can ride on
-		createLine.createLine(0, createLine.RomneyArray, "Red"); // create 2nd graph that cart can ride on
-		createLine.createLine(1, createLine.GingrichArray, "Yellow"); // create 3rd graph that cart can ride on
+		createLine.createLine(2, "Blue"); // create 1st graph that cart can ride on
+		createLine.createLine(0, "Red"); // create 2nd graph that cart can ride on
+		createLine.createLine(1, "Yellow"); // create 3rd graph that cart can ride on
 		
 		if (state == 1)
 		{
