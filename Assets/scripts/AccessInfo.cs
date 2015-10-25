@@ -7,18 +7,20 @@ public class AccessInfo : MonoBehaviour {
 	CreateLine lineObj;
 	Text candidateText;
 	string candPrepend = "Following: ";
-	
+	Transform transform;
+	Vector3 position;
+
 	// Use this for initialization
 	void Start () {
 		cart = GameObject.Find ("Cart");
 		lineObj = cart.GetComponent<CreateLine> ();
+		transform = cart.GetComponent<Transform> ();
 		candidateText = GameObject.FindGameObjectWithTag ("currCandidate").GetComponent<Text>();
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		Vector3 position = cart.GetComponent<Transform> ().position;
-		float x = position.x;
+		float x = transform.position.x;
 		if (x == 0) {
 			candidateText.text = candPrepend + lineObj.Position2Candidate;
 		}
