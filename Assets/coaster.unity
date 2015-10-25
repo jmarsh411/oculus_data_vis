@@ -1444,7 +1444,7 @@ GameObject:
   - 114: {fileID: 1590674782}
   m_Layer: 5
   m_Name: Text
-  m_TagString: Untagged
+  m_TagString: currCandidate
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1778,6 +1778,7 @@ GameObject:
   - 222: {fileID: 1811762171}
   - 114: {fileID: 1811762170}
   - 114: {fileID: 1811762172}
+  - 114: {fileID: 1811762173}
   m_Layer: 5
   m_Name: InfoPanel
   m_TagString: Untagged
@@ -1859,6 +1860,17 @@ MonoBehaviour:
   m_Spacing: 0
   m_ChildForceExpandWidth: 1
   m_ChildForceExpandHeight: 1
+--- !u!114 &1811762173
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1811762168}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 388814907f7566045a68c61d50fd7c86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1850436504
 GameObject:
   m_ObjectHideFlags: 0
