@@ -7,6 +7,11 @@ public class Cart : MonoBehaviour {
 		int pause = 0; // turn movement on and off
 		int state = 3; // which graph is being traversed
 		GameObject slot;
+		GameObject slot2;
+		GameObject slot3;
+		float speed1;
+		float speed2;
+		float speed3;
 		
 		float speed = 2f;
 		
@@ -59,10 +64,7 @@ public class Cart : MonoBehaviour {
 		
 		slot3.transform.position = createLine.Positions3[0];//initiate camera location to first point
 		slot3.transform.LookAt(createLine.Positions3[1]);//initiate camera aim to second point
-		
-		
-		
-		
+	
 		waypointCart = createLine.Positions1[1]; //initiate travel-to point to second point
 		candPositions = createLine.Positions1;
 		
@@ -71,10 +73,6 @@ public class Cart : MonoBehaviour {
 		
 		waypointCart2 = createLine.Positions3[1]; //initiate travel-to point to second point
 		candPositions2 = createLine.Positions3;
-		
-		
-		
-		
 		
 		//boost = createLine.boost;
 		
@@ -88,6 +86,9 @@ public class Cart : MonoBehaviour {
 	{
 		
 		float camSpeed = 2f;
+		speed1 = speed + (speed * ((Mathf.Sqrt(100 + Mathf.Pow((candPositions[pMark][1] - candPositions[pMark - 1][1]),2)) - 10)/10));
+		speed2 = speed + (speed * ((Mathf.Sqrt(100 + Mathf.Pow((candPositions1[pMark][1] - candPositions1[pMark - 1][1]),2)) - 10)/10));
+		speed3 = speed + (speed * ((Mathf.Sqrt(100 + Mathf.Pow((candPositions2[pMark][1] - candPositions2[pMark - 1][1]),2)) - 10)/10));
 		
 		GameObject cart = GameObject.Find("Cart");
 		GameObject slot = GameObject.Find("CartSlot");
@@ -101,40 +102,36 @@ public class Cart : MonoBehaviour {
 				waypointCart = candPositions[pMark];
 				waypointCart1 = candPositions1[pMark];
 				waypointCart2 = candPositions2[pMark];
-				
-				
-
 			
 			}
 			        slot.transform.LookAt(waypointCart);//aim camera at next point
-					slot.transform.position = Vector3.MoveTowards(slot.transform.position, waypointCart, speed * Time.deltaTime);
-					
-				
-			
+					slot.transform.position = Vector3.MoveTowards(slot.transform.position, waypointCart, speed1 * Time.deltaTime);
+
 					slot2.transform.LookAt(waypointCart1);//aim camera at next point
-					slot2.transform.position = Vector3.MoveTowards(slot2.transform.position, waypointCart1, speed * Time.deltaTime);
-					
-					
-				
+					slot2.transform.position = Vector3.MoveTowards(slot2.transform.position, waypointCart1, speed2 * Time.deltaTime);
+
 					slot3.transform.LookAt(waypointCart2);//aim camera at next point
-					slot3.transform.position = Vector3.MoveTowards(slot3.transform.position, waypointCart2, speed * Time.deltaTime);
+					slot3.transform.position = Vector3.MoveTowards(slot3.transform.position, waypointCart2, speed3 * Time.deltaTime);
 				
 				if (state == 1)
 				{
 					//transform.parent = slot.transform;
-					transform.position = Vector3.MoveTowards(slot.transform.position, waypointCart, speed * Time.deltaTime);
 					transform.LookAt(waypointCart);
+					transform.position = Vector3.MoveTowards(slot.transform.position, waypointCart, speed1 * Time.deltaTime);
+					
 				}
 				else if (state == 2)
 				{
-					transform.position = Vector3.MoveTowards(slot2.transform.position, waypointCart1, speed * Time.deltaTime);
 					transform.LookAt(waypointCart1);
+					transform.position = Vector3.MoveTowards(slot2.transform.position, waypointCart1, speed2 * Time.deltaTime);
+					
 				}
 				else
 				{
-					transform.LookAt(waypointCart2);
-					transform.position = Vector3.MoveTowards(slot3.transform.position, waypointCart2, speed * Time.deltaTime);
 					
+					transform.LookAt(waypointCart2);
+					transform.position = Vector3.MoveTowards(slot3.transform.position, waypointCart2, speed3 * Time.deltaTime);
+		
 				}
 				
 				//transform.position = Vector3.MoveTowards(transform.position, waypointCart1, speed * Time.deltaTime);
@@ -145,16 +142,16 @@ public class Cart : MonoBehaviour {
 	void MoveBackwards ()	//Same as Move, but modified to make the movement go backwards
 	{
 		
-		waypointCart = candPositions[pMark - 1]; //initiate travel-to point to previous point
-		waypointCart1 = candPositions1[pMark - 1]; //initiate travel-to point to previous point		
-		waypointCart2 = candPositions2[pMark - 1]; //initiate travel-to point to previous point
-			
 		float camSpeed = 2f;
+		speed1 = speed + (speed * ((Mathf.Sqrt(100 + Mathf.Pow((candPositions[pMark][1] - candPositions[pMark + 1][1]),2)) - 10)/10));
+		speed2 = speed + (speed * ((Mathf.Sqrt(100 + Mathf.Pow((candPositions1[pMark][1] - candPositions1[pMark + 1][1]),2)) - 10)/10));
+		speed3 = speed + (speed * ((Mathf.Sqrt(100 + Mathf.Pow((candPositions2[pMark][1] - candPositions2[pMark + 1][1]),2)) - 10)/10));
 		
 		GameObject cart = GameObject.Find("Cart");
 		GameObject slot = GameObject.Find("CartSlot");
 		GameObject slot2 = GameObject.Find("CartSlot1");
 		GameObject slot3 = GameObject.Find("CartSlot2");
+
 		
 			if(transform.position.z <= waypointCart[2])
 			{
@@ -163,29 +160,24 @@ public class Cart : MonoBehaviour {
 				waypointCart = candPositions[pMark];
 				waypointCart1 = candPositions1[pMark];
 				waypointCart2 = candPositions2[pMark];
-				
-				
-
-			
-			}
-			      
-					slot.transform.position = Vector3.MoveTowards(slot.transform.position, candPositions[pMark-1], speed * Time.deltaTime);					
-					slot2.transform.position = Vector3.MoveTowards(slot2.transform.position, candPositions1[pMark-1], speed * Time.deltaTime);					
-					slot3.transform.position = Vector3.MoveTowards(slot3.transform.position, candPositions2[pMark-1], speed * Time.deltaTime);
+	
+			}		      
+					slot.transform.position = Vector3.MoveTowards(slot.transform.position, candPositions[pMark], speed1 * Time.deltaTime);					
+					slot2.transform.position = Vector3.MoveTowards(slot2.transform.position, candPositions1[pMark], speed2 * Time.deltaTime);					
+					slot3.transform.position = Vector3.MoveTowards(slot3.transform.position, candPositions2[pMark], speed3 * Time.deltaTime);
 				
 				if (state == 1) //If 
 				{
 					//transform.parent = slot.transform;
-					transform.position = Vector3.MoveTowards(slot.transform.position, candPositions[pMark-1], speed * Time.deltaTime);
-		
+					transform.position = Vector3.MoveTowards(slot.transform.position, candPositions[pMark], speed * Time.deltaTime);
 				}
 				else if (state == 2)
 				{
-					transform.position = Vector3.MoveTowards(slot2.transform.position, candPositions1[pMark-1], speed * Time.deltaTime);	
+					transform.position = Vector3.MoveTowards(slot2.transform.position, candPositions1[pMark], speed * Time.deltaTime);	
 				}
 				else
 				{	
-					transform.position = Vector3.MoveTowards(slot3.transform.position, candPositions2[pMark-1], speed * Time.deltaTime);			
+					transform.position = Vector3.MoveTowards(slot3.transform.position, candPositions2[pMark], speed * Time.deltaTime);			
 				}
 				
 				//transform.position = Vector3.MoveTowards(transform.position, waypointCart1, speed * Time.deltaTime);
