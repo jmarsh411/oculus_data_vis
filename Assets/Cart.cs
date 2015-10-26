@@ -13,10 +13,10 @@ public class Cart : MonoBehaviour {
 		float speed2;
 		float speed3;
 		
-		float currentPercent;
-		string currentDate;
-		float nextPercent;
-		string nextDate;
+		public float currentPercent;
+		public string currentDate;
+		public float nextPercent;
+		public string nextDate;
 		
 		float speed = 2f;
 		
