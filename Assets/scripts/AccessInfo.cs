@@ -23,8 +23,6 @@ public class AccessInfo : MonoBehaviour {
 	void Start () {
 		cartObj = GameObject.Find ("Cart");
 		cart = cartObj.GetComponent<Cart> ();
-//		lineObj = cartObj.GetComponent<CreateLine> ();
-//		transform = cartObj.GetComponent<Transform> ();
 		candidateText = GameObject.FindGameObjectWithTag ("currCandidate").GetComponent<Text>();
 		percent = GameObject.FindGameObjectWithTag ("currPercentage").GetComponent<Text>();
 		nextPercent = GameObject.FindGameObjectWithTag ("nextPercentage").GetComponent<Text>();
@@ -35,21 +33,10 @@ public class AccessInfo : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-//		candidateText.text = cart.currentCandidate;
+		candidateText.text = candPrepend + cart.currentCandidate;
 		percent.text = percentPrepend + cart.currentPercent.ToString();
 		nextPercent.text = nextPercentPrepend + cart.nextPercent.ToString ();
 		currDate.text = datePrepend + cart.currentDate;
 		nextDate.text = nextDatePrepend + cart.nextDate;
-		//		float x = transform.position.x;
-		//		percent.text = percentPrepend + Mathf.Ceil(transform.position.y).ToString();
-		//		if (x == 0) {
-		//			candidateText.text = candPrepend + lineObj.Position2Candidate;
-		//		}
-		//		else if (x == 5) {
-		//			candidateText.text = candPrepend + lineObj.Position1Candidate;
-		//		}
-		//		else if (x == 10) {
-		//			candidateText.text = candPrepend + lineObj.Position3Candidate;
-		//		}
 	}
 }

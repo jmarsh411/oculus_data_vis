@@ -13,6 +13,7 @@ public class Cart : MonoBehaviour {
 		float speed2;
 		float speed3;
 		
+		public string currentCandidate;
 		public float currentPercent;
 		public string currentDate;
 		public float nextPercent;
@@ -60,7 +61,8 @@ public class Cart : MonoBehaviour {
 			transform.position = createLine.Positions3[0];//initiate camera location to first point
 			transform.LookAt(createLine.Positions3[1]);//initiate camera aim to second point
 		}
-		
+
+
 		slot.transform.position = createLine.Positions1[0];//initiate camera location to first point
 		slot.transform.LookAt(createLine.Positions1[1]);//initiate camera aim to second point
 		currentPercent = createLine.Positions1[0][1];
@@ -92,6 +94,7 @@ public class Cart : MonoBehaviour {
 		
 		currentDate = createLine.Position1Dates[0].Date.ToString("d");
 		nextDate = createLine.Position1Dates[1].Date.ToString("d");
+		currentCandidate = createLine.Position1Candidate;
 
 	
 	}
@@ -138,6 +141,7 @@ public class Cart : MonoBehaviour {
 					transform.position = Vector3.MoveTowards(slot.transform.position, waypointCart, speed1 * Time.deltaTime);
 					currentPercent = candPositions[pMark-1][1];
 					nextPercent = candPositions[pMark][1];
+					currentCandidate = createLine.Position1Candidate;
 					
 					Debug.Log(currentDate);
 					
@@ -148,7 +152,7 @@ public class Cart : MonoBehaviour {
 					transform.position = Vector3.MoveTowards(slot2.transform.position, waypointCart1, speed2 * Time.deltaTime);
 					currentPercent = candPositions1[pMark -1][1];
 					nextPercent = candPositions1[pMark][1];
-				
+					currentCandidate = createLine.Position2Candidate;
 					Debug.Log(currentDate);
 					
 				}
@@ -159,6 +163,7 @@ public class Cart : MonoBehaviour {
 					transform.position = Vector3.MoveTowards(slot3.transform.position, waypointCart2, speed3 * Time.deltaTime);
 					currentPercent = candPositions2[pMark][1];
 					nextPercent = candPositions2[pMark][1];
+					currentCandidate = createLine.Position3Candidate;
 					
 					Debug.Log(currentDate);
 		
