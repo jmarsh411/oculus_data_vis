@@ -3,7 +3,10 @@ using System.Collections;
 using System;
 
 public class CreateLine : MonoBehaviour {
-	
+
+    //public static GameObject readerObj = GameObject.FindGameObjectWithTag("CSVReader");
+    //public static CSVReader reader = (CSVReader) readerObj.GetComponent(typeof(CSVReader));
+
 	 //public static CSVReader reader = GameObject.FindGameObjectWithTag("CSVReader").GetComponent<CSVReader>();
 	 //string testString = reader.test;
 	
