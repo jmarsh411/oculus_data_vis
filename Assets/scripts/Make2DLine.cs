@@ -5,10 +5,16 @@ using System.Collections;
 public class Make2DLine : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
+		int pointCount = 6;
 		UILineRenderer lineRenderer = GetComponent<UILineRenderer> ();
-		lineRenderer.Points [0] = new Vector2 (5, 10);
-		lineRenderer.Points [1] = new Vector2 (6, 5);
-		lineRenderer.Points [2] = new Vector2 (7,12);
+		lineRenderer.Points = new Vector2[pointCount];
+		// for each candidate
+		for (int row = 1; row <= 1; row++){
+			// for each point
+			for (int col=0; col <= pointCount - 1; col++){
+				lineRenderer.Points[col] = new Vector2 {x = (col + 1) * 10, y = CSVReader.candidateSet[row,col].percent};
+			}
+		}
 	}
 	
 	// Update is called once per frame
