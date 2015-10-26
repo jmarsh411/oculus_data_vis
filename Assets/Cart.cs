@@ -13,6 +13,11 @@ public class Cart : MonoBehaviour {
 		float speed2;
 		float speed3;
 		
+		float currentPercent;
+		string currentDate;
+		float nextPercent;
+		string nextDate;
+		
 		float speed = 2f;
 		
 		Vector3 waypointCart; //initiate travel-to point
@@ -23,7 +28,7 @@ public class Cart : MonoBehaviour {
 		
 		Vector3 waypointCart2; //initiate travel-to point
 		Vector3[] candPositions2; //collection of points for third graph
-		
+		CreateLine createLine;
 		
 		Vector3 boost;
 
@@ -34,7 +39,7 @@ public class Cart : MonoBehaviour {
 		GameObject slot2 = GameObject.Find("CartSlot1"); // slot for cart to fit into on second graph
 		GameObject slot3 = GameObject.Find("CartSlot2"); // slot for cart to fit into on third graph
 		
-	    CreateLine createLine = cart.GetComponent<CreateLine>();
+	    createLine = cart.GetComponent<CreateLine>();
 		
 		createLine.createLine(2, "Blue"); // create 1st graph that cart can ride on
 		createLine.createLine(0, "Red"); // create 2nd graph that cart can ride on
@@ -58,12 +63,21 @@ public class Cart : MonoBehaviour {
 		
 		slot.transform.position = createLine.Positions1[0];//initiate camera location to first point
 		slot.transform.LookAt(createLine.Positions1[1]);//initiate camera aim to second point
+		currentPercent = createLine.Positions1[0][1];
+		nextPercent = createLine.Positions1[1][1];
+		Debug.Log(currentPercent);
 		
 		slot2.transform.position = createLine.Positions2[0];//initiate camera location to first point
 		slot2.transform.LookAt(createLine.Positions2[1]);//initiate camera aim to second point
+		currentPercent = createLine.Positions2[0][1];
+		nextPercent = createLine.Positions2[1][1];
+		Debug.Log(currentPercent);
 		
 		slot3.transform.position = createLine.Positions3[0];//initiate camera location to first point
 		slot3.transform.LookAt(createLine.Positions3[1]);//initiate camera aim to second point
+		currentPercent = createLine.Positions3[0][1];
+		nextPercent = createLine.Positions3[1][1];
+		Debug.Log(currentPercent);
 	
 		waypointCart = createLine.Positions1[1]; //initiate travel-to point to second point
 		candPositions = createLine.Positions1;
@@ -76,7 +90,8 @@ public class Cart : MonoBehaviour {
 		
 		//boost = createLine.boost;
 		
-		
+		currentDate = createLine.Position1Dates[0].Date.ToString("d");
+		nextDate = createLine.Position1Dates[1].Date.ToString("d");
 
 	
 	}
@@ -112,18 +127,29 @@ public class Cart : MonoBehaviour {
 
 					slot3.transform.LookAt(waypointCart2);//aim camera at next point
 					slot3.transform.position = Vector3.MoveTowards(slot3.transform.position, waypointCart2, speed3 * Time.deltaTime);
+					
+					currentDate = createLine.Position1Dates[pMark - 1].Date.ToString("d");
+					nextDate = createLine.Position1Dates[pMark].Date.ToString("d");
 				
 				if (state == 1)
 				{
 					//transform.parent = slot.transform;
 					transform.LookAt(waypointCart);
 					transform.position = Vector3.MoveTowards(slot.transform.position, waypointCart, speed1 * Time.deltaTime);
+					currentPercent = candPositions[pMark-1][1];
+					nextPercent = candPositions[pMark][1];
+					
+					Debug.Log(currentDate);
 					
 				}
 				else if (state == 2)
 				{
 					transform.LookAt(waypointCart1);
 					transform.position = Vector3.MoveTowards(slot2.transform.position, waypointCart1, speed2 * Time.deltaTime);
+					currentPercent = candPositions1[pMark -1][1];
+					nextPercent = candPositions1[pMark][1];
+				
+					Debug.Log(currentDate);
 					
 				}
 				else
@@ -131,6 +157,10 @@ public class Cart : MonoBehaviour {
 					
 					transform.LookAt(waypointCart2);
 					transform.position = Vector3.MoveTowards(slot3.transform.position, waypointCart2, speed3 * Time.deltaTime);
+					currentPercent = candPositions2[pMark][1];
+					nextPercent = candPositions2[pMark][1];
+					
+					Debug.Log(currentDate);
 		
 				}
 				
