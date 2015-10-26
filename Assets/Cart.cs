@@ -90,7 +90,8 @@ public class Cart : MonoBehaviour {
 		
 		//boost = createLine.boost;
 		
-		
+		currentDate = createLine.Position1Dates[0].Date.ToString("d");
+		nextDate = createLine.Position1Dates[1].Date.ToString("d");
 
 	
 	}
@@ -126,6 +127,9 @@ public class Cart : MonoBehaviour {
 
 					slot3.transform.LookAt(waypointCart2);//aim camera at next point
 					slot3.transform.position = Vector3.MoveTowards(slot3.transform.position, waypointCart2, speed3 * Time.deltaTime);
+					
+					currentDate = createLine.Position1Dates[pMark - 1].Date.ToString("d");
+					nextDate = createLine.Position1Dates[pMark].Date.ToString("d");
 				
 				if (state == 1)
 				{
@@ -134,8 +138,7 @@ public class Cart : MonoBehaviour {
 					transform.position = Vector3.MoveTowards(slot.transform.position, waypointCart, speed1 * Time.deltaTime);
 					currentPercent = candPositions[pMark-1][1];
 					nextPercent = candPositions[pMark][1];
-					currentDate = createLine.Position1Dates[pMark - 1].Date.ToString("d");
-					nextDate = createLine.Position1Dates[pMark].Date.ToString("d");
+					
 					Debug.Log(currentDate);
 					
 				}
@@ -145,9 +148,8 @@ public class Cart : MonoBehaviour {
 					transform.position = Vector3.MoveTowards(slot2.transform.position, waypointCart1, speed2 * Time.deltaTime);
 					currentPercent = candPositions1[pMark -1][1];
 					nextPercent = candPositions1[pMark][1];
-					currentDate = createLine.Position1Dates[pMark - 1].Date.ToString("d");
-					nextDate = createLine.Position1Dates[pMark].Date.ToString("d");
-					Debug.Log(nextDate);
+				
+					Debug.Log(currentDate);
 					
 				}
 				else
@@ -157,9 +159,8 @@ public class Cart : MonoBehaviour {
 					transform.position = Vector3.MoveTowards(slot3.transform.position, waypointCart2, speed3 * Time.deltaTime);
 					currentPercent = candPositions2[pMark][1];
 					nextPercent = candPositions2[pMark][1];
-					currentDate = createLine.Position1Dates[pMark - 1].Date.ToString("d");
-					nextDate = createLine.Position1Dates[pMark].Date.ToString("d");
-					Debug.Log(nextDate);
+					
+					Debug.Log(currentDate);
 		
 				}
 				
