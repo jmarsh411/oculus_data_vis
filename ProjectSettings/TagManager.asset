@@ -6,6 +6,9 @@ TagManager:
   tags:
   - CSVReader
   - currCandidate
+  - currPercentage
+  - currDate
+  - nextDate
   layers:
   - Default
   - TransparentFX
