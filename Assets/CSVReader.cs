@@ -148,7 +148,7 @@ public class CSVReader : MonoBehaviour
             {
                 if (candidateSet[i,j] != null)
                 {
-                    msg += candidateSet[i, j].name + " " + candidateSet[i, j].date + " ";
+                    msg += candidateSet[i, j].name + " " + candidateSet[i, j].date + " " + candidateSet[i,j].percent + " ";
                 }
             }
             print(msg);
