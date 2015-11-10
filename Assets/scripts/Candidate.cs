@@ -1,19 +1,23 @@
-﻿using UnityEngine;
-using System.Collections;
+ using System.Collections;
 
-public class Candidate : MonoBehaviour {
+
+public class Candidate {
 	public string name;
 	public int candNum;
-	public Color color;
+	public string color;
 	public string party;
 
-	// Use this for initialization
-	void Start () {
-	
+	public Candidate(string n, int cN) {
+		name = n;
+		candNum = cN;
+		color = "Black";
+		party = "lets";
 	}
-	
-	// Update is called once per frame
-	void Update () {
-	
+
+	public Candidate(string n, int cN, string c, string p) {
+		name = n;
+		candNum = cN;
+		color = c;
+		party = p;
 	}
 }
