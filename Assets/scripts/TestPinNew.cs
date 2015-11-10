@@ -9,7 +9,6 @@ public class TestPinNew : MonoBehaviour {
 		Poll testPoll = CSVReader.pollByDate [testDate];
 		GameObject pin2 = (GameObject)Instantiate(Pin.pinPrefab);
 		pin2.GetComponent<Pin>().Initialize(testPoll);
-//		pinscript.Initialize (testPoll);
 	}
 	
 	// Update is called once per frame
