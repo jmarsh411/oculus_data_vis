@@ -15,9 +15,10 @@ public class Pin : Poll {
 	void Start () {
 		set_mock_data ();
 
-//		foreach (Score score in scores) {
-//			Instantiate(Sphere(score))
-//		}
+		foreach (Score score in scores) {
+			Sphere sphere = Instantiate(Sphere.spherePrefab) as Sphere;
+			sphere.Initialize(score);
+		}
 	}
 	
 	// Update is called once per frame

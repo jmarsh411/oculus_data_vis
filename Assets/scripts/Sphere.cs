@@ -2,10 +2,15 @@
 using System.Collections;
 
 public class Sphere : MonoBehaviour {
-	public static Object spherePrefab = Resources.Load ("prefabs/Sphere");
+	public static Object spherePrefab;
 	public float diameter;
 	public Candidate candidate;
 
+	public void Initialize(Score score) {
+		candidate = score.candidate;
+//		calcDiameter (score);
+		// assign or access candidate's color
+	}
 	// Use this for initialization
 	void Start () {
 	
@@ -15,4 +20,8 @@ public class Sphere : MonoBehaviour {
 	void Update () {
 	
 	}
+
+//	float calcDiameter(Score score) {
+//		diameter = 0.05f * score.percentage;
+//	}
 }
