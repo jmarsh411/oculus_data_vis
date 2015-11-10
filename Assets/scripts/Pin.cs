@@ -15,18 +15,21 @@ public class Pin : MonoBehaviour {
 		state = poll.state;
 		date = poll.date;
 		scores = poll.scores;
+		for (int i = 0; i < scores.Length; i++) {
+			Score score = scores[i];
+			if (score != null){
+				GameObject sphere = (GameObject)Instantiate(Sphere.spherePrefab);
+				sphere.GetComponent<Sphere>().Initialize(score);
+			}
+		}
+		transform.position = StatesLookup.pos[state];
 	}
 
 	// Use this for initialization
 	void Start () {
-		set_mock_data ();
+//		set_mock_data ();
 
-		foreach (Score score in scores) {
-			if (score != null){
-				Sphere sphere = Instantiate(Sphere.spherePrefab) as Sphere;
-				sphere.Initialize(score);
-			}
-		}
+
 	}
 	
 	// Update is called once per frame
