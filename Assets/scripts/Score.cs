@@ -1,15 +1,10 @@
-﻿using UnityEngine;
 using System.Collections;
 
-public class Score : MonoBehaviour {
-
-	// Use this for initialization
-	void Start () {
-	
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
+public class Score {
+	public float percent;
+	public Candidate candidate;
+	public Score(string p, Candidate c) {
+		percent = float.Parse (p);
+		candidate = c;
 	}
 }

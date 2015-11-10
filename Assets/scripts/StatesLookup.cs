@@ -10,7 +10,8 @@ public class StatesLookup: MonoBehaviour {
 	void Awake() {
 		y = 1f;
 		pos = new Dictionary<string, Vector3> ();
-		pos.Add ("Michigan", new Vector3 (-3.75f, y, -2.38f));
+		pos.Add ("MI", new Vector3 (-3.75f, y, -2.38f));
+		pos.Add ("FL", new Vector3 (-5.89f, y, 3.88f));
 	}
 	// Use this for initialization
 	void Start () {

@@ -1,19 +1,19 @@
-﻿using UnityEngine;
 using System.Collections;
 using System;
 
-public class Poll : MonoBehaviour {
+public class Poll {
 	public string state;
 	public DateTime date;
 	public Score[] scores;
 
-	// Use this for initialization
-	void Start () {
-	
+	public Poll(string s, DateTime d, Score[] sc) {
+		state = s;
+		date = d;
+		scores = sc;
 	}
-	
-	// Update is called once per frame
-	void Update () {
-	
+	public Poll(string s, string d, Score[] sc) {
+		state = s;
+		date = DateTime.ParseExact(d, "yyyy-MM-dd", System.Globalization.CultureInfo.InvariantCulture);
+		scores = sc;
 	}
 }
