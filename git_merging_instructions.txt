@@ -1,0 +1,6 @@
+# add the lines below to the .git/config file in the root of your repository. This will configure git to use unity's merge tool to resolve merge conflicts
+[merge]
+	tool = unityyamlmerge
+[mergetool "unityyamlmerge"]
+    trustExitCode = false
+	cmd = \"C:/Program Files/Unity/Editor/Data/Tools/UnityYAMLMerge.exe\" merge -p "$BASE" "$REMOTE" "$LOCAL" "$MERGED"
