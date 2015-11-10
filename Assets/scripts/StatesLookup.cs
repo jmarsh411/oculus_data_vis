@@ -8,7 +8,7 @@ public class StatesLookup: MonoBehaviour {
 	public static float y;
 
 	void Awake() {
-		y = 0f;
+		y = 1f;
 		pos = new Dictionary<string, Vector3> ();
 		pos.Add ("MI", new Vector3 (-3.75f, y, -2.38f));
 		pos.Add ("FL", new Vector3 (-5.89f, y, 3.88f));

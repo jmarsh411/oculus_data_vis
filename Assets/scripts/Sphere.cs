@@ -10,8 +10,6 @@ public class Sphere : MonoBehaviour {
 		score = extScore;
 		candidate = score.candidate;
 		transform.localScale = new Vector3(1,1,1) * 0.01f * score.percent;
-		float offset = 0.01f * score.percent;
-		transform.position = new Vector3 (0,  1 - offset, 0);
 		// assign or access candidate's color
 	}
 	// Use this for initialization
