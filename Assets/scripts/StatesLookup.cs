@@ -32,9 +32,9 @@ public class StatesLookup: MonoBehaviour {
 		pos.Add ("MD", new Vector3 (-6.85f, y, -1.158f));
 		pos.Add ("MA", new Vector3 (-8.49f, y, -2.728f));
 		pos.Add ("MI", new Vector3 (-3.75f, y, -2.38f));
-//		pos.Add ("MN", new Vector3 (, y, ));
-//		pos.Add ("MS", new Vector3 (, y, ));
-//		pos.Add ("MO", new Vector3 (, y, ));
+		pos.Add ("MN", new Vector3 (-0.48f, y, -3.12f));
+		pos.Add ("MS", new Vector3 (-2.62f, y, 2.56f));
+		pos.Add ("MO", new Vector3 (-1.28f, y, 0f));
 //		pos.Add ("MT", new Vector3 (, y, ));
 //		pos.Add ("NE", new Vector3 (, y, ));
 //		pos.Add ("NV", new Vector3 (, y, ));
@@ -49,7 +49,7 @@ public class StatesLookup: MonoBehaviour {
 //		pos.Add ("OR", new Vector3 (, y, ));
 //		pos.Add ("PA", new Vector3 (, y, ));
 //		pos.Add ("RI", new Vector3 (, y, ));
-//		pos.Add ("SC", new Vector3 (, y, ));
+		pos.Add ("SC", new Vector3 (-5.89f, y, 1.56f));
 //		pos.Add ("SD", new Vector3 (, y, ));
 //		pos.Add ("TN", new Vector3 (, y, ));
 //		pos.Add ("TX", new Vector3 (, y, ));
