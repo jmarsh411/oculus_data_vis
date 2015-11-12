@@ -50,16 +50,16 @@ public class StatesLookup: MonoBehaviour {
 //		pos.Add ("PA", new Vector3 (, y, ));
 //		pos.Add ("RI", new Vector3 (, y, ));
 //		pos.Add ("SC", new Vector3 (, y, ));
-//		pos.Add ("SD", new Vector3 (, y, ));
-//		pos.Add ("TN", new Vector3 (, y, ));
-//		pos.Add ("TX", new Vector3 (, y, ));
-//		pos.Add ("UT", new Vector3 (, y, ));
-//		pos.Add ("VT", new Vector3 (, y, ));
-//		pos.Add ("VA", new Vector3 (, y, ));
-//		pos.Add ("WA", new Vector3 (, y, ));
-//		pos.Add ("WV", new Vector3 (, y, ));
-//		pos.Add ("WI", new Vector3 (, y, ));
-//		pos.Add ("WY", new Vector3 (, y, ));
+		pos.Add ("SD", new Vector3 (1.21f, y, -2.53f));
+		pos.Add ("TN", new Vector3 (-3.29f, y, 0.88f));
+		pos.Add ("TX", new Vector3 (1.28f, y, 3.26f));
+		pos.Add ("UT", new Vector3 (5.36f, y, -0.85f));
+		pos.Add ("VT", new Vector3 (-7.62f, y, -3.82f));
+		pos.Add ("VA", new Vector3 (-6.36f, y, -0.21f));
+		pos.Add ("WA", new Vector3 (7.16f, y, -4.83f));
+		pos.Add ("WV", new Vector3 (-5.48f, y, -0.59f));
+		pos.Add ("WI", new Vector3 (-2.13f, y, -2.66f));
+		pos.Add ("WY", new Vector3 (3.57f, y, -2.31f));
 	}
 	// Use this for initialization
 	void Start () {
