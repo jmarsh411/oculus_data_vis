@@ -36,7 +36,7 @@ public class Pin : MonoBehaviour {
 				// set the sphere's position just underneath the last sphere
 				sphere.transform.localPosition = new Vector3(0, posCursor - (0.5f * sphere.transform.localScale.y), 0);
 				posCursor = posCursor - sphere.transform.localScale.y;
-
+				sphere.GetComponent<Renderer>().material.color = sphere.GetComponent<Sphere>().candidate.color;
 				// add the sphere to the sphere array
 				spheres[i] = sphere;
 			}
