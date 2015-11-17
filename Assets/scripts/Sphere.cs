@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 
 public class Sphere : MonoBehaviour {
@@ -9,6 +9,7 @@ public class Sphere : MonoBehaviour {
 	public void Initialize(Score extScore) {
 		score = extScore;
 		candidate = score.candidate;
+//		candidate.color = ColorPicker.colors.Dequeue();
 		transform.localScale = new Vector3(1,1,1) * 0.01f * score.percent;
 		// assign or access candidate's color
 	}

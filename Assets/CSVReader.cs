@@ -29,6 +29,7 @@ public class CSVReader : MonoBehaviour
 	{
         TextAsset csvFile = Resources.Load("statesData") as TextAsset;
         rawData = csvFile.text;
+		Candidate.setupColors ();
 	    makeArray();
 		intermediaryGenerator();
         buildCandidateStructure();
