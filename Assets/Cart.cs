@@ -102,13 +102,10 @@ public class Cart : MonoBehaviour {
 	void Move ()
 	
 	{
-		
-		float camSpeed = 2f;
 		speed1 = speed + (speed * ((Mathf.Sqrt(100 + Mathf.Pow((candPositions[pMark][1] - candPositions[pMark - 1][1]),2)) - 10)/10));
 		speed2 = speed + (speed * ((Mathf.Sqrt(100 + Mathf.Pow((candPositions1[pMark][1] - candPositions1[pMark - 1][1]),2)) - 10)/10));
 		speed3 = speed + (speed * ((Mathf.Sqrt(100 + Mathf.Pow((candPositions2[pMark][1] - candPositions2[pMark - 1][1]),2)) - 10)/10));
-		
-		GameObject cart = GameObject.Find("Cart");
+
 		GameObject slot = GameObject.Find("CartSlot");
 		GameObject slot2 = GameObject.Find("CartSlot1");
 		GameObject slot3 = GameObject.Find("CartSlot2");
@@ -176,13 +173,10 @@ public class Cart : MonoBehaviour {
 	
 	void MoveBackwards ()	//Same as Move, but modified to make the movement go backwards
 	{
-		
-		float camSpeed = 2f;
 		speed1 = speed + (speed * ((Mathf.Sqrt(100 + Mathf.Pow((candPositions[pMark][1] - candPositions[pMark + 1][1]),2)) - 10)/10));
 		speed2 = speed + (speed * ((Mathf.Sqrt(100 + Mathf.Pow((candPositions1[pMark][1] - candPositions1[pMark + 1][1]),2)) - 10)/10));
 		speed3 = speed + (speed * ((Mathf.Sqrt(100 + Mathf.Pow((candPositions2[pMark][1] - candPositions2[pMark + 1][1]),2)) - 10)/10));
-		
-		GameObject cart = GameObject.Find("Cart");
+
 		GameObject slot = GameObject.Find("CartSlot");
 		GameObject slot2 = GameObject.Find("CartSlot1");
 		GameObject slot3 = GameObject.Find("CartSlot2");

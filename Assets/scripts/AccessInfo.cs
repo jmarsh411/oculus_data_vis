@@ -16,7 +16,6 @@ public class AccessInfo : MonoBehaviour {
 	string nextPercentPrepend = "Next Percent: ";
 	string datePrepend = "Date: ";
 	string nextDatePrepend = "Next Date: ";
-	Transform transform;
 	Vector3 position;
 
 	// Use this for initialization
