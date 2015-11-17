@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System;
 
-public class Timeline : MonoBehaviour {
+public class MapTimeline : MonoBehaviour {
 	public static List<DateTime> dateList;
 	public static int currentDate;
 	
