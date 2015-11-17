@@ -149,7 +149,9 @@ public class CSVReader : MonoBehaviour
 		int ccc = 0;
 		foreach (KeyValuePair<string, int> c in nameOccurrences.OrderByDescending(key => key.Value))
 		{
-			candidates.Add(new Candidate(c.Key, ccc++));
+			Candidate addCan = new Candidate(c.Key, ccc++);
+			candidates.Add(addCan);
+			print ("Candidate " + addCan.candNum + ": " + addCan.name + " " + addCan.color);
 		}
 		//get total poll listing - for map, this is summation of dateOccurrence values, for rollercoaster, length of dateOccurrence
 		int totalPolls = 0;

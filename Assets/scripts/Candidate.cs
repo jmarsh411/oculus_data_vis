@@ -25,6 +25,8 @@ public class Candidate {
 	public Candidate(string n, int cN) {
 		name = n;
 		candNum = cN;
+		if (name == "") 
+			return;
 		if (colors.Count > 0) {
 			color = colors.Dequeue ();
 		}
