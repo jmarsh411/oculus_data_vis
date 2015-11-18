@@ -28,13 +28,17 @@ public class TestPinNew : MonoBehaviour {
 	void DrawPins () {
 		date = MapTimeline.dateList [MapTimeline.currentDate];
 		foreach (Poll poll in CSVReader.pollByDate [date]) {
-			GameObject pin = (GameObject)Instantiate (Pin.pinPrefab);
-			pin.GetComponent<Pin> ().Initialize (poll);
 			// Destroy existing pins in that state so they don't overlap
 			foreach (Pin existingPin in FindObjectsOfType<Pin>()) {
-				if (poll.state == existingPin.state)
-					Destroy(existingPin);
+				if (poll.state == existingPin.state){
+					// delete the gameObject since there is a name collision
+					// it finds the Pin script instances by default here, not
+					// the Pin GameObjects instantiated
+					Destroy(existingPin.gameObject);
+				}
 			}
+			GameObject pin = (GameObject)Instantiate (Pin.pinPrefab);
+			pin.GetComponent<Pin> ().Initialize (poll);
 		}
 		if (MapTimeline.currentDate < MapTimeline.dateList.Count)
 			MapTimeline.currentDate++;
