@@ -24,11 +24,17 @@ public class TestPinNew : MonoBehaviour {
 		InvokeRepeating ("DrawPins", 0f, 3.5f);
 	}
 
+	// This is temporary demo code. final implementation will be more organized
 	void DrawPins () {
 		date = MapTimeline.dateList [MapTimeline.currentDate];
 		foreach (Poll poll in CSVReader.pollByDate [date]) {
 			GameObject pin = (GameObject)Instantiate (Pin.pinPrefab);
 			pin.GetComponent<Pin> ().Initialize (poll);
+			// Destroy existing pins in that state so they don't overlap
+			foreach (Pin existingPin in FindObjectsOfType<Pin>()) {
+				if (poll.state == existingPin.state)
+					Destroy(existingPin);
+			}
 		}
 		if (MapTimeline.currentDate < MapTimeline.dateList.Count)
 			MapTimeline.currentDate++;
