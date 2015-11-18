@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System;
+using System.Linq;
+using System.Collections.Generic;
 
 public class CreateLine : MonoBehaviour {
 
@@ -28,27 +30,35 @@ public class CreateLine : MonoBehaviour {
 
 	
 	// Use this for initialization
-	public void createLine (int candNum, string color) {
+	public void createLine (int candNum, string candName, string color) {
 	
 	float TrackLength;
 	candNum = candNum * 5; // Space candidates apart horizontally by 5 units.
-	
-	Vector3[] positions = { new Vector3 { x = candNum, y = CSVReader.candidateSet[candNum+1,0].percent, z = 10 }, 
-                             new Vector3 { x = candNum, y = CSVReader.candidateSet[candNum+1,1].percent, z = 20},
-							 new Vector3 { x = candNum, y = CSVReader.candidateSet[candNum+1,2].percent, z = 30},
-							 new Vector3 { x = candNum, y = CSVReader.candidateSet[candNum+1,3].percent, z = 40},
-							 new Vector3 { x = candNum, y = CSVReader.candidateSet[candNum+1,4].percent, z = 50},
-							 new Vector3 { x = candNum, y = CSVReader.candidateSet[candNum+1,5].percent, z = 60}
-		
-							};
-        DateTime[] dates = { CSVReader.candidateSet[candNum + 1, 0].date,
-                         CSVReader.candidateSet[candNum + 1, 1].date,
-                         CSVReader.candidateSet[candNum + 1, 2].date,
-                         CSVReader.candidateSet[candNum + 1, 3].date,
-                         CSVReader.candidateSet[candNum + 1, 4].date,
-                         CSVReader.candidateSet[candNum + 1, 5].date
-        };
-        string name = CSVReader.candidateSet[candNum + 1, 0].name;
+		Vector3[] positions = new Vector3[CSVReader.pollByDateCoaster.Count];
+		DateTime[] dates = new DateTime[CSVReader.pollByDateCoaster.Count];
+		int posI = 0;
+		foreach (KeyValuePair<DateTime, Poll> poll in CSVReader.pollByDateCoaster.OrderByDescending(key => key.Key)) {
+			bool found = false;
+			dates[posI] = poll.Key;
+			for (int i = 0; i < poll.Value.scores.Length; i++) {
+				if (poll.Value.scores[i] != null) {
+					if (poll.Value.scores[i].candidate.name.Equals(candName)) {
+						found = true;
+						positions[posI++] = new Vector3 { x = candNum, y = poll.Value.scores[i].percent, z = 10 * (posI + 1) };
+					}
+				}
+			}
+			if (!found) {
+				if (posI == 0) {
+					positions[posI++] = new Vector3 { x = candNum, y = 0, z = 10};
+				}
+				else {
+					positions[posI++] = new Vector3 { x = candNum, y = positions[posI - 2].y, z = positions[posI - 2].z + 10};
+				}
+			}
+			//print (positions[posI-1].z);
+		}
+        string name = candName;
 
         if (candNum/5 == 0)
 		{
