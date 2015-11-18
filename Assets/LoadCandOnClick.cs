@@ -5,6 +5,7 @@ public class LoadCandOnClick : MonoBehaviour {
 
 	GameObject mainCam;
 	GameObject candSelectMenu;
+	GameObject vr_cursor;
 	GameObject cart1;
 	public void startScene(int candNum)
 	{
@@ -20,6 +21,8 @@ public class LoadCandOnClick : MonoBehaviour {
 		mainCam.transform.localPosition = new Vector3(0,1,0);
 		candSelectMenu.SetActive(false);
 		cart1.GetComponent<Cart>().pause = 0;
+		vr_cursor = GameObject.FindWithTag ("LookCursor");
+		vr_cursor.SetActive (false);
 		
 	}
 	

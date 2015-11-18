@@ -14,6 +14,7 @@ TagManager:
   - CandSelect
   - CamContainer
   - overlay
+  - LookCursor
   layers:
   - Default
   - TransparentFX
