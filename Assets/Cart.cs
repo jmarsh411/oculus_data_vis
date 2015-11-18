@@ -125,6 +125,8 @@ public class Cart : MonoBehaviour {
 		GameObject slot2 = GameObject.Find("CartSlot1");
 		GameObject slot3 = GameObject.Find("CartSlot2");
 		
+		
+		
 			if(transform.position.z >= waypointCart[2] - .5)
 			{
 				pMark = pMark+1;
@@ -133,12 +135,14 @@ public class Cart : MonoBehaviour {
 					Application.LoadLevel(1);
 				}
 				
-				
 				waypointCart = candPositions[pMark];
 				waypointCart1 = candPositions1[pMark];
-				waypointCart2 = candPositions2[pMark];
-			
+				waypointCart2 = candPositions2[pMark];			
 			}
+		
+		
+
+		
 					var targetRotation = Quaternion.LookRotation(waypointCart - slot.transform.position);
 			        slot.transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, speed1 * Time.deltaTime);
 					slot.transform.position = Vector3.MoveTowards(slot.transform.position, waypointCart, speed1 * Time.deltaTime);

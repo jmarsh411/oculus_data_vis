@@ -13,6 +13,7 @@ TagManager:
   - Cart
   - CandSelect
   - CamContainer
+  - overlay
   layers:
   - Default
   - TransparentFX
