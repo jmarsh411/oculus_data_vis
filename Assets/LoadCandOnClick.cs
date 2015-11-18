@@ -8,7 +8,7 @@ public class LoadCandOnClick : MonoBehaviour {
 	GameObject cart1;
 	public void startScene(int candNum)
 	{
-		mainCam = GameObject.FindWithTag("MainCamera");
+		mainCam = GameObject.FindWithTag("CamContainer");
 		cart1 = GameObject.FindWithTag("Cart");
 		candSelectMenu = GameObject.FindWithTag("CandSelect");
 		cart1.GetComponent<Cart>().state = candNum;

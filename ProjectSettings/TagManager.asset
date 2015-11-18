@@ -9,6 +9,10 @@ TagManager:
   - currPercentage
   - currDate
   - nextDate
+  - nextPercentage
+  - Cart
+  - CandSelect
+  - CamContainer
   layers:
   - Default
   - TransparentFX
