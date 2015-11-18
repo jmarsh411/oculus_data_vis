@@ -32,8 +32,10 @@ public class CSVReader : MonoBehaviour
 		Candidate.setupColors ();
 	    makeArray();
 		intermediaryGenerator();
+		//printIntermediaryCoaster ();
         buildCandidateStructure();
-        //printPolls();
+		//printPollByDate ();
+		//printPollByDateCoaster ();
 	}
 	//Reads data in from CSV file, returns array of raw data, where each row is a line and each column is a category.
 	static void makeArray()
@@ -151,7 +153,7 @@ public class CSVReader : MonoBehaviour
 		{
 			Candidate addCan = new Candidate(c.Key, ccc++);
 			candidates.Add(addCan);
-			print ("Candidate " + addCan.candNum + ": " + addCan.name + " " + addCan.color);
+			//print ("Candidate " + addCan.candNum + ": " + addCan.name + " " + addCan.color);
 		}
 		//get total poll listing - for map, this is summation of dateOccurrence values, for rollercoaster, length of dateOccurrence
 		int totalPolls = 0;
@@ -194,7 +196,7 @@ public class CSVReader : MonoBehaviour
 							//print(percent);
 							int perc = Int32.Parse(percent); 
 							if (((perc * voters) / 100) >= voters) {
-								print("fuck");
+								//print("fuck");
 							}
 							if (cands.ContainsKey(cand))
 							{
@@ -221,9 +223,49 @@ public class CSVReader : MonoBehaviour
 				iMCur++;
 			}
 		}
+		//build intermediaryCoaster
+		iMCur = 0;
+		intermediaryCoaster = new string[dateOccurrences.Count, cmx];
+		foreach (KeyValuePair<string, int> d in dateOccurrences.OrderByDescending(key => key.Value)) {
+			Dictionary<string, int> cands = new Dictionary<string, int> ();
+			int tVoters = 0;
+			for (int i = 0; i <= intermediaryMap.GetUpperBound(0); i++) {
+				string date = intermediaryMap [i, 0];
+				if (date != null) {
+					if (date.Equals (d.Key)) {
+						int voters = Int32.Parse (intermediaryMap [i, 2]);
+						tVoters += voters;
+						for (int j = 0; j < numAttributes-1; j++) {
+							string cand = intermediaryMap [i, (j + j + 3)];
+							string percent = intermediaryMap [i, (j + j + 4)];
+							if (cand != null && percent != null && percent != "") {
+								int perc = Int32.Parse (percent); 
+								if (cands.ContainsKey (cand)) {
+									cands [cand] += perc;
+								} else {
+									cands.Add (cand, perc);
+								}
+							}
+						}
+					}
+				}
+			}
+			int nACur = 0;
+			intermediaryCoaster[iMCur, 0] = d.Key;
+			intermediaryCoaster[iMCur, 1] = tVoters.ToString();
+			foreach (KeyValuePair<string, int> c in cands.OrderByDescending(key => key.Value)) {
+				if (nACur < numAttributes - 1) {
+					intermediaryCoaster [iMCur, (nACur + nACur + 2)] = c.Key;
+					intermediaryCoaster [iMCur, (nACur + nACur + 3)] = c.Value.ToString ();
+					nACur++;
+				}
+			}
+			iMCur++;
+		}
 	}
     static void buildCandidateStructure()
     {
+		//build map Dictionary
 		int numAttributes = (intermediaryMap.GetUpperBound(1) - 1) / 2;
 		for (int i = 0; i <= intermediaryMap.GetUpperBound(0); i++)
 	    {
@@ -255,45 +297,59 @@ public class CSVReader : MonoBehaviour
 					}
 				}
 		}
-				     
-        //build candidate set, of format: all candidates sorted by occurence order, holding one poll object for each occurrence, sorted by datetime
-        /*candidateSet = new PollObject[nameOccurrences.Count, (intermediarySet.GetUpperBound(0) + 1)];
-        int candidateIterator = 0;
-        foreach (KeyValuePair<string,int> candidate in nameOccurrences.OrderByDescending(key => key.Value))
-        {
-            int pollIterator = 0;
-            for (int i = 0; i <= intermediarySet.GetUpperBound(0); i++)
-            {
-                string date = intermediarySet[i, 0];
-                string state = intermediarySet[i, 1];
-                string numPollers = intermediarySet[i, 2];
-                for (int j = 0; j < numAttributes; j++)
-                {
-                    string name = intermediarySet[i, (j + j + 3)];
-					string percent = intermediarySet[i, (j + j + 4)];
-                    if (!String.IsNullOrEmpty(name) && !String.IsNullOrEmpty(percent))
-                    {
-                        if (candidate.Key.Equals(name))
-                        {
-                            
-                            candidateSet[candidateIterator, pollIterator++] = new PollObject(candidate.Key, state, date, numPollers, percent);
-                        }
-                    }
-                }
-            }
-            candidateIterator++;
-        }*/
+		//build coaster Dictionary
+		numAttributes = (intermediaryCoaster.GetUpperBound(1) - 1) / 2;
+		for (int i = 0; i <= intermediaryCoaster.GetUpperBound(0); i++)
+		{
+			//build poll container, key value pair with key date and value poll occurring on that date
+			Score[] scores = new Score[numAttributes];
+			for (int j = 0; j < numAttributes-1; j++) {
+				var candidate = candidates.FirstOrDefault(c => c.name == intermediaryCoaster[i, (j+j+2)]);
+				string v = intermediaryCoaster[i, 1];
+				string percent = intermediaryCoaster[i, (j + j + 3)];
+				if (candidate != null && percent != null && v != null) {
+					if (percent != "" && v != "") {
+						float voters = float.Parse(v);
+						float perc = float.Parse(percent);
+						//if (voters <= perc)
+						//print(intermediaryMap[i, 0] + " " + intermediaryMap[i,1] + " " + candidate.name + ": Votes: " + percent + " out of " + voters);
+						scores[j] = new Score(((perc/voters)*100).ToString(), candidate);
+					}
+				}
+			}
+			if (intermediaryCoaster[i, 0] != null) {
+				Poll poll = new Poll("USA",intermediaryMap[i, 0],scores);
+				//print (poll.date);
+				if (pollByDateCoaster.ContainsKey(poll.date)) {
+					pollByDateCoaster[poll.date] = poll;
+				} else {
+					pollByDateCoaster.Add(poll.date, poll);
+				}
+			}
+		}
     }
-	public static void printIntermediaryMap() {
-		for (int i = 0; i <= intermediaryMap.GetUpperBound(0); i++) {
+	public static void printIntermediaryCoaster() {
+		for (int i = 0; i <= intermediaryCoaster.GetUpperBound(0); i++) {
 			string msg = "";
-			for (int j = 0; j <= intermediaryMap.GetUpperBound(1); j++) {
-				msg += intermediaryMap[i, j] + " ";
+				for (int j = 0; j <= intermediaryCoaster.GetUpperBound(1); j++) {
+					msg += intermediaryCoaster[i, j] + " ";
 			}
 			print(msg);
 		}
 	}
-	public static void printPolls() {
+	public static void printPollByDateCoaster() {
+		foreach (KeyValuePair<DateTime, Poll> poll in pollByDateCoaster) {
+			string msg = poll.Key + " ";
+
+			for (int i = 0; i < poll.Value.scores.Length; i++) {
+				//print (poll.Value.scores[i]);
+				if (poll.Value.scores[i] != null)
+					msg += " " + poll.Value.scores [i].candidate.name + " " + poll.Value.scores [i].percent;
+			}
+			print (msg);
+		}
+	}
+	public static void printPollByDate() {
 		foreach (KeyValuePair<DateTime, List<Poll>> pollList in pollByDate)
 		{
 			foreach (Poll poll in pollList.Value) {

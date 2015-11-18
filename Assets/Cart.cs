@@ -42,9 +42,9 @@ public class Cart : MonoBehaviour {
 		
 	    createLine = cart.GetComponent<CreateLine>();
 		
-		createLine.createLine(2, "Blue"); // create 1st graph that cart can ride on
-		createLine.createLine(0, "Red"); // create 2nd graph that cart can ride on
-		createLine.createLine(1, "Yellow"); // create 3rd graph that cart can ride on
+		createLine.createLine(2, "Paul", "Blue"); // create 1st graph that cart can ride on
+		createLine.createLine(0, "Gingrich", "Red"); // create 2nd graph that cart can ride on
+		createLine.createLine(1, "Romney", "Yellow"); // create 3rd graph that cart can ride on
 		
 		if (state == 1)
 		{
