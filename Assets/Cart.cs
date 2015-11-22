@@ -31,6 +31,9 @@ public class Cart : MonoBehaviour {
 		Vector3[] candPositions2; //collection of points for third graph
 		CreateLine createLine;
 		
+		GameObject graphCanvas;
+		GameObject line2DPrefab;
+		
 		Vector3 boost;
 
 	// Use this for initialization
@@ -40,16 +43,31 @@ public class Cart : MonoBehaviour {
 		GameObject slot = GameObject.Find("CartSlot"); // slot for cart to fit into on first graph
 		GameObject slot2 = GameObject.Find("CartSlot1"); // slot for cart to fit into on second graph
 		GameObject slot3 = GameObject.Find("CartSlot2"); // slot for cart to fit into on third graph
-		
-		
+
+		// grab necessary billboard graph elements
+		line2DPrefab = Resources.Load ("prefabs/UI LineRenderer") as GameObject;
+		graphCanvas = GameObject.Find ("GraphCanvas");
+
 	    createLine = cart.GetComponent<CreateLine>();
 		
 		createLine.createLine(2, "Paul", "Blue"); // create 1st graph that cart can ride on
 		createLine.createLine(0, "Gingrich", "Red"); // create 2nd graph that cart can ride on
 		createLine.createLine(1, "Romney", "Yellow"); // create 3rd graph that cart can ride on
-		GameObject go = GameObject.Find ("UI LineRenderer");
-		MonoBehaviour mb = go.GetComponent<Make2DLine> ();
-		mb.enabled = true;
+
+		GameObject line1 = Instantiate (line2DPrefab);
+		GameObject line2 = Instantiate (line2DPrefab);
+		GameObject line3 = Instantiate (line2DPrefab);
+
+		line1.GetComponent<Make2DLine> ().Initialize (createLine.Positions1, "Red");
+		line2.GetComponent<Make2DLine> ().Initialize (createLine.Positions2, "Yellow");
+		line3.GetComponent<Make2DLine> ().Initialize (createLine.Positions3, "Blue");
+		Make2DLine.followParent (line1, graphCanvas);
+		Make2DLine.followParent (line2, graphCanvas);
+		Make2DLine.followParent (line3, graphCanvas);
+//		line1.transform.parent = graphCanvas.transform;
+//		line2.transform.parent = graphCanvas.transform;
+//		line3.transform.parent = graphCanvas.transform;
+
 
 		if (state == 1)
 		{

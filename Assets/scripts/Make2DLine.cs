@@ -4,6 +4,8 @@ using System.Collections;
 
 public class Make2DLine : MonoBehaviour {
 	CreateLine createLine;
+	GameObject cart;
+	UILineRenderer lineRenderer;
 
 	// Use this for initialization
 	void Start () {
@@ -17,23 +19,38 @@ public class Make2DLine : MonoBehaviour {
 //				lineRenderer.Points[col] = new Vector2 {x = (col + 1) * 10, y = CSVReader.candidateSet[row,col].percent};
 //			}
 //		}
+		// setup references
 
-		GameObject cart = GameObject.Find("Cart");
-		createLine = cart.GetComponent<CreateLine>();
-		UILineRenderer lineRenderer = GetComponent<UILineRenderer> ();
-		lineRenderer.Points = new Vector2[createLine.Positions1.Length];
-		for (int i = 0; i < createLine.Positions1.Length; i++) {
-			Vector3 vec3 = createLine.Positions1[i];
-			lineRenderer.Points[i] = new Vector2(vec3.z, vec3.y);
+//		UILineRenderer lineRenderer = GetComponent<UILineRenderer> ();
+//		lineRenderer.Points = new Vector2[createLine.Positions1.Length];
+//		for (int i = 0; i < createLine.Positions1.Length; i++) {
+//			Vector3 vec3 = createLine.Positions1[i];
+//			lineRenderer.Points[i] = new Vector2(vec3.z, vec3.y);
 		}
 
+	public void Initialize(Vector3[] points, string color){
+		// setup references
+		cart = GameObject.Find("Cart");
+		createLine = cart.GetComponent<CreateLine>();
+		lineRenderer = GetComponent<UILineRenderer> ();
+
+		lineRenderer.Points = new Vector2[points.Length];
+		for (int i = 0; i < points.Length; i++) {
+			Vector3 vec3 = points [i];
+			lineRenderer.Points [i] = new Vector2 (vec3.z, vec3.y);
+			// lineRenderer.material = 
+		}
 	}
 
-	public static void Initialize(){
+	// when the parent is set, the RectTransform automatically adjusts so its
+	// world position stays the same. this is to undo that.
+	public static void followParent(GameObject line, GameObject parent){
+		RectTransform rectTrans = line.GetComponent<RectTransform> ();
+		rectTrans.SetParent (parent.transform);
+		rectTrans.anchoredPosition3D = Vector3.zero;
+		rectTrans.rotation = new Quaternion ();
+		rectTrans.offsetMax = Vector2.zero;
+		rectTrans.offsetMin = Vector2.zero;
+	}
 
-	}
-	// Update is called once per frame
-	void Update () {
-	
-	}
 }
