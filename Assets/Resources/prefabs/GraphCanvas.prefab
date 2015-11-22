@@ -95,10 +95,6 @@ MonoBehaviour:
   UseMargins: 0
   Margin: {x: 0, y: 0}
   Points:
-  - {x: 12, y: 50}
-  - {x: 70, y: 0}
-  - {x: 0, y: 0}
-  - {x: 0, y: 0}
   - {x: 0, y: 0}
   - {x: 0, y: 0}
   relativeSize: 0
@@ -203,7 +199,7 @@ RectTransform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 105268}
   m_LocalRotation: {x: -.00333705591, y: .254917711, z: -.012657078, w: .966874182}
-  m_LocalPosition: {x: 0, y: 0, z: 478}
+  m_LocalPosition: {x: 0, y: 0, z: 480}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 22400422}
@@ -211,7 +207,7 @@ RectTransform:
   m_RootOrder: 0
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 471, y: 291}
+  m_AnchoredPosition: {x: 469, y: 192}
   m_SizeDelta: {x: 500, y: 300}
   m_Pivot: {x: .5, y: .5}
 --- !u!1001 &100100000
