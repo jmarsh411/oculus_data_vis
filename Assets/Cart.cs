@@ -47,7 +47,10 @@ public class Cart : MonoBehaviour {
 		createLine.createLine(2, "Paul", "Blue"); // create 1st graph that cart can ride on
 		createLine.createLine(0, "Gingrich", "Red"); // create 2nd graph that cart can ride on
 		createLine.createLine(1, "Romney", "Yellow"); // create 3rd graph that cart can ride on
-		
+		GameObject go = GameObject.Find ("UI LineRenderer");
+		MonoBehaviour mb = go.GetComponent<Make2DLine> ();
+		mb.enabled = true;
+
 		if (state == 1)
 		{
 			transform.position = createLine.Positions1[0];//initiate camera location to first point
@@ -100,7 +103,7 @@ public class Cart : MonoBehaviour {
 		pause = 1;
 	
 	}
-	
+
 	void Move ()
 	
 	{
