@@ -30,7 +30,7 @@ public class Candidate {
 		if (colors.Count > 0) {
 			color = colors.Dequeue ();
 		}
-			party = "lets";
+		party = "lets";
 	}
 
 	public Candidate(string n, int cN, Color c, string p) {
