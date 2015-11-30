@@ -58,15 +58,12 @@ public class Cart : MonoBehaviour {
 		GameObject line2 = Instantiate (line2DPrefab);
 		GameObject line3 = Instantiate (line2DPrefab);
 
-		line1.GetComponent<Make2DLine> ().Initialize (createLine.Positions1, "Red");
-		line2.GetComponent<Make2DLine> ().Initialize (createLine.Positions2, "Yellow");
-		line3.GetComponent<Make2DLine> ().Initialize (createLine.Positions3, "Blue");
+		line1.GetComponent<Make2DLine> ().Initialize (createLine.Positions1, "Gingrich");
+		line2.GetComponent<Make2DLine> ().Initialize (createLine.Positions2, "Romney");
+		line3.GetComponent<Make2DLine> ().Initialize (createLine.Positions3, "Palin");
 		Make2DLine.followParent (line1, graphCanvas);
 		Make2DLine.followParent (line2, graphCanvas);
 		Make2DLine.followParent (line3, graphCanvas);
-//		line1.transform.parent = graphCanvas.transform;
-//		line2.transform.parent = graphCanvas.transform;
-//		line3.transform.parent = graphCanvas.transform;
 
 
 		if (state == 1)
