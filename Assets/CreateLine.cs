@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 using System;
 using System.Linq;
@@ -30,35 +31,48 @@ public class CreateLine : MonoBehaviour {
 
 	
 	// Use this for initialization
-	public void createLine (int candNum, string candName, string color) {
-	
+	public void createLine (int candNum, string candName) {
+	string colorm = "Red";
+	Color color = Color.red;
 	float TrackLength;
 	candNum = candNum * 5; // Space candidates apart horizontally by 5 units.
 		Vector3[] positions = new Vector3[CSVReader.pollByDateCoaster.Count];
 		DateTime[] dates = new DateTime[CSVReader.pollByDateCoaster.Count];
 		int posI = 0;
-		foreach (KeyValuePair<DateTime, Poll> poll in CSVReader.pollByDateCoaster.OrderByDescending(key => key.Key)) {
+		foreach (KeyValuePair<DateTime, Poll> poll in CSVReader.pollByDateCoaster.OrderBy(key => key.Key)) {
 			bool found = false;
 			dates[posI] = poll.Key;
+			if (dates[posI].Equals(new DateTime (2010, 06, 20))) {
+				for (int i = 0; i < poll.Value.scores.Length; i++) {
+					if (poll.Value.scores[i] != null) {
+						print(poll.Key + " " + poll.Value.scores[i].candidate.name + " " + poll.Value.scores[i].percent);
+					}
+				}
+			}
 			for (int i = 0; i < poll.Value.scores.Length; i++) {
 				if (poll.Value.scores[i] != null) {
 					if (poll.Value.scores[i].candidate.name.Equals(candName)) {
 						found = true;
-						positions[posI++] = new Vector3 { x = candNum, y = poll.Value.scores[i].percent, z = 10 * (posI + 1) };
+						color = poll.Value.scores[i].candidate.color;
+						if(candName.Equals("Palin"))
+							print (poll.Key + " " + candName + " " + poll.Value.scores[i].percent);
+						positions[posI] = new Vector3 { x = candNum, y = poll.Value.scores[i].percent, z = 10 * (posI + 1) };
+						posI++;
 					}
 				}
 			}
 			if (!found) {
 				if (posI == 0) {
-					positions[posI++] = new Vector3 { x = candNum, y = 0, z = 10};
+					positions[posI] = new Vector3 { x = candNum, y = 0, z = 10};
 				}
 				else {
-					positions[posI++] = new Vector3 { x = candNum, y = positions[posI - 2].y, z = positions[posI - 2].z + 10};
+					positions[posI] = new Vector3 { x = candNum, y = positions[posI - 1].y, z = positions[posI - 1].z + 10};
 				}
+				posI++;
 			}
-			//print (positions[posI-1].z);
 		}
         string name = candName;
+		createButton (candNum/5, candName, color);
 
         if (candNum/5 == 0)
 		{
@@ -110,10 +124,10 @@ public class CreateLine : MonoBehaviour {
 				TrackLength = Mathf.Sqrt(100 + Mathf.Pow((positions[i][1] - positions[i + 1][1]),2));//Find Length of TrackPiece to fit between two points.
 				//Debug.Log(TrackLength);
 				Track.transform.localScale = new Vector3(1f, 0.2f, TrackLength);//Scale Length of TrackPiece appropriately.
-				Material newMat = Resources.Load(color, typeof(Material)) as Material;
-				
+				Material newMat = Resources.Load(colorm, typeof(Material)) as Material;
 				Transform Piece = Track.transform.FindChild("TrackPieceLine");
 				Piece.gameObject.GetComponent<Renderer>().material = newMat;
+				Piece.gameObject.GetComponent<Renderer>().material.color = color;
 
 		}
 		
@@ -122,6 +136,30 @@ public class CreateLine : MonoBehaviour {
 		
 		
 
+	}
+
+	public void createButton(int candNum, string candName, Color color) {
+		GameObject buttonContainer = null;
+		Button candButton = null;
+		Text candText = null;
+		switch (candNum) {
+			case 0:
+				buttonContainer = GameObject.Find ("Candidate2");
+				break;
+			case 1:
+				buttonContainer = GameObject.Find ("Candidate1");
+				break;
+			case 2:
+				buttonContainer = GameObject.Find ("Candidate3");
+				break;
+		}
+		candButton = buttonContainer.GetComponentInChildren<Button>();
+		candText = candButton.GetComponentInChildren<Text> ();
+		ColorBlock cb = candButton.colors;
+		cb.normalColor = color;
+		candButton.colors = cb;
+		candText.text = candName;
+		candText.color = Color.white;
 	}
 	
 	void Start()

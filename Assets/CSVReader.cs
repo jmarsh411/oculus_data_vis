@@ -36,6 +36,10 @@ public class CSVReader : MonoBehaviour
         buildCandidateStructure();
 		//printPollByDate ();
 		//printPollByDateCoaster ();
+		print("PPBD!");
+		printPollByDate (new DateTime (2010, 06, 20));
+		print ("six");
+		six ();
 	}
 	//Reads data in from CSV file, returns array of raw data, where each row is a line and each column is a category.
 	static void makeArray()
@@ -313,12 +317,17 @@ public class CSVReader : MonoBehaviour
 						float perc = float.Parse(percent);
 						//if (voters <= perc)
 						//print(intermediaryMap[i, 0] + " " + intermediaryMap[i,1] + " " + candidate.name + ": Votes: " + percent + " out of " + voters);
+						//if (intermediaryCoaster[i, 0].Equals("2010-10-28"))
+						//	print(intermediaryCoaster[i, 0] + " " + candidate.name + " " + perc + " " + voters + " " + (perc/voters)*100);
 						scores[j] = new Score(((perc/voters)*100).ToString(), candidate);
+						if (candidate.name.Equals("Palin")) {
+							print(candidate.name + " " + intermediaryCoaster[i,0] + " " + perc);
+						}
 					}
 				}
 			}
 			if (intermediaryCoaster[i, 0] != null) {
-				Poll poll = new Poll("USA",intermediaryMap[i, 0],scores);
+				Poll poll = new Poll("USA",intermediaryCoaster[i, 0],scores);
 				//print (poll.date);
 				if (pollByDateCoaster.ContainsKey(poll.date)) {
 					pollByDateCoaster[poll.date] = poll;
@@ -349,6 +358,7 @@ public class CSVReader : MonoBehaviour
 			print (msg);
 		}
 	}
+
 	public static void printPollByDate() {
 		foreach (KeyValuePair<DateTime, List<Poll>> pollList in pollByDate)
 		{
@@ -377,4 +387,29 @@ public class CSVReader : MonoBehaviour
             print(msg);
         }
     }
+	public static void printPollByDate(DateTime dt)
+	{
+		foreach (KeyValuePair<DateTime, Poll> poll in pollByDateCoaster.OrderBy(key => key.Key))
+		{
+			if (poll.Key.Equals(dt)) {
+					string msg = poll.Value.date + " " + poll.Value.state;
+					for (int i = 0; i < poll.Value.scores.Length; i++) {
+						if (poll.Value.scores[i] != null)
+							msg += " " + poll.Value.scores[i].candidate.name + " " + poll.Value.scores[i].percent;
+					}
+					print(msg);
+			}
+		}
+	}
+	public static void six() {
+		foreach (KeyValuePair<DateTime, Poll> poll in pollByDateCoaster.OrderBy(key => key.Key)) {
+			if (poll.Key.Equals (new DateTime (2010, 06, 20))) {
+				for (int i = 0; i < poll.Value.scores.Length; i++) {
+					if (poll.Value.scores [i] != null) {
+						print (poll.Key + " " + poll.Value.scores [i].candidate.name + " " + poll.Value.scores [i].percent);
+					}
+				}
+			}
+		}
+	}
 }

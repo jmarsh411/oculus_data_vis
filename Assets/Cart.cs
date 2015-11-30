@@ -50,9 +50,9 @@ public class Cart : MonoBehaviour {
 
 	    createLine = cart.GetComponent<CreateLine>();
 		
-		createLine.createLine(2, "Paul", "Blue"); // create 1st graph that cart can ride on
-		createLine.createLine(0, "Gingrich", "Red"); // create 2nd graph that cart can ride on
-		createLine.createLine(1, "Romney", "Yellow"); // create 3rd graph that cart can ride on
+		createLine.createLine(2, "Palin"); // create 1st graph that cart can ride on
+		createLine.createLine(0, "Gingrich"); // create 2nd graph that cart can ride on
+		createLine.createLine(1, "Romney"); // create 3rd graph that cart can ride on
 
 		GameObject line1 = Instantiate (line2DPrefab);
 		GameObject line2 = Instantiate (line2DPrefab);
@@ -209,8 +209,9 @@ public class Cart : MonoBehaviour {
 					currentCandidate = createLine.Position3Candidate;
 					
 					Debug.Log(currentDate);
-		
 				}
+		//Debug.Log (pMark);
+		//Debug.Log (currentPercent);
 				
 				//transform.position = Vector3.MoveTowards(transform.position, waypointCart1, speed * Time.deltaTime);
 				//GetComponent<Camera>().transform.position += boost;
