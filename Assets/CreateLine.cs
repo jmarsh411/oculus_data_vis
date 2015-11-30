@@ -144,10 +144,10 @@ public class CreateLine : MonoBehaviour {
 		Text candText = null;
 		switch (candNum) {
 			case 0:
-				buttonContainer = GameObject.Find ("Candidate1");
+				buttonContainer = GameObject.Find ("Candidate2");
 				break;
 			case 1:
-				buttonContainer = GameObject.Find ("Candidate2");
+				buttonContainer = GameObject.Find ("Candidate1");
 				break;
 			case 2:
 				buttonContainer = GameObject.Find ("Candidate3");
@@ -155,8 +155,11 @@ public class CreateLine : MonoBehaviour {
 		}
 		candButton = buttonContainer.GetComponentInChildren<Button>();
 		candText = candButton.GetComponentInChildren<Text> ();
+		ColorBlock cb = candButton.colors;
+		cb.normalColor = color;
+		candButton.colors = cb;
 		candText.text = candName;
-		candText.color = color;
+		candText.color = Color.white;
 	}
 	
 	void Start()
