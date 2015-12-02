@@ -6,8 +6,7 @@ using System.Collections;
 public class BasicLookInputModule : BaseInputModule {
 
    public const int kLookId = -3;
-   // "Space" maps to left Ctrl for some reason
-   public string submitButtonName = "Space";
+	public string submitButtonName = "Fire1";
    public string controlAxisName = "Horizontal";
    private PointerEventData lookData;
 
