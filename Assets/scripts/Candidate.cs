@@ -8,6 +8,7 @@ public class Candidate {
 	public Color color;
 	public string party;
 	public static Queue<Color> colors;
+	public static Dictionary<string,Candidate> candidateList = new Dictionary<string, Candidate>();
 
 	public static void setupColors(){
 		colors = new Queue<Color> ();
@@ -30,7 +31,8 @@ public class Candidate {
 		if (colors.Count > 0) {
 			color = colors.Dequeue ();
 		}
-			party = "lets";
+		party = "lets";
+		candidateList.Add (name, this);
 	}
 
 	public Candidate(string n, int cN, Color c, string p) {
