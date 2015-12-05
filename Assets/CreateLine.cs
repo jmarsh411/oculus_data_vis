@@ -133,7 +133,17 @@ public class CreateLine : MonoBehaviour {
 				Instantiate(Resources.Load("TextRing"), //load track prefab
 				positions[i], // take position from positions array
 				Quaternion.identity) as GameObject;
-			    Ring.gameObject.transform.GetChild(0).GetComponent<Text>().text = "11.10.15 - 30%";
+				
+				string currentPercent = positions[i].y.ToString();
+				if (currentPercent.Length <= 1)
+				{
+					currentPercent = " " + currentPercent;
+				}
+				
+				currentPercent = currentPercent.Substring(0,2);
+				
+			    Ring.gameObject.transform.GetChild(0).GetComponent<Text>().text = (dates[i].ToString().Substring(0,9) + " - " + currentPercent + "%");
+		
 
 		}
 		

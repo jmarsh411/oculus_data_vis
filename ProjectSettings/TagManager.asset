@@ -18,6 +18,7 @@ TagManager:
   - CartSlot2
   - CartSlot1
   - CartSlot3
+  - TimerText
   layers:
   - Default
   - TransparentFX
@@ -27,7 +28,7 @@ TagManager:
   - UI
   - 
   - 
-  - 
+  - rings
   - 
   - 
   - 
@@ -54,4 +55,7 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: ring
+    uniqueID: 3274322047
     locked: 0
