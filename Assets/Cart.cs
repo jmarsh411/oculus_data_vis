@@ -5,37 +5,38 @@ public class Cart : MonoBehaviour {
 
 		int pMark = 1; // position marker for cart
 		public int pause = 0; // turn movement on and off
-		public int state = 1; // which graph is being traversed
+		public int state = 0; // which graph is being traversed
 		GameObject slot;
 		GameObject slot2;
 		GameObject slot3;
-		float speed1;
+		float speed1 = 2f;
 		float speed2 = 2f;
-		float speed3;
-		public int vehicle = 0;
-		public GameObject car;
-		public GameObject pmover;
-		public int passedWayPoint;
-		
+		float speed3 =  2f;
 		
 		public string currentCandidate;
 		public float currentPercent;
 		public string currentDate;
 		public float nextPercent;
 		public string nextDate;
+		public int passedWayPoint;
 		
 		float speed = 2f;
+		
+		Vector3[] currentCandPosition;
+		Vector3 currentwayPointCart;
 		
 		Vector3 waypointCart; //initiate travel-to point
 		Vector3[] candPositions; //collection of points for first graph
 		
 		Vector3 waypointCart1; //initiate travel-to point
-		Vector3 waypointCartTemp1; //initiate travel-to point
 		Vector3[] candPositions1; //collection of points for second graph
 		
 		Vector3 waypointCart2; //initiate travel-to point
 		Vector3[] candPositions2; //collection of points for third graph
 		CreateLine createLine;
+		
+		GameObject graphCanvas;
+		GameObject line2DPrefab;
 		
 		Vector3 boost;
 
@@ -46,29 +47,30 @@ public class Cart : MonoBehaviour {
 		GameObject slot = GameObject.Find("CartSlot"); // slot for cart to fit into on first graph
 		GameObject slot2 = GameObject.Find("CartSlot1"); // slot for cart to fit into on second graph
 		GameObject slot3 = GameObject.Find("CartSlot2"); // slot for cart to fit into on third graph
-		vehicleSelect();
-		
+
+		// grab necessary billboard graph elements
+		line2DPrefab = Resources.Load ("prefabs/UI LineRenderer") as GameObject;
+		graphCanvas = GameObject.Find ("GraphCanvas");
+
 	    createLine = cart.GetComponent<CreateLine>();
 		
-		createLine.createLine(2, "Paul", "Blue"); // create 1st graph that cart can ride on
-		createLine.createLine(0, "Gingrich", "Red"); // create 2nd graph that cart can ride on
-		createLine.createLine(1, "Romney", "Yellow"); // create 3rd graph that cart can ride on
+		createLine.createLine(2, "Palin"); // create 1st graph that cart can ride on
+		createLine.createLine(0, "Gingrich"); // create 2nd graph that cart can ride on
+		createLine.createLine(1, "Romney"); // create 3rd graph that cart can ride on
+
+		GameObject line1 = Instantiate (line2DPrefab);
+		GameObject line2 = Instantiate (line2DPrefab);
+		GameObject line3 = Instantiate (line2DPrefab);
+
+		line1.GetComponent<Make2DLine> ().Initialize (createLine.Positions1, "Gingrich");
+		line2.GetComponent<Make2DLine> ().Initialize (createLine.Positions2, "Romney");
+		line3.GetComponent<Make2DLine> ().Initialize (createLine.Positions3, "Palin");
+		Make2DLine.followParent (line1, graphCanvas);
+		Make2DLine.followParent (line2, graphCanvas);
+		Make2DLine.followParent (line3, graphCanvas);
+
+
 		
-		if (state == 1)
-		{
-			transform.position = createLine.Positions1[0];//initiate camera location to first point
-			transform.LookAt(createLine.Positions1[1]);//initiate camera aim to second point
-		}
-		else if (state == 2)
-		{
-			transform.position = createLine.Positions2[0];//initiate camera location to first point
-			transform.LookAt(createLine.Positions2[1]);//initiate camera aim to second point
-		}
-		else 
-		{
-			transform.position = createLine.Positions3[0];//initiate camera location to first point
-			transform.LookAt(createLine.Positions3[1]);//initiate camera aim to second point
-		}
 
 
 		slot.transform.position = createLine.Positions1[0];//initiate camera location to first point
@@ -106,11 +108,26 @@ public class Cart : MonoBehaviour {
 		pause = 1;
 	
 	}
-	
-	void Move ()
+
+void Move ()
 	
 	{
 		
+		if (transform.position.x == 20)
+		{
+			currentCandPosition = candPositions2;
+			currentwayPointCart = waypointCart2;
+		}
+		else if (transform.position.x == 10)
+		{
+			currentCandPosition = candPositions1;
+			currentwayPointCart = waypointCart1;
+		}
+		else if (transform.position.x == 0)
+		{
+			currentCandPosition = candPositions;
+			currentwayPointCart = waypointCart;
+		}
 		
 		if (pMark == 0)
 		{
@@ -120,23 +137,13 @@ public class Cart : MonoBehaviour {
 			waypointCart1 = candPositions1[pMark];
 			waypointCart2 = candPositions2[pMark];
 		}
-		
-		
-		
-		
-		speed1 = speed + (speed * ((Mathf.Sqrt(100 + Mathf.Pow((candPositions[pMark][1] - candPositions[pMark - 1][1]),2)) - 10)/10));
-		speed2 = speed2;
-		speed3 = speed + (speed * ((Mathf.Sqrt(100 + Mathf.Pow((candPositions2[pMark][1] - candPositions2[pMark - 1][1]),2)) - 10)/10));
 
 		GameObject slot = GameObject.Find("CartSlot");
 		GameObject slot2 = GameObject.Find("CartSlot1");
 		GameObject slot3 = GameObject.Find("CartSlot2");
-		
-		
-		
 			
 			
-			if (candPositions1[pMark][1] >= candPositions1[pMark + 1][1])  //if the next hill is going down or flat
+		if (currentCandPosition[pMark][1] >= currentCandPosition[pMark + 1][1])  //if the next hill is going down or flat
 			{
 			
 			Debug.Log("next hill is going down or flat.");
@@ -144,15 +151,15 @@ public class Cart : MonoBehaviour {
 			
 			
 				
-			if(transform.position.z >= waypointCart1[2] ) // if the segment has been traversed
+			if(transform.position.z >= currentwayPointCart[2] ) // if the segment has been traversed
 				{
 					Debug.Log("Current Hill going down, next hill going down sharp.");
 			
 					if (passedWayPoint == 1)
 					{
-						if(transform.position.z >= waypointCart1[2])
+						if(transform.position.z >= currentwayPointCart[2])
 						{
-							//waypointCart1 = waypointCartTemp1;
+							//currentwayPointCart = waypointCartTemp1;
 							pMark = pMark+1;
 							passedWayPoint = 0;
 							if (pMark >= candPositions.Length)
@@ -167,42 +174,42 @@ public class Cart : MonoBehaviour {
 					
 					if (passedWayPoint == 0)
 					{
-						float slope = (candPositions1[pMark][1] - candPositions1[pMark - 1][1]) / (candPositions1[pMark][2] - candPositions1[pMark - 1][2]);
-						float yIntercept = candPositions1[pMark][1] - (slope * candPositions1[pMark][1]);
-						if ((candPositions1[pMark][1] - candPositions1[pMark + 1][1]) > 8) // if the slope is large
+						float slope = (currentCandPosition[pMark][1] - currentCandPosition[pMark - 1][1]) / (currentCandPosition[pMark][2] - currentCandPosition[pMark - 1][2]);
+						float yIntercept = currentCandPosition[pMark][1] - (slope * currentCandPosition[pMark][1]);
+						if ((currentCandPosition[pMark][1] - currentCandPosition[pMark + 1][1]) > 8) // if the slope is large
 						{
-						//waypointCartTemp1 = waypointCart1;
+						//waypointCartTemp1 = currentwayPointCart;
 							
 							passedWayPoint = 1;
-							if (candPositions1[pMark - 1][1] > candPositions1[pMark][1]) //if the current hill is going down
+							if (currentCandPosition[pMark - 1][1] > currentCandPosition[pMark][1]) //if the current hill is going down
 							{
-								//waypointCart1[2] = waypointCart1[2] + 2f;
-								//waypointCart1[1] = (slope * waypointCart1[2]) + yIntercept;
+								//currentwayPointCart[2] = currentwayPointCart[2] + 2f;
+								//currentwayPointCart[1] = (slope * currentwayPointCart[2]) + yIntercept;
 								Debug.Log("Current Hill going down, next hill going down sharp.");
 							}
-							else if (candPositions1[pMark - 1][1] <= candPositions1[pMark][1])// if the current hill is going up or flat
+							else if (currentCandPosition[pMark - 1][1] <= currentCandPosition[pMark][1])// if the current hill is going up or flat
 							{
-								waypointCart1[2] = waypointCart1[2] + 1f;
-								waypointCart1[1] = (slope * waypointCart1[2]) + yIntercept;
+								currentwayPointCart[2] = currentwayPointCart[2] + 2f;
+								currentwayPointCart[1] = (slope * currentwayPointCart[2]) + yIntercept;
 								Debug.Log("Current Hill going up, next hill going down sharp.");
 								
 							}
 							
 						}
-						else if ((candPositions1[pMark][1] - candPositions1[pMark + 1][1]) <= 8) // if the slope is small
+						else if ((currentCandPosition[pMark][1] - currentCandPosition[pMark + 1][1]) <= 8) // if the slope is small
 							{
 									passedWayPoint = 1;
 									
-									if (candPositions1[pMark - 1][1] > candPositions1[pMark][1]) //if the current hill is going down
+									if (currentCandPosition[pMark - 1][1] > currentCandPosition[pMark][1]) //if the current hill is going down
 									{
-										//waypointCart1[2] = waypointCart1[2] + 3.5f;
-										//waypointCart1[1] = waypointCart1[1] + 2f;
+										//currentwayPointCart[2] = currentwayPointCart[2] + 3.5f;
+										//currentwayPointCart[1] = currentwayPointCart[1] + 2f;
 										Debug.Log("Current Hill going down, next hill going down mild.");
 									}
-									else if (candPositions1[pMark - 1][1] <= candPositions1[pMark][1]) //if the current hill is going up or flat
+									else if (currentCandPosition[pMark - 1][1] <= currentCandPosition[pMark][1]) //if the current hill is going up or flat
 									{
-										waypointCart1[2] = waypointCart1[2] + .5f;
-										waypointCart1[1] = (slope * waypointCart1[2]) + yIntercept;
+										currentwayPointCart[2] = currentwayPointCart[2] + 1.5f;
+										currentwayPointCart[1] = (slope * currentwayPointCart[2]) + yIntercept;
 											Debug.Log("Current Hill going up, next hill going down mild.");
 									}
 									
@@ -213,25 +220,25 @@ public class Cart : MonoBehaviour {
 				}
 		}
 			
-			else if (candPositions1[pMark][1] < candPositions1[pMark + 1][1]) // if the next hill is going up
+			else if (currentCandPosition[pMark][1] < currentCandPosition[pMark + 1][1]) // if the next hill is going up
 			{
-			
+				
 				Debug.Log("next hill is going up.");
-				Debug.Log(waypointCart1[2]);
-				Debug.Log(waypointCart1[1]);
+				Debug.Log(currentwayPointCart[2]);
+				Debug.Log(currentwayPointCart[1]);
 				Debug.Log(transform.position.z);
-				//if(transform.position.z >= waypointCart1[2]) // if the segment has been traversed
+				//if(transform.position.z >= currentwayPointCart[2]) // if the segment has been traversed
 				//{
-					float slope = (candPositions1[pMark][1] - candPositions1[pMark - 1][1]) / (candPositions1[pMark][2] - candPositions1[pMark - 1][2]);
-					float yIntercept = candPositions1[pMark][1] - (slope * candPositions1[pMark][1]);
+					float slope = (currentCandPosition[pMark][1] - currentCandPosition[pMark - 1][1]) / (currentCandPosition[pMark][2] - currentCandPosition[pMark - 1][2]);
+					float yIntercept = currentCandPosition[pMark][1] - (slope * currentCandPosition[pMark][1]);
 			
 					if (passedWayPoint == 1)
 					{
 						
 					
-						if(transform.position.z >= waypointCart1[2] - .5)
+						if(transform.position.z >= currentwayPointCart[2] - .5)
 						{
-							//waypointCart1 = waypointCartTemp1;
+							//currentwayPointCart = waypointCartTemp1;
 							pMark = pMark+1;
 							passedWayPoint = 0;
 							if (pMark >= candPositions.Length)
@@ -247,30 +254,30 @@ public class Cart : MonoBehaviour {
 					if (passedWayPoint == 0)
 					{
 						passedWayPoint = 1;
-						if ((candPositions1[pMark + 1][1] - candPositions1[pMark][1]) > 8) // if the slope is large
+						if ((currentCandPosition[pMark + 1][1] - currentCandPosition[pMark][1]) > 8) // if the slope is large
 						{
-						//waypointCartTemp1 = waypointCart1;
+						//waypointCartTemp1 = currentwayPointCart;
 						Debug.Log(" next hill going up");	
 							
 
-							if (candPositions1[pMark - 1][1] <= candPositions1[pMark][1])// if the current hill is going up or flat
+							if (currentCandPosition[pMark - 1][1] <= currentCandPosition[pMark][1])// if the current hill is going up or flat
 							{
-								waypointCart1[2] = waypointCart1[2] - 1f; // stops clipping when going into a steep valley.
-								//waypointCart1[1] = waypointCart1[1] + 1f;
+								currentwayPointCart[2] = currentwayPointCart[2] - 2f; // stops clipping when going into a steep valley.
+								//currentwayPointCart[1] = currentwayPointCart[1] + 1f;
 								Debug.Log("Current Hill going up, next hill going up sharp.");
 								
 							}
 							
 						}
-						else if ((candPositions1[pMark + 1][1] - candPositions1[pMark][1]) <= 8) // if the slope is small
+						else if ((currentCandPosition[pMark + 1][1] - currentCandPosition[pMark][1]) <= 8) // if the slope is small
 							{
 									passedWayPoint = 1;
 
-									if (candPositions1[pMark - 1][1] <= candPositions1[pMark][1]) //if the current hill is going up
+									if (currentCandPosition[pMark - 1][1] <= currentCandPosition[pMark][1]) //if the current hill is going up
 									{
 										Debug.Log("PEAK.");
-										//waypointCart1[2] = waypointCart1[2] + 3f;
-										waypointCart1[1] = waypointCart1[1] + 1f;//this fixes bug on large peaks.
+										currentwayPointCart[2] = currentwayPointCart[2] + 5f;
+										currentwayPointCart[1] = currentwayPointCart[1] + 5f;//this fixes bug on large peaks.
 										
 									}
 									
@@ -281,19 +288,35 @@ public class Cart : MonoBehaviour {
 				//}
 			}
 		
-			if (candPositions1[pMark - 1][1] > candPositions1[pMark][1]) //if the current hill is going down
+			if (currentCandPosition[pMark - 1][1] > currentCandPosition[pMark][1]) //if the current hill is going down
 			{
+				if (speed1 < 12)
+				{
+					speed1 = speed1 * 1.05f;
+				}
 				if (speed2 < 12)
 				{
 					speed2 = speed2 * 1.05f;
 				}
+				if (speed3 < 12)
+				{
+					speed3 = speed3 * 1.05f;
+				}
 			}
 			
-			else if (candPositions1[pMark-1][1] < candPositions1[pMark][1]) //if the current hill is going up
+			else if (currentCandPosition[pMark-1][1] < currentCandPosition[pMark][1]) //if the current hill is going up
 			{
+				if (speed1 > 4)
+				{
+					speed1 = speed1 * .995f;
+				}
 				if (speed2 > 4)
 				{
 					speed2 = speed2 * .995f;
+				}
+				if (speed3 > 4)
+				{
+					speed3 = speed1 * .995f;
 				}
 			}
 			Debug.Log(candPositions1[pMark - 1][1]);
@@ -418,37 +441,7 @@ public class Cart : MonoBehaviour {
 		
 	}
 	
-	void vehicleSelect()
-	{
 		
-		car = GameObject.FindWithTag("car");
-		pmover = GameObject.FindWithTag("pmover");
-		
-		if (vehicle == 0)
-		{
-			car.transform.localScale = new Vector3(0f,0f,0f);
-			pmover.transform.localScale = new Vector3(1.5f,1.5f,1.5f);
-			vehicle = 1;
-			
-		}
-		
-		else if (vehicle == 1)
-		{
-			car.transform.localScale = new Vector3(0.03f,0.03f,0.03f);
-			pmover.transform.localScale = new Vector3(0f,0f,0f);
-			vehicle = 2;	
-		}
-		
-		else
-		{
-			car.transform.localScale = new Vector3(0f,0f,0f);
-			pmover.transform.localScale = new Vector3(0f,0f,0f);
-			vehicle = 0;	
-		}
-	
-		
-		
-	}
 	
 	// Update is called once per frame
 	void Update () {
@@ -485,13 +478,11 @@ public class Cart : MonoBehaviour {
 		{
 			state = 1;
 		}
-		Debug.Log(state);
 	}
 	
 	if (Input.GetKey("right") || Input.GetKey(KeyCode.JoystickButton5)) //fast forward
 	{
 		speed = 7;
-		speed2 = 7;
 		Move();
             print("button 5 fast forward");
 	}
@@ -517,12 +508,6 @@ public class Cart : MonoBehaviour {
 	{
 		MoveBackwards();
             print("button 4 rewind");
-	}
-	
-	if (Input.GetKeyDown("c")) //vehicle select
-	{
-			vehicleSelect();
-            print("vehicle select");
 	}
 
 	

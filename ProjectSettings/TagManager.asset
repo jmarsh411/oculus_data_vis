@@ -14,8 +14,10 @@ TagManager:
   - CandSelect
   - CamContainer
   - overlay
-  - car
-  - pmover
+  - LookCursor
+  - CartSlot2
+  - CartSlot1
+  - CartSlot3
   layers:
   - Default
   - TransparentFX
