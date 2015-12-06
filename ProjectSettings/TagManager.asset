@@ -19,6 +19,11 @@ TagManager:
   - CartSlot1
   - CartSlot3
   - TimerText
+  - car
+  - pmover
+  - vSelect1
+  - vSelect2
+  - vSelect3
   layers:
   - Default
   - TransparentFX

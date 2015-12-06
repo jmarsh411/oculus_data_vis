@@ -9,9 +9,9 @@ public class Cart : MonoBehaviour {
 		GameObject slot;
 		GameObject slot2;
 		GameObject slot3;
-		float speed1 = 2f;
-		float speed2 = 2f;
-		float speed3 =  2f;
+		float speed1 = 20f;
+		float speed2 = 20f;
+		float speed3 = 100f;
 		
 		public string currentCandidate;
 		public float currentPercent;
@@ -19,6 +19,9 @@ public class Cart : MonoBehaviour {
 		public float nextPercent;
 		public string nextDate;
 		public int passedWayPoint;
+		public int vehicle = 0;
+		public GameObject car;
+		public GameObject pmover;
 		
 		float speed = 2f;
 		
@@ -107,11 +110,13 @@ public class Cart : MonoBehaviour {
 	
 	}
 
-
-	void Move ()	
+	
+	
+	void getMovement()
 	{
 		
-		if (transform.position.x == 20)
+		
+				if (transform.position.x == 20)
 		{
 			currentCandPosition = candPositions2;
 			currentwayPointCart = waypointCart2;
@@ -136,9 +141,9 @@ public class Cart : MonoBehaviour {
 			waypointCart2 = candPositions2[pMark];
 		}
 
-		GameObject slot = GameObject.Find("CartSlot");
-		GameObject slot2 = GameObject.Find("CartSlot1");
-		GameObject slot3 = GameObject.Find("CartSlot2");
+		slot = GameObject.Find("CartSlot");
+		slot2 = GameObject.Find("CartSlot1");
+		slot3 = GameObject.Find("CartSlot2");
 			
 			
 		if (currentCandPosition[pMark][1] >= currentCandPosition[pMark + 1][1])  //if the next hill is going down or flat
@@ -160,10 +165,20 @@ public class Cart : MonoBehaviour {
 							//currentwayPointCart = waypointCartTemp1;
 							pMark = pMark+1;
 							passedWayPoint = 0;
+							
 							if (pMark >= candPositions.Length)
 							{
+								//passedWayPoint = 1;
 								Application.LoadLevel(1);
 							}
+							
+							else if (pMark >= candPositions.Length-1)
+							{
+								passedWayPoint = 3;
+								
+								
+							}
+							
 							waypointCart = candPositions[pMark];
 							waypointCart1 = candPositions1[pMark];
 							waypointCart2 = candPositions2[pMark];		
@@ -232,17 +247,24 @@ public class Cart : MonoBehaviour {
 			
 					if (passedWayPoint == 1)
 					{
-						
-					
-						if(transform.position.z >= currentwayPointCart[2] - .5)
+						if(transform.position.z >= currentwayPointCart[2])
 						{
 							//currentwayPointCart = waypointCartTemp1;
 							pMark = pMark+1;
 							passedWayPoint = 0;
+							
 							if (pMark >= candPositions.Length)
 							{
+								//passedWayPoint = 1;
 								Application.LoadLevel(1);
 							}
+							
+							else if (pMark >= candPositions.Length-1)
+							{
+								passedWayPoint = 1;
+								//Application.LoadLevel(1);
+							}
+							
 							waypointCart = candPositions[pMark];
 							waypointCart1 = candPositions1[pMark];
 							waypointCart2 = candPositions2[pMark];		
@@ -316,6 +338,20 @@ public class Cart : MonoBehaviour {
 				{
 					speed3 = speed1 * .995f;
 				}
+			}
+		
+	}
+
+	void Move ()	
+	{
+		
+			if (passedWayPoint != 3)
+			{
+				getMovement();
+			}
+			if (transform.position.z >= currentCandPosition[currentCandPosition.Length-1][2])
+			{
+				Application.LoadLevel(1);
 			}
 			Debug.Log(candPositions1[pMark - 1][1]);
 			Debug.Log(candPositions1[pMark][1]);
@@ -440,6 +476,41 @@ public class Cart : MonoBehaviour {
 		
 	}
 	
+	public void vehicleSelect(int vehicleNum)
+	{
+		
+		car = GameObject.FindWithTag("car");
+		pmover = GameObject.FindWithTag("pmover");
+
+		
+		if (vehicleNum == 0)
+		{
+			car.transform.localScale = new Vector3(0f,0f,0f);
+			pmover.transform.localScale = new Vector3(1.5f,1.5f,1.5f);
+			vehicle = 1;
+			
+			
+			
+		}
+		
+		else if (vehicleNum == 1)
+		{
+			car.transform.localScale = new Vector3(0.03f,0.03f,0.03f);
+			pmover.transform.localScale = new Vector3(0f,0f,0f);
+			vehicle = 2;	
+		}
+		
+		else
+		{
+			car.transform.localScale = new Vector3(0f,0f,0f);
+			pmover.transform.localScale = new Vector3(0f,0f,0f);
+			vehicle = 0;	
+		}
+	
+		
+		
+	}
+	
 		
 	
 	// Update is called once per frame
@@ -496,10 +567,10 @@ public class Cart : MonoBehaviour {
 		{
 			pause = 1;
 		}
-		else
-		{
-			pause = 0;
-		}
+		//else
+		//{
+		//	pause = 0;
+		//}
             print("button 9 pause");
 	}
 	
@@ -507,6 +578,12 @@ public class Cart : MonoBehaviour {
 	{
 		MoveBackwards();
             print("button 4 rewind");
+	}
+	
+	if (Input.GetKeyDown("c")) //vehicle select
+	{
+			//vehicleSelect();
+            //print("vehicle select");
 	}
 
 	

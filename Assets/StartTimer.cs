@@ -31,6 +31,8 @@ public class StartTimer : MonoBehaviour {
 	{
 		cart1 = GameObject.FindWithTag("Cart");
 		countDown -= Time.deltaTime;
+		
+		
 			if(countDown <= 3.0f)
 			{
 				gameObject.transform.GetChild(0).GetComponent<Text>().text = "2";
@@ -43,7 +45,11 @@ public class StartTimer : MonoBehaviour {
 		    if(countDown <= 1.0f)
 			{
 				gameObject.transform.GetChild(0).GetComponent<Text>().text = " ";
-				cart1.GetComponent<Cart>().pause = 0;
+				if (started == 0)
+				{
+					cart1.GetComponent<Cart>().pause = 0;
+					started = 1;
+				}
 				
 			}
 

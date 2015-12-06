@@ -1,5 +1,13 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine;
+using System.Collections;
+using UnityEngine;
+using UnityEngine.UI;
+using System.Collections;
+using System;
+using System.Linq;
+using System.Collections.Generic;
 
 public class LoadCandOnClick : MonoBehaviour {
 
@@ -52,6 +60,61 @@ public class LoadCandOnClick : MonoBehaviour {
 		
 
 
+		
+	}
+	
+	public void vehicleSelect(int vehicleNum)
+	{
+		cart1 = GameObject.FindWithTag("Cart");
+		cart1.GetComponent<Cart>().vehicleSelect(vehicleNum);
+		
+		Button vSelect1 = GameObject.FindWithTag("vSelect1").GetComponent<Button>();
+		Button vSelect2 = GameObject.FindWithTag("vSelect2").GetComponent<Button>();
+		Button vSelect3 = GameObject.FindWithTag("vSelect3").GetComponent<Button>();
+		
+		ColorBlock button1Color = vSelect1.colors;
+		ColorBlock button2Color = vSelect2.colors;
+		ColorBlock button3Color = vSelect3.colors;
+		
+
+		
+		if (vehicleNum == 2)
+		{	
+			button1Color.normalColor = Color.red;
+			vSelect1.colors = button1Color;
+			
+			button2Color.normalColor = Color.white;
+			vSelect2.colors = button2Color;
+			
+			button3Color.normalColor = Color.white;
+			vSelect3.colors = button3Color;		
+		}
+		
+		if (vehicleNum == 0)
+		{	
+			button2Color.normalColor = Color.red;
+			vSelect2.colors = button2Color;
+			
+			button1Color.normalColor = Color.white;
+			vSelect1.colors = button1Color;
+			
+			button3Color.normalColor = Color.white;
+			vSelect3.colors = button3Color;		
+		}
+		
+		if (vehicleNum == 1)
+		{	
+			button3Color.normalColor = Color.red;
+			vSelect3.colors = button3Color;
+			
+			button1Color.normalColor = Color.white;
+			vSelect1.colors = button1Color;
+			
+			button2Color.normalColor = Color.white;
+			vSelect2.colors = button2Color;		
+		}
+		
+		
 		
 	}
 	
