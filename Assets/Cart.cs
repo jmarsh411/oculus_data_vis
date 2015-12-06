@@ -70,8 +70,6 @@ public class Cart : MonoBehaviour {
 		Make2DLine.followParent (line3, graphCanvas);
 
 
-		
-
 
 		slot.transform.position = createLine.Positions1[0];//initiate camera location to first point
 		slot.transform.LookAt(createLine.Positions1[1]);//initiate camera aim to second point
@@ -109,8 +107,8 @@ public class Cart : MonoBehaviour {
 	
 	}
 
-void Move ()
-	
+
+	void Move ()	
 	{
 		
 		if (transform.position.x == 20)
@@ -369,8 +367,9 @@ void Move ()
 					currentCandidate = createLine.Position3Candidate;
 					
 					Debug.Log(currentDate);
-		
 				}
+		//Debug.Log (pMark);
+		//Debug.Log (currentPercent);
 				
 				//transform.position = Vector3.MoveTowards(transform.position, waypointCart1, speed * Time.deltaTime);
 				//GetComponent<Camera>().transform.position += boost;

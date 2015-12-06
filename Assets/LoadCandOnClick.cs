@@ -39,6 +39,7 @@ public class LoadCandOnClick : MonoBehaviour {
 		mainCam.transform.rotation = mainCam.transform.parent.transform.rotation;
 		mainCam.transform.localPosition = new Vector3(0,1.5f,0);
 		candSelectMenu.SetActive(false);
+
 		cart1.GetComponent<Cart>().pause = 1;
 		//Debug.Log("Press Start.");
 		vr_cursor = GameObject.FindWithTag ("LookCursor");
@@ -49,6 +50,8 @@ public class LoadCandOnClick : MonoBehaviour {
 				Quaternion.identity) as GameObject;
 			
 		
+
+
 		
 	}
 	

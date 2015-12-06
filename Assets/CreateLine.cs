@@ -35,7 +35,8 @@ public class CreateLine : MonoBehaviour {
 	string colorm = "Red";
 	Color color = Color.red;
 	float TrackLength;
-	candNum = candNum * 10; // Space candidates apart horizontally by 5 units.
+	candNum = candNum * 10; // Space candidates apart horizontally by 10 units.
+
 		Vector3[] positions = new Vector3[CSVReader.pollByDateCoaster.Count];
 		DateTime[] dates = new DateTime[CSVReader.pollByDateCoaster.Count];
 		int posI = 0;
@@ -81,6 +82,7 @@ public class CreateLine : MonoBehaviour {
             Position2Candidate = name;
 			Debug.Log("ok0.");
 		}
+
 
 		else if (candNum/10 == 0)
 		{
@@ -128,8 +130,9 @@ public class CreateLine : MonoBehaviour {
 				Transform Piece = Track.transform.FindChild("TrackPieceLine");
 				Piece.gameObject.GetComponent<Renderer>().material = newMat;
 				Piece.gameObject.GetComponent<Renderer>().material.color = color;
+
 				
-				GameObject Ring =
+			GameObject Ring =
 				Instantiate(Resources.Load("TextRing"), //load track prefab
 				positions[i], // take position from positions array
 				Quaternion.identity) as GameObject;
