@@ -2290,6 +2290,10 @@ Prefab:
       propertyPath: m_RootOrder
       value: 13
       objectReference: {fileID: 0}
+    - target: {fileID: 2019978, guid: 22cee15886ce9434e8f3e35a1e29b7f3, type: 2}
+      propertyPath: far clip plane
+      value: 1500
+      objectReference: {fileID: 0}
     - target: {fileID: 466480, guid: 22cee15886ce9434e8f3e35a1e29b7f3, type: 2}
       propertyPath: m_RootOrder
       value: 1
@@ -2480,6 +2484,21 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1273656604}
+--- !u!1 &1286905039 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 151904, guid: 1ef7c02919f8bb447a35c957759fa316, type: 2}
+  m_PrefabInternal: {fileID: 480526771}
+--- !u!114 &1286905040
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1286905039}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 659e88179877f8d4fa62033cca3d1aae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1299649701
 GameObject:
   m_ObjectHideFlags: 0
