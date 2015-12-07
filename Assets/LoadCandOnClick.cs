@@ -45,7 +45,7 @@ public class LoadCandOnClick : MonoBehaviour {
 		
 		mainCam.transform.parent = cart1.transform;
 		mainCam.transform.rotation = mainCam.transform.parent.transform.rotation;
-		mainCam.transform.localPosition = new Vector3(0,1.5f,0);
+		mainCam.transform.localPosition = new Vector3(0,0.7f,0);
 		candSelectMenu.SetActive(false);
 
 		cart1.GetComponent<Cart>().pause = 1;

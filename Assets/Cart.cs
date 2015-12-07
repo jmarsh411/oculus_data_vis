@@ -12,6 +12,9 @@ public class Cart : MonoBehaviour {
 		float speed1 = 20f;
 		float speed2 = 20f;
 		float speed3 = 100f;
+		float oldSpeed1;
+		float oldSpeed2;
+		float oldSpeed3;
 		
 		public string currentCandidate;
 		public float currentPercent;
@@ -24,6 +27,8 @@ public class Cart : MonoBehaviour {
 		public GameObject pmover;
 		
 		float speed = 2f;
+		
+		Vector3 lookAheadCart;
 		
 		Vector3[] currentCandPosition;
 		Vector3 currentwayPointCart;
@@ -112,25 +117,10 @@ public class Cart : MonoBehaviour {
 
 	
 	
-	void getMovement()
+	void Move ()
+	
 	{
 		
-		
-				if (transform.position.x == 20)
-		{
-			currentCandPosition = candPositions2;
-			currentwayPointCart = waypointCart2;
-		}
-		else if (transform.position.x == 10)
-		{
-			currentCandPosition = candPositions1;
-			currentwayPointCart = waypointCart1;
-		}
-		else if (transform.position.x == 0)
-		{
-			currentCandPosition = candPositions;
-			currentwayPointCart = waypointCart;
-		}
 		
 		if (pMark == 0)
 		{
@@ -140,219 +130,33 @@ public class Cart : MonoBehaviour {
 			waypointCart1 = candPositions1[pMark];
 			waypointCart2 = candPositions2[pMark];
 		}
+		
+		
+		
 
-		slot = GameObject.Find("CartSlot");
-		slot2 = GameObject.Find("CartSlot1");
-		slot3 = GameObject.Find("CartSlot2");
-			
-			
-		if (currentCandPosition[pMark][1] >= currentCandPosition[pMark + 1][1])  //if the next hill is going down or flat
+
+		GameObject slot = GameObject.Find("CartSlot");
+		GameObject slot2 = GameObject.Find("CartSlot1");
+		GameObject slot3 = GameObject.Find("CartSlot2");
+		
+		
+			if (state == 1)
 			{
-			
-			Debug.Log("next hill is going down or flat.");
-
-			
-			
-				
-			if(transform.position.z >= currentwayPointCart[2] ) // if the segment has been traversed
-				{
-					Debug.Log("Current Hill going down, next hill going down sharp.");
-			
-					if (passedWayPoint == 1)
-					{
-						if(transform.position.z >= currentwayPointCart[2])
-						{
-							//currentwayPointCart = waypointCartTemp1;
-							pMark = pMark+1;
-							passedWayPoint = 0;
-							
-							if (pMark >= candPositions.Length)
-							{
-								//passedWayPoint = 1;
-								Application.LoadLevel(1);
-							}
-							
-							else if (pMark >= candPositions.Length-1)
-							{
-								passedWayPoint = 3;
-								
-								
-							}
-							
-							waypointCart = candPositions[pMark];
-							waypointCart1 = candPositions1[pMark];
-							waypointCart2 = candPositions2[pMark];		
-						}
-					}
-					
-					if (passedWayPoint == 0)
-					{
-						float slope = (currentCandPosition[pMark][1] - currentCandPosition[pMark - 1][1]) / (currentCandPosition[pMark][2] - currentCandPosition[pMark - 1][2]);
-						float yIntercept = currentCandPosition[pMark][1] - (slope * currentCandPosition[pMark][1]);
-						if ((currentCandPosition[pMark][1] - currentCandPosition[pMark + 1][1]) > 8) // if the slope is large
-						{
-						//waypointCartTemp1 = currentwayPointCart;
-							
-							passedWayPoint = 1;
-							if (currentCandPosition[pMark - 1][1] > currentCandPosition[pMark][1]) //if the current hill is going down
-							{
-								//currentwayPointCart[2] = currentwayPointCart[2] + 2f;
-								//currentwayPointCart[1] = (slope * currentwayPointCart[2]) + yIntercept;
-								Debug.Log("Current Hill going down, next hill going down sharp.");
-							}
-							else if (currentCandPosition[pMark - 1][1] <= currentCandPosition[pMark][1])// if the current hill is going up or flat
-							{
-								currentwayPointCart[2] = currentwayPointCart[2] + 2f;
-								currentwayPointCart[1] = (slope * currentwayPointCart[2]) + yIntercept;
-								Debug.Log("Current Hill going up, next hill going down sharp.");
-								
-							}
-							
-						}
-						else if ((currentCandPosition[pMark][1] - currentCandPosition[pMark + 1][1]) <= 8) // if the slope is small
-							{
-									passedWayPoint = 1;
-									
-									if (currentCandPosition[pMark - 1][1] > currentCandPosition[pMark][1]) //if the current hill is going down
-									{
-										//currentwayPointCart[2] = currentwayPointCart[2] + 3.5f;
-										//currentwayPointCart[1] = currentwayPointCart[1] + 2f;
-										Debug.Log("Current Hill going down, next hill going down mild.");
-									}
-									else if (currentCandPosition[pMark - 1][1] <= currentCandPosition[pMark][1]) //if the current hill is going up or flat
-									{
-										currentwayPointCart[2] = currentwayPointCart[2] + 1.5f;
-										currentwayPointCart[1] = (slope * currentwayPointCart[2]) + yIntercept;
-											Debug.Log("Current Hill going up, next hill going down mild.");
-									}
-									
-							}
-						
-					}
-						
-				}
-		}
-			
-			else if (currentCandPosition[pMark][1] < currentCandPosition[pMark + 1][1]) // if the next hill is going up
-			{
-				
-				Debug.Log("next hill is going up.");
-				Debug.Log(currentwayPointCart[2]);
-				Debug.Log(currentwayPointCart[1]);
-				Debug.Log(transform.position.z);
-				//if(transform.position.z >= currentwayPointCart[2]) // if the segment has been traversed
-				//{
-					float slope = (currentCandPosition[pMark][1] - currentCandPosition[pMark - 1][1]) / (currentCandPosition[pMark][2] - currentCandPosition[pMark - 1][2]);
-					float yIntercept = currentCandPosition[pMark][1] - (slope * currentCandPosition[pMark][1]);
-			
-					if (passedWayPoint == 1)
-					{
-						if(transform.position.z >= currentwayPointCart[2])
-						{
-							//currentwayPointCart = waypointCartTemp1;
-							pMark = pMark+1;
-							passedWayPoint = 0;
-							
-							if (pMark >= candPositions.Length)
-							{
-								//passedWayPoint = 1;
-								Application.LoadLevel(1);
-							}
-							
-							else if (pMark >= candPositions.Length-1)
-							{
-								passedWayPoint = 1;
-								//Application.LoadLevel(1);
-							}
-							
-							waypointCart = candPositions[pMark];
-							waypointCart1 = candPositions1[pMark];
-							waypointCart2 = candPositions2[pMark];		
-						}
-					}
-					
-					if (passedWayPoint == 0)
-					{
-						passedWayPoint = 1;
-						if ((currentCandPosition[pMark + 1][1] - currentCandPosition[pMark][1]) > 8) // if the slope is large
-						{
-						//waypointCartTemp1 = currentwayPointCart;
-						Debug.Log(" next hill going up");	
-							
-
-							if (currentCandPosition[pMark - 1][1] <= currentCandPosition[pMark][1])// if the current hill is going up or flat
-							{
-								currentwayPointCart[2] = currentwayPointCart[2] - 2f; // stops clipping when going into a steep valley.
-								//currentwayPointCart[1] = currentwayPointCart[1] + 1f;
-								Debug.Log("Current Hill going up, next hill going up sharp.");
-								
-							}
-							
-						}
-						else if ((currentCandPosition[pMark + 1][1] - currentCandPosition[pMark][1]) <= 8) // if the slope is small
-							{
-									passedWayPoint = 1;
-
-									if (currentCandPosition[pMark - 1][1] <= currentCandPosition[pMark][1]) //if the current hill is going up
-									{
-										Debug.Log("PEAK.");
-										currentwayPointCart[2] = currentwayPointCart[2] + 5f;
-										currentwayPointCart[1] = currentwayPointCart[1] + 5f;//this fixes bug on large peaks.
-										
-									}
-									
-							}
-						
-					}
-						
-				//}
+				getMovement(waypointCart, candPositions);
 			}
 		
-			if (currentCandPosition[pMark - 1][1] > currentCandPosition[pMark][1]) //if the current hill is going down
+			else if (state == 2)
 			{
-				if (speed1 < 12)
-				{
-					speed1 = speed1 * 1.05f;
-				}
-				if (speed2 < 12)
-				{
-					speed2 = speed2 * 1.05f;
-				}
-				if (speed3 < 12)
-				{
-					speed3 = speed3 * 1.05f;
-				}
+				getMovement(waypointCart1, candPositions1);
 			}
+			else
+			{
+				getMovement(waypointCart2, candPositions2);
+			}
+		
 			
-			else if (currentCandPosition[pMark-1][1] < currentCandPosition[pMark][1]) //if the current hill is going up
-			{
-				if (speed1 > 4)
-				{
-					speed1 = speed1 * .995f;
-				}
-				if (speed2 > 4)
-				{
-					speed2 = speed2 * .995f;
-				}
-				if (speed3 > 4)
-				{
-					speed3 = speed1 * .995f;
-				}
-			}
-		
-	}
+			
 
-	void Move ()	
-	{
-		
-			if (passedWayPoint != 3)
-			{
-				getMovement();
-			}
-			if (transform.position.z >= currentCandPosition[currentCandPosition.Length-1][2])
-			{
-				Application.LoadLevel(1);
-			}
 			Debug.Log(candPositions1[pMark - 1][1]);
 			Debug.Log(candPositions1[pMark][1]);
 				
@@ -403,12 +207,195 @@ public class Cart : MonoBehaviour {
 					currentCandidate = createLine.Position3Candidate;
 					
 					Debug.Log(currentDate);
+		
 				}
-		//Debug.Log (pMark);
-		//Debug.Log (currentPercent);
 				
 				//transform.position = Vector3.MoveTowards(transform.position, waypointCart1, speed * Time.deltaTime);
 				//GetComponent<Camera>().transform.position += boost;
+		
+	}
+	
+	void getMovement(Vector3 currentwayPointCart, Vector3[] currentCandPositions)
+	{
+			
+			if (currentCandPositions[pMark][1] >= currentCandPositions[pMark + 1][1])  //if the next hill is going down or flat
+			{
+			
+			Debug.Log("next hill is going down or flat.");
+
+			
+			
+				
+			if(transform.position.z >= currentwayPointCart[2] ) // if the segment has been traversed
+				{
+					Debug.Log("Current Hill going down, next hill going down sharp.");
+			
+					if (passedWayPoint == 1)
+					{
+						if(transform.position.z >= currentwayPointCart[2])
+						{
+							//currentwayPointCart = waypointCartTemp1;
+							pMark = pMark+1;
+							passedWayPoint = 0;
+							if (pMark >= candPositions.Length)
+							{
+								Application.LoadLevel(1);
+							}
+							waypointCart = candPositions[pMark];
+							waypointCart1 = candPositions1[pMark];
+							waypointCart2 = candPositions2[pMark];		
+						}
+					}
+					
+					if (passedWayPoint == 0)
+					{
+						float slope = (currentCandPositions[pMark][1] - currentCandPositions[pMark - 1][1]) / (currentCandPositions[pMark][2] - currentCandPositions[pMark - 1][2]);
+						float yIntercept = currentCandPositions[pMark][1] - (slope * currentCandPositions[pMark][1]);
+						if ((currentCandPositions[pMark][1] - currentCandPositions[pMark + 1][1]) > 8) // if the slope is large
+						{
+						//waypointCartTemp1 = currentwayPointCart;
+							
+							passedWayPoint = 1;
+							if (currentCandPositions[pMark - 1][1] > currentCandPositions[pMark][1]) //if the current hill is going down
+							{
+								//currentwayPointCart[2] = currentwayPointCart[2] + 2f;
+								//currentwayPointCart[1] = (slope * currentwayPointCart[2]) + yIntercept;
+								Debug.Log("Current Hill going down, next hill going down sharp.");
+							}
+							else if (currentCandPositions[pMark - 1][1] <= currentCandPositions[pMark][1])// if the current hill is going up or flat
+							{
+								currentwayPointCart[2] = currentwayPointCart[2] + 1f;
+								currentwayPointCart[1] = (slope * currentwayPointCart[2]) + yIntercept;
+								Debug.Log("Current Hill going up, next hill going down sharp.");
+								
+							}
+							
+						}
+						else if ((currentCandPositions[pMark][1] - currentCandPositions[pMark + 1][1]) <= 8) // if the slope is small
+							{
+									passedWayPoint = 1;
+									
+									if (currentCandPositions[pMark - 1][1] > currentCandPositions[pMark][1]) //if the current hill is going down
+									{
+										//currentwayPointCart[2] = currentwayPointCart[2] + 3.5f;
+										//currentwayPointCart[1] = currentwayPointCart[1] + 2f;
+										Debug.Log("Current Hill going down, next hill going down mild.");
+									}
+									else if (currentCandPositions[pMark - 1][1] <= currentCandPositions[pMark][1]) //if the current hill is going up or flat
+									{
+										currentwayPointCart[2] = currentwayPointCart[2] + .5f;
+										currentwayPointCart[1] = (slope * currentwayPointCart[2]) + yIntercept;
+											Debug.Log("Current Hill going up, next hill going down mild.");
+									}
+									
+							}
+						
+					}
+						
+				}
+		}
+			
+			else if (currentCandPositions[pMark][1] < currentCandPositions[pMark + 1][1]) // if the next hill is going up
+			{
+			
+				Debug.Log("next hill is going up.");
+				Debug.Log(currentwayPointCart[2]);
+				Debug.Log(currentwayPointCart[1]);
+				Debug.Log(transform.position.z);
+				//if(transform.position.z >= currentwayPointCart[2]) // if the segment has been traversed
+				//{
+					float slope = (currentCandPositions[pMark][1] - currentCandPositions[pMark - 1][1]) / (currentCandPositions[pMark][2] - currentCandPositions[pMark - 1][2]);
+					float yIntercept = currentCandPositions[pMark][1] - (slope * currentCandPositions[pMark][1]);
+			
+					if (passedWayPoint == 1)
+					{
+						
+					
+						if(transform.position.z >= currentwayPointCart[2] - .5)
+						{
+							//currentwayPointCart = waypointCartTemp1;
+							pMark = pMark+1;
+							passedWayPoint = 0;
+							if (pMark >= candPositions.Length)
+							{
+								Application.LoadLevel(1);
+							}
+							waypointCart = candPositions[pMark];
+							waypointCart1 = candPositions1[pMark];
+							waypointCart2 = candPositions2[pMark];		
+						}
+					}
+					
+					if (passedWayPoint == 0)
+					{
+						passedWayPoint = 1;
+						if ((currentCandPositions[pMark + 1][1] - currentCandPositions[pMark][1]) > 8) // if the slope is large
+						{
+						//waypointCartTemp1 = currentwayPointCart;
+						Debug.Log(" next hill going up");	
+							
+
+							if (currentCandPositions[pMark - 1][1] <= currentCandPositions[pMark][1])// if the current hill is going up or flat
+							{
+								currentwayPointCart[2] = currentwayPointCart[2] - 1f; // stops clipping when going into a steep valley.
+								//currentwayPointCart[1] = currentwayPointCart[1] + 1f;
+								Debug.Log("Current Hill going up, next hill going up sharp.");
+								
+							}
+							
+						}
+						else if ((currentCandPositions[pMark + 1][1] - currentCandPositions[pMark][1]) <= 8) // if the slope is small
+							{
+									passedWayPoint = 1;
+
+									if (currentCandPositions[pMark - 1][1] <= currentCandPositions[pMark][1]) //if the current hill is going up
+									{
+										Debug.Log("PEAK.");
+										//currentwayPointCart[2] = currentwayPointCart[2] + 3f;
+										currentwayPointCart[1] = currentwayPointCart[1] + 1f;//this fixes bug on large peaks.
+										
+									}
+									
+							}
+						
+					}
+						
+				//}
+			}
+			
+		
+		
+			if (currentCandPositions[pMark - 1][1] > currentCandPositions[pMark][1]) //if the current hill is going down
+			{
+				if (speed2 < 12)
+				{
+					speed2 = speed2 * 1.05f;
+				}
+				if (speed1 < 12)
+				{
+					speed1 = speed1 * 1.05f;
+				}
+				if (speed3 < 12)
+				{
+					speed3 = speed3 * 1.05f;
+				}
+			}
+			
+			else if (currentCandPositions[pMark-1][1] < currentCandPositions[pMark][1]) //if the current hill is going up
+			{
+				if (speed2 > 4)
+				{
+					speed2 = speed2 * .995f;
+				}
+				if (speed3 > 4)
+				{
+					speed3 = speed3 * .995f;
+				}
+				if (speed1 > 4)
+				{
+					speed1 = speed1 * .995f;
+				}
+			}
 		
 	}
 	
@@ -552,7 +539,24 @@ public class Cart : MonoBehaviour {
 	
 	if (Input.GetKey("right") || Input.GetKey(KeyCode.JoystickButton5)) //fast forward
 	{
-		speed = 7;
+		
+
+		
+		speed1 = 45;
+		speed2 = 45;
+		speed3 = 45;
+		
+		Move();
+            print("button 5 fast forward");
+	}
+	
+	if (Input.GetKeyUp("right") || Input.GetKey(KeyCode.JoystickButton5)) //fast forward
+	{
+		
+		speed1 = 4;
+		speed2 = 4;
+		speed3 = 4;
+		
 		Move();
             print("button 5 fast forward");
 	}
