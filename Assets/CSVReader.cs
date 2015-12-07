@@ -36,10 +36,10 @@ public class CSVReader : MonoBehaviour
         buildCandidateStructure();
 		//printPollByDate ();
 		//printPollByDateCoaster ();
-		print("PPBD!");
-		printPollByDate (new DateTime (2010, 06, 20));
-		print ("six");
-		six ();
+		//print("PPBD!");
+		//printPollByDate (new DateTime (2010, 06, 20));
+		//print ("six");
+		//six ();
 	}
 	//Reads data in from CSV file, returns array of raw data, where each row is a line and each column is a category.
 	static void makeArray()
@@ -199,9 +199,6 @@ public class CSVReader : MonoBehaviour
 						{
 							//print(percent);
 							int perc = Int32.Parse(percent); 
-							if (((perc * voters) / 100) >= voters) {
-								//print("fuck");
-							}
 							if (cands.ContainsKey(cand))
 							{
 								cands[cand] += ((perc * voters) / 100);
@@ -320,9 +317,6 @@ public class CSVReader : MonoBehaviour
 						//if (intermediaryCoaster[i, 0].Equals("2010-10-28"))
 						//	print(intermediaryCoaster[i, 0] + " " + candidate.name + " " + perc + " " + voters + " " + (perc/voters)*100);
 						scores[j] = new Score(((perc/voters)*100).ToString(), candidate);
-						if (candidate.name.Equals("Palin")) {
-							print(candidate.name + " " + intermediaryCoaster[i,0] + " " + perc);
-						}
 					}
 				}
 			}
@@ -401,7 +395,7 @@ public class CSVReader : MonoBehaviour
 			}
 		}
 	}
-	public static void six() {
+	/*public static void six() {
 		foreach (KeyValuePair<DateTime, Poll> poll in pollByDateCoaster.OrderBy(key => key.Key)) {
 			if (poll.Key.Equals (new DateTime (2010, 06, 20))) {
 				for (int i = 0; i < poll.Value.scores.Length; i++) {
@@ -411,5 +405,5 @@ public class CSVReader : MonoBehaviour
 				}
 			}
 		}
-	}
+	}*/
 }
