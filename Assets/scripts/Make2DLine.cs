@@ -3,7 +3,6 @@ using UnityEngine.UI.Extensions;
 using System.Collections;
 
 public class Make2DLine : MonoBehaviour {
-	GameObject cart;
 	UILineRenderer lineRenderer;
 
 	static Object material;
@@ -13,9 +12,7 @@ public class Make2DLine : MonoBehaviour {
 		// load material if not already loaded
 		if (material == null)
 			material = Resources.Load ("UILineRendererMaterial");
-
-		// setup references
-		cart = GameObject.Find("Cart");
+		
 		lineRenderer = GetComponent<UILineRenderer> ();
 
 		// create a new material instance and set its color
