@@ -12,9 +12,6 @@ public class Cart : MonoBehaviour {
 		float speed1 = 5f;
 		float speed2 = 5f;
 		float speed3 = 5f;
-		float oldSpeed1;
-		float oldSpeed2;
-		float oldSpeed3;
 		
 		public string currentCandidate;
 		public float currentPercent;
@@ -117,23 +114,19 @@ public class Cart : MonoBehaviour {
 
 	
 	
-	void Move ()
+	void Move () // This function sets the cart in motion.
 	
 	{
 		
 		
-		if (pMark == 0)
+		if (pMark == 0) // if pMark has not yet been set.
 		{
 			Debug.Log("pMark is 0.");
 			pMark = pMark + 1;
-			waypointCart = candPositions[pMark];
+			waypointCart = candPositions[pMark]; //waypointCarts are where the cart is moving towards. One for each line.
 			waypointCart1 = candPositions1[pMark];
 			waypointCart2 = candPositions2[pMark];
 		}
-		
-		
-		
-
 
 		GameObject slot = GameObject.Find("CartSlot");
 		GameObject slot2 = GameObject.Find("CartSlot1");
@@ -221,7 +214,7 @@ public class Cart : MonoBehaviour {
 		
 	}
 	
-	void getMovement(Vector3 currentwayPointCart, Vector3[] currentCandPositions)
+	void getMovement(Vector3 currentwayPointCart, Vector3[] currentCandPositions) // This function looks ahead on the graph to apply anti-clipping physics.
 	{
 			
 			if (currentCandPositions[pMark][1] >= currentCandPositions[pMark + 1][1])  //if the next hill is going down or flat
@@ -371,7 +364,7 @@ public class Cart : MonoBehaviour {
 			}
 			
 		
-		
+			// the following if statements modify the speed of each cart depending on whether it is going downhill or uphill.
 			if (currentCandPositions[pMark - 1][1] > currentCandPositions[pMark][1]) //if the current hill is going down
 			{
 				if (speed2 < 12)
@@ -406,7 +399,7 @@ public class Cart : MonoBehaviour {
 		
 	}
 	
-	void MoveBackwards ()	//Same as Move, but modified to make the movement go backwards
+	void MoveBackwards ()	//Same as Move, but modified to make the movement go backwards // Non-clipping physics not applied.
 	{
 		speed1 = speed + (speed * ((Mathf.Sqrt(100 + Mathf.Pow((candPositions[pMark][1] - candPositions[pMark + 1][1]),2)) - 10)/10));
 		speed2 = speed + (speed * ((Mathf.Sqrt(100 + Mathf.Pow((candPositions1[pMark][1] - candPositions1[pMark + 1][1]),2)) - 10)/10));
@@ -427,11 +420,6 @@ public class Cart : MonoBehaviour {
 				    waypointCart2 = candPositions2[pMark];
 					
 				}
-				
-				
-				
-				
-				
 	
 			}		      
 			
@@ -477,14 +465,11 @@ public class Cart : MonoBehaviour {
 		pmover = GameObject.FindWithTag("pmover");
 
 		
-		if (vehicleNum == 0)
+		if (vehicleNum == 0) //if cart is selected as vehicle...
 		{
-			car.transform.localScale = new Vector3(0f,0f,0f);
-			pmover.transform.localScale = new Vector3(1.5f,1.5f,1.5f);
-			vehicle = 1;
-			
-			
-			
+			car.transform.localScale = new Vector3(0f,0f,0f);// scale to make invisible.
+			pmover.transform.localScale = new Vector3(1.5f,1.5f,1.5f);// scale to make appropriate size.
+			vehicle = 1;	
 		}
 		
 		else if (vehicleNum == 1)

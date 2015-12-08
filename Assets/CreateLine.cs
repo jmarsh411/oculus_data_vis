@@ -36,7 +36,7 @@ public class CreateLine : MonoBehaviour {
 	string colorm = "Red";
 	Color color = Color.red;
 	float TrackLength;
-	candNum = candNum * 10; // Space candidates apart horizontally by 10 units.
+	candNum = candNum * 20; // Space candidates apart horizontally by 10 units.
 
 		Vector3[] positions = new Vector3[CSVReader.pollByDateCoaster.Count];
 		DateTime[] dates = new DateTime[CSVReader.pollByDateCoaster.Count];
@@ -74,9 +74,9 @@ public class CreateLine : MonoBehaviour {
 			}
 		}
         string name = candName;
-		createButton (candNum/10, candName, color);
+		createButton (candNum/20, candName, color);
 
-        if (candNum/10 == 1)
+        if (candNum/20 == 1)
 		{
 			Positions2 = positions;
             Position2Dates = dates;
@@ -85,7 +85,7 @@ public class CreateLine : MonoBehaviour {
 		}
 
 
-		else if (candNum/10 == 0)
+		else if (candNum/20 == 0)
 		{
 			Positions1 = positions;
             Position1Dates = dates;
@@ -93,7 +93,7 @@ public class CreateLine : MonoBehaviour {
             Debug.Log("ok1.");
 			
 		}
-		else if (candNum/10 == 2)
+		else if (candNum/20 == 2)
 		{
 			Positions3 = positions;
             Position3Dates = dates;
