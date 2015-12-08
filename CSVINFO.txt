@@ -1,0 +1,6 @@
+All CSV files must match format specified in design document.
+
+Basic information: State must be first column, date must be third, number of voters must be eleventh, followed by candidate name then candidate percent, one pair for each candidate
+
+CSV files must be placed in Documents/VR Dashboard CSVs
+Example CSV also included here (2016DemPrimary.csv)
