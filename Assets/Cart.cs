@@ -9,9 +9,9 @@ public class Cart : MonoBehaviour {
 		GameObject slot;
 		GameObject slot2;
 		GameObject slot3;
-		float speed1 = 20f;
-		float speed2 = 20f;
-		float speed3 = 100f;
+		float speed1 = 5f;
+		float speed2 = 5f;
+		float speed3 = 5f;
 		float oldSpeed1;
 		float oldSpeed2;
 		float oldSpeed3;
@@ -139,7 +139,9 @@ public class Cart : MonoBehaviour {
 		GameObject slot2 = GameObject.Find("CartSlot1");
 		GameObject slot3 = GameObject.Find("CartSlot2");
 		
+		if (passedWayPoint != 3)
 		
+		{
 			if (state == 1)
 			{
 				getMovement(waypointCart, candPositions);
@@ -153,8 +155,12 @@ public class Cart : MonoBehaviour {
 			{
 				getMovement(waypointCart2, candPositions2);
 			}
+		}
 		
-			
+		if (transform.position.z >= candPositions1[candPositions1.Length-1][2])
+		{
+			Application.LoadLevel(1);
+		}
 			
 
 			Debug.Log(candPositions1[pMark - 1][1]);
@@ -237,9 +243,10 @@ public class Cart : MonoBehaviour {
 							//currentwayPointCart = waypointCartTemp1;
 							pMark = pMark+1;
 							passedWayPoint = 0;
-							if (pMark >= candPositions.Length)
+							if (pMark >= candPositions.Length-1)
 							{
-								Application.LoadLevel(1);
+								passedWayPoint = 3;
+								
 							}
 							waypointCart = candPositions[pMark];
 							waypointCart1 = candPositions1[pMark];
@@ -482,7 +489,7 @@ public class Cart : MonoBehaviour {
 		
 		else if (vehicleNum == 1)
 		{
-			car.transform.localScale = new Vector3(0.03f,0.03f,0.03f);
+			car.transform.localScale = new Vector3(0.018f,0.018f,0.018f);
 			pmover.transform.localScale = new Vector3(0f,0f,0f);
 			vehicle = 2;	
 		}
@@ -550,12 +557,12 @@ public class Cart : MonoBehaviour {
             print("button 5 fast forward");
 	}
 	
-	if (Input.GetKeyUp("right") || Input.GetKey(KeyCode.JoystickButton5)) //fast forward
+	if (Input.GetKeyUp("right") || Input.GetKey(KeyCode.JoystickButton5)) //fast forward release
 	{
 		
-		speed1 = 4;
-		speed2 = 4;
-		speed3 = 4;
+		speed1 = 5;
+		speed2 = 5;
+		speed3 = 5;
 		
 		Move();
             print("button 5 fast forward");

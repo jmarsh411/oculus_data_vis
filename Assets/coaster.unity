@@ -1478,11 +1478,11 @@ Prefab:
     m_Modifications:
     - target: {fileID: 400258, guid: 73329366d403e804685ad530a6d70076, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -1.25
+      value: -1.20000005
       objectReference: {fileID: 0}
     - target: {fileID: 400258, guid: 73329366d403e804685ad530a6d70076, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1
+      value: .219999999
       objectReference: {fileID: 0}
     - target: {fileID: 400258, guid: 73329366d403e804685ad530a6d70076, type: 3}
       propertyPath: m_LocalPosition.z
@@ -1518,7 +1518,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 400258, guid: 73329366d403e804685ad530a6d70076, type: 3}
       propertyPath: m_LocalScale.z
-      value: .180000007
+      value: .0179999992
       objectReference: {fileID: 0}
     - target: {fileID: 100258, guid: 73329366d403e804685ad530a6d70076, type: 3}
       propertyPath: m_IsActive
@@ -1647,6 +1647,7 @@ MonoBehaviour:
   Position1Candidate: 
   Position2Candidate: 
   Position3Candidate: 
+  trackpiece: {fileID: 0}
   pMark: 0
 --- !u!114 &773172417
 MonoBehaviour:

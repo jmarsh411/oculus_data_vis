@@ -145,8 +145,19 @@ public class CreateLine : MonoBehaviour {
 				}
 				
 				currentPercent = currentPercent.Substring(0,2);
+				string currentDate = dates[i].ToString();
 				
-			    Ring.gameObject.transform.GetChild(0).GetComponent<Text>().text = (dates[i].ToString().Substring(0,9) + " - " + currentPercent + "%");
+				if (currentDate.Substring(1,1) == "/")
+				{
+					currentDate = currentDate.ToString().Substring(0,9);
+				}
+				else if (currentDate.Substring(2,2) != "/")
+				{
+					currentDate = currentDate.ToString().Substring(0,10);
+					
+				}
+				
+			    Ring.gameObject.transform.GetChild(0).GetComponent<Text>().text = (currentDate + " - " + currentPercent + "%");
 		
 
 		}

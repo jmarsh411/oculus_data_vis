@@ -9,7 +9,6 @@ GameObject:
   m_Component:
   - 4: {fileID: 444902}
   - 212: {fileID: 21238138}
-  - 108: {fileID: 10888748}
   m_Layer: 8
   m_Name: ring
   m_TagString: Untagged
@@ -78,38 +77,6 @@ Transform:
   - {fileID: 444902}
   m_Father: {fileID: 0}
   m_RootOrder: 0
---- !u!108 &10888748
-Light:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 125188}
-  m_Enabled: 1
-  serializedVersion: 6
-  m_Type: 2
-  m_Color: {r: .840973616, g: 1, b: .588235259, a: 1}
-  m_Intensity: .400000006
-  m_Range: 7
-  m_SpotAngle: 30
-  m_CookieSize: 10
-  m_Shadows:
-    m_Type: 0
-    m_Resolution: -1
-    m_Strength: 1
-    m_Bias: .0500000007
-    m_NormalBias: .400000006
-  m_Cookie: {fileID: 0}
-  m_DrawHalo: 1
-  m_Flare: {fileID: 0}
-  m_RenderMode: 0
-  m_CullingMask:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_Lightmapping: 4
-  m_BounceIntensity: 1
-  m_ShadowRadius: 0
-  m_ShadowAngle: 0
-  m_AreaSize: {x: 1, y: 1}
 --- !u!114 &11414464
 MonoBehaviour:
   m_ObjectHideFlags: 1
