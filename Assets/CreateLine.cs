@@ -23,6 +23,7 @@ public class CreateLine : MonoBehaviour {
     public string Position1Candidate;
     public string Position2Candidate;
     public string Position3Candidate;
+	public UnityEngine.Object trackpiece;
 
 
     public int pMark; //Marker to find current position of cart.
@@ -112,14 +113,14 @@ public class CreateLine : MonoBehaviour {
 			
 		
 	
-
+		trackpiece = Resources.Load("TrackPiece");
 	
 		//Debug.Log("Script is running.");
 		
 		for (int i = 0; i < (positions.Length - 1); i++)
 		{
 			GameObject Track =
-				Instantiate(Resources.Load("TrackPiece"), //load track prefab
+				Instantiate(trackpiece, //load track prefab
 				positions[i], // take position from positions array
 				Quaternion.identity) as GameObject;
 				Track.transform.LookAt(positions[i+1]); // aim line towards next point.
