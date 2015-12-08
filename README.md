@@ -3,10 +3,12 @@
 
 To run this project you will need to use Unity 5.2.1 from the following link:
 https://unity3d.com/get-unity/download/archive
+
 Newer versions of Unity are currently not compatible.
 
 You will also need to download and install the Oculus Runtime 0.7 from the following link:
 https://developer.oculus.com/downloads/pc/0.7.0.0-beta/Oculus_Runtime_for_Windows/
+
 Newer versions of the runtime have not been tested.
 
 Make sure that your system meets the recommended specs:
@@ -21,6 +23,8 @@ and setup the Oculus Rift following the official documentation at
 https://developer.oculus.com/documentation/pcsdk/latest/concepts/book-intro/
 
 You may also have to open the oculus configuration utility before attempting the view the visualization, as the oculus service often crashes, and this will restart it.
+
+Starting the project from within Unity involves opening up the main_menu.unity file and pressing the play button. Information on how to load your own CSV into the visualization can be found in CSVINFO.txt
 
 NOTE FOR AMD USERS: We experienced an issue after updating to AMD's Radeon Software Crimson Edition Display Driver version 15.30.1025
 This update caused our previously working visualization to cause graphical glitches followed by a Windows bluescreen and a reboot. This version of AMD's display driver should be avoided for the purposes of running this project.
