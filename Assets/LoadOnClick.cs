@@ -8,11 +8,11 @@ public class LoadOnClick : MonoBehaviour {
 	}
 
 	void Update(){
-		if (Input.GetMouseButtonDown (0)) {
+		/*if (Input.GetMouseButtonDown (0)) {
 			LoadScene(1);
 		}
 		else if (Input.GetMouseButtonDown (1)) {
 			LoadScene(2);
-		}
+		}*/
 	}
 }

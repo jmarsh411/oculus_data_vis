@@ -9,6 +9,8 @@ using UnityEngine;
 using System;
 using System.Linq;
 using System.Collections.Generic;
+using System.IO;
+using System.Text;
 
 public class CSVReader : MonoBehaviour
 {
@@ -18,28 +20,63 @@ public class CSVReader : MonoBehaviour
 	public static string[,] intermediaryMap;
     public static PollObject[,] candidateSet;
     public static DateTime[] datesRepresented;
-	public static List<Candidate> candidates = new List<Candidate>();
-	public static Dictionary<DateTime, List<Poll>> pollByDate = new Dictionary<DateTime, List<Poll>>();
-	public static Dictionary<DateTime, Poll> pollByDateCoaster = new Dictionary<DateTime, Poll>();
+	public static List<Candidate> candidates;
+	public static Dictionary<DateTime, List<Poll>> pollByDate;
+	public static Dictionary<DateTime, Poll> pollByDateCoaster;
 	public static string rawData;
 	public static int lines;
 	public static int categories;
+	public static string[] topThreeCandidates = new string[3];
 
 	void Awake()
 	{
         TextAsset csvFile = Resources.Load("statesData") as TextAsset;
         rawData = csvFile.text;
+		init ();
+	}
+
+	static void clear() {
+		rawData = null;
+		rawGrid = null;
+		intermediarySet = null;
+		intermediaryCoaster = null;
+		intermediaryMap = null;
+		candidateSet = null;
+		datesRepresented = null;
+		candidates = null;
+		pollByDate = null;
+		pollByDateCoaster = null;
+		lines = 0;
+		categories = 0;
+		Candidate.candidateList = null;
+	}
+
+	static void init() {
+		print ("!!!!!!!!!!!!");
+		candidates = new List<Candidate>();
+		pollByDate = new Dictionary<DateTime, List<Poll>> ();
+		pollByDateCoaster = new Dictionary<DateTime, Poll> ();
+		Candidate.candidateList = new Dictionary<string, Candidate> ();
 		Candidate.setupColors ();
-	    makeArray();
+		makeArray();
 		intermediaryGenerator();
-		//printIntermediaryCoaster ();
-        buildCandidateStructure();
-		//printPollByDate ();
-		//printPollByDateCoaster ();
-		print("PPBD!");
-		printPollByDate (new DateTime (2010, 06, 20));
-		print ("six");
-		six ();
+		buildCandidateStructure();
+	}
+
+	public static void parse(string path) {
+		//print (path);
+		try {
+			StreamReader reader = new StreamReader (path, Encoding.Default);
+			clear ();
+			using (reader) {
+				rawData += reader.ReadToEnd();
+			}
+			reader.Close ();
+			init ();
+		}
+		catch (Exception e) {
+			print ("error loading file: " + e);
+		}
 	}
 	//Reads data in from CSV file, returns array of raw data, where each row is a line and each column is a category.
 	static void makeArray()
@@ -151,13 +188,21 @@ public class CSVReader : MonoBehaviour
 				}
 			}
 		}
+
+
 		//build candidate list
 		int ccc = 0;
+		int topt = 0;
 		foreach (KeyValuePair<string, int> c in nameOccurrences.OrderByDescending(key => key.Value))
 		{
+			if (!c.Key.Equals("") && topt < 3) {
+				topThreeCandidates[topt++] = c.Key;
+				//print (c.Key + " " + c.Value);
+			}
 			Candidate addCan = new Candidate(c.Key, ccc++);
 			candidates.Add(addCan);
 			//print ("Candidate " + addCan.candNum + ": " + addCan.name + " " + addCan.color);
+
 		}
 		//get total poll listing - for map, this is summation of dateOccurrence values, for rollercoaster, length of dateOccurrence
 		int totalPolls = 0;
@@ -197,11 +242,7 @@ public class CSVReader : MonoBehaviour
 						string percent = intermediarySet[loc, (j + j + 4)];
 						if (cand != null && percent != null && percent != "")
 						{
-							//print(percent);
 							int perc = Int32.Parse(percent); 
-							if (((perc * voters) / 100) >= voters) {
-								//print("fuck");
-							}
 							if (cands.ContainsKey(cand))
 							{
 								cands[cand] += ((perc * voters) / 100);
@@ -290,6 +331,8 @@ public class CSVReader : MonoBehaviour
 					}
 				}
 				if (intermediaryMap[i, 0] != null) {
+				//print (intermediaryMap[i, 0]);
+				//print (intermediaryMap[i, 1]);
 					Poll poll = new Poll(intermediaryMap[i, 1],intermediaryMap[i, 0],scores);
 					//print (poll.date);
 					if (pollByDate.ContainsKey(poll.date)) {
@@ -320,9 +363,6 @@ public class CSVReader : MonoBehaviour
 						//if (intermediaryCoaster[i, 0].Equals("2010-10-28"))
 						//	print(intermediaryCoaster[i, 0] + " " + candidate.name + " " + perc + " " + voters + " " + (perc/voters)*100);
 						scores[j] = new Score(((perc/voters)*100).ToString(), candidate);
-						if (candidate.name.Equals("Palin")) {
-							print(candidate.name + " " + intermediaryCoaster[i,0] + " " + perc);
-						}
 					}
 				}
 			}
@@ -401,7 +441,7 @@ public class CSVReader : MonoBehaviour
 			}
 		}
 	}
-	public static void six() {
+	/*public static void six() {
 		foreach (KeyValuePair<DateTime, Poll> poll in pollByDateCoaster.OrderBy(key => key.Key)) {
 			if (poll.Key.Equals (new DateTime (2010, 06, 20))) {
 				for (int i = 0; i < poll.Value.scores.Length; i++) {
@@ -411,5 +451,5 @@ public class CSVReader : MonoBehaviour
 				}
 			}
 		}
-	}
+	}*/
 }

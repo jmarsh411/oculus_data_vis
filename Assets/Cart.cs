@@ -49,18 +49,20 @@ public class Cart : MonoBehaviour {
 		graphCanvas = GameObject.Find ("GraphCanvas");
 
 	    createLine = cart.GetComponent<CreateLine>();
-		
-		createLine.createLine(2, "Palin"); // create 1st graph that cart can ride on
-		createLine.createLine(0, "Gingrich"); // create 2nd graph that cart can ride on
-		createLine.createLine(1, "Romney"); // create 3rd graph that cart can ride on
+		for (int i = 0; i < 3; i++) {
+			createLine.createLine (i, CSVReader.topThreeCandidates [i]);
+		}
+		//createLine.createLine(2, "Palin"); // create 1st graph that cart can ride on
+		//createLine.createLine(0, "Gingrich"); // create 2nd graph that cart can ride on
+		//createLine.createLine(1, "Romney"); // create 3rd graph that cart can ride on
 
 		GameObject line1 = Instantiate (line2DPrefab);
 		GameObject line2 = Instantiate (line2DPrefab);
 		GameObject line3 = Instantiate (line2DPrefab);
 
-		line1.GetComponent<Make2DLine> ().Initialize (createLine.Positions1, "Gingrich");
-		line2.GetComponent<Make2DLine> ().Initialize (createLine.Positions2, "Romney");
-		line3.GetComponent<Make2DLine> ().Initialize (createLine.Positions3, "Palin");
+		line1.GetComponent<Make2DLine> ().Initialize (createLine.Positions1, CSVReader.topThreeCandidates [0]);
+		line2.GetComponent<Make2DLine> ().Initialize (createLine.Positions2, CSVReader.topThreeCandidates [1]);
+		line3.GetComponent<Make2DLine> ().Initialize (createLine.Positions3, CSVReader.topThreeCandidates [2]);
 		Make2DLine.followParent (line1, graphCanvas);
 		Make2DLine.followParent (line2, graphCanvas);
 		Make2DLine.followParent (line3, graphCanvas);
