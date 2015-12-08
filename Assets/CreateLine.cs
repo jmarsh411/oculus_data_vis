@@ -42,20 +42,18 @@ public class CreateLine : MonoBehaviour {
 		foreach (KeyValuePair<DateTime, Poll> poll in CSVReader.pollByDateCoaster.OrderBy(key => key.Key)) {
 			bool found = false;
 			dates[posI] = poll.Key;
-			if (dates[posI].Equals(new DateTime (2010, 06, 20))) {
+			/*if (dates[posI].Equals(new DateTime (2010, 06, 20))) {
 				for (int i = 0; i < poll.Value.scores.Length; i++) {
 					if (poll.Value.scores[i] != null) {
 						print(poll.Key + " " + poll.Value.scores[i].candidate.name + " " + poll.Value.scores[i].percent);
 					}
 				}
-			}
+			}*/
 			for (int i = 0; i < poll.Value.scores.Length; i++) {
 				if (poll.Value.scores[i] != null) {
 					if (poll.Value.scores[i].candidate.name.Equals(candName)) {
 						found = true;
 						color = poll.Value.scores[i].candidate.color;
-						if(candName.Equals("Palin"))
-							print (poll.Key + " " + candName + " " + poll.Value.scores[i].percent);
 						positions[posI] = new Vector3 { x = candNum, y = poll.Value.scores[i].percent, z = 10 * (posI + 1) };
 						posI++;
 					}
