@@ -3,9 +3,11 @@
 
 To run this project you will need to use Unity 5.2.1 from the following link:
 https://unity3d.com/get-unity/download/archive
+Newer versions of Unity are currently not compatible.
 
 You will also need to download and install the Oculus Runtime 0.7 from the following link:
 https://developer.oculus.com/downloads/pc/0.7.0.0-beta/Oculus_Runtime_for_Windows/
+Newer versions of the runtime have not been tested.
 
 Make sure that your system meets the recommended specs:
 - NVIDIA GTX 970 / AMD 290 equivalent or greater
