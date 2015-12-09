@@ -75,7 +75,7 @@ public class CreateLine : MonoBehaviour {
         string name = candName;
 		createButton (candNum/20, candName, color);
 
-        if (candNum/20 == 1)
+        if (candNum/20 == 0)
 		{
 			Positions2 = positions;
             Position2Dates = dates;
@@ -84,7 +84,7 @@ public class CreateLine : MonoBehaviour {
 		}
 
 
-		else if (candNum/20 == 0)
+		else if (candNum/20 == 1)
 		{
 			Positions1 = positions;
             Position1Dates = dates;
@@ -175,10 +175,10 @@ public class CreateLine : MonoBehaviour {
 		Text candText = null;
 		switch (candNum) {
 			case 0:
-				buttonContainer = GameObject.Find ("Candidate1");
+				buttonContainer = GameObject.Find ("Candidate2");
 				break;
 			case 1:
-				buttonContainer = GameObject.Find ("Candidate2");
+				buttonContainer = GameObject.Find ("Candidate1");
 				break;
 			case 2:
 				buttonContainer = GameObject.Find ("Candidate3");
