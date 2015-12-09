@@ -23,6 +23,8 @@ public class CreateLine : MonoBehaviour {
     public string Position1Candidate;
     public string Position2Candidate;
     public string Position3Candidate;
+	public UnityEngine.Object trackPiece;
+	public UnityEngine.Object eventRing;
 
 
     public int pMark; //Marker to find current position of cart.
@@ -35,7 +37,8 @@ public class CreateLine : MonoBehaviour {
 	string colorm = "Red";
 	Color color = Color.red;
 	float TrackLength;
-	candNum = candNum * 5; // Space candidates apart horizontally by 5 units.
+	candNum = candNum * 20; // Space candidates apart horizontally by 10 units.
+
 		Vector3[] positions = new Vector3[CSVReader.pollByDateCoaster.Count];
 		DateTime[] dates = new DateTime[CSVReader.pollByDateCoaster.Count];
 		int posI = 0;
@@ -70,9 +73,9 @@ public class CreateLine : MonoBehaviour {
 			}
 		}
         string name = candName;
-		createButton (candNum/5, candName, color);
+		createButton (candNum/20, candName, color);
 
-        if (candNum/5 == 1)
+        if (candNum/20 == 1)
 		{
 			Positions2 = positions;
             Position2Dates = dates;
@@ -80,7 +83,8 @@ public class CreateLine : MonoBehaviour {
 			Debug.Log("ok0.");
 		}
 
-		else if (candNum/5 == 0)
+
+		else if (candNum/20 == 0)
 		{
 			Positions1 = positions;
             Position1Dates = dates;
@@ -88,7 +92,7 @@ public class CreateLine : MonoBehaviour {
             Debug.Log("ok1.");
 			
 		}
-		else if (candNum/5 == 2)
+		else if (candNum/20 == 2)
 		{
 			Positions3 = positions;
             Position3Dates = dates;
@@ -108,14 +112,15 @@ public class CreateLine : MonoBehaviour {
 			
 		
 	
-
+		trackPiece = Resources.Load("TrackPiece");
+		eventRing = Resources.Load("TextRing");
 	
 		//Debug.Log("Script is running.");
 		
 		for (int i = 0; i < (positions.Length - 1); i++)
 		{
 			GameObject Track =
-				Instantiate(Resources.Load("TrackPiece"), //load track prefab
+				Instantiate(trackPiece, //load track prefab
 				positions[i], // take position from positions array
 				Quaternion.identity) as GameObject;
 				Track.transform.LookAt(positions[i+1]); // aim line towards next point.
@@ -126,6 +131,34 @@ public class CreateLine : MonoBehaviour {
 				Transform Piece = Track.transform.FindChild("TrackPieceLine");
 				Piece.gameObject.GetComponent<Renderer>().material = newMat;
 				Piece.gameObject.GetComponent<Renderer>().material.color = color;
+
+				
+			GameObject Ring =
+				Instantiate(eventRing, //load track prefab
+				positions[i], // take position from positions array
+				Quaternion.identity) as GameObject;
+				
+				string currentPercent = positions[i].y.ToString();
+				if (currentPercent.Length <= 1)
+				{
+					currentPercent = " " + currentPercent;
+				}
+				
+				currentPercent = currentPercent.Substring(0,2);
+				string currentDate = dates[i].ToString();
+				
+				if (currentDate.Substring(1,1) == "/")
+				{
+					currentDate = currentDate.ToString().Substring(0,9);
+				}
+				else if (currentDate.Substring(2,2) != "/")
+				{
+					currentDate = currentDate.ToString().Substring(0,10);
+					
+				}
+				
+			    Ring.gameObject.transform.GetChild(0).GetComponent<Text>().text = (currentDate + " - " + currentPercent + "%");
+		
 
 		}
 		

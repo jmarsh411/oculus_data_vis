@@ -9,17 +9,26 @@ public class Cart : MonoBehaviour {
 		GameObject slot;
 		GameObject slot2;
 		GameObject slot3;
-		float speed1;
-		float speed2;
-		float speed3;
+		float speed1 = 5f;
+		float speed2 = 5f;
+		float speed3 = 5f;
 		
 		public string currentCandidate;
 		public float currentPercent;
 		public string currentDate;
 		public float nextPercent;
 		public string nextDate;
+		public int passedWayPoint;
+		public int vehicle = 0;
+		public GameObject car;
+		public GameObject pmover;
 		
 		float speed = 2f;
+		
+		Vector3 lookAheadCart;
+		
+		Vector3[] currentCandPosition;
+		Vector3 currentwayPointCart;
 		
 		Vector3 waypointCart; //initiate travel-to point
 		Vector3[] candPositions; //collection of points for first graph
@@ -68,22 +77,6 @@ public class Cart : MonoBehaviour {
 		Make2DLine.followParent (line3, graphCanvas);
 
 
-		if (state == 1)
-		{
-			transform.position = createLine.Positions1[0];//initiate camera location to first point
-			transform.LookAt(createLine.Positions1[1]);//initiate camera aim to second point
-		}
-		else if (state == 2)
-		{
-			transform.position = createLine.Positions2[0];//initiate camera location to first point
-			transform.LookAt(createLine.Positions2[1]);//initiate camera aim to second point
-		}
-		else 
-		{
-			transform.position = createLine.Positions3[0];//initiate camera location to first point
-			transform.LookAt(createLine.Positions3[1]);//initiate camera aim to second point
-		}
-
 
 		slot.transform.position = createLine.Positions1[0];//initiate camera location to first point
 		slot.transform.LookAt(createLine.Positions1[1]);//initiate camera aim to second point
@@ -121,52 +114,59 @@ public class Cart : MonoBehaviour {
 	
 	}
 
-	void Move ()
+	
+	
+	void Move () // This function sets the cart in motion.
 	
 	{
 		
 		
-		if (pMark == 0)
+		if (pMark == 0) // if pMark has not yet been set.
 		{
 			Debug.Log("pMark is 0.");
 			pMark = pMark + 1;
-			waypointCart = candPositions[pMark];
+			waypointCart = candPositions[pMark]; //waypointCarts are where the cart is moving towards. One for each line.
 			waypointCart1 = candPositions1[pMark];
 			waypointCart2 = candPositions2[pMark];
 		}
-		
-		speed1 = speed + (speed * ((Mathf.Sqrt(100 + Mathf.Pow((candPositions[pMark][1] - candPositions[pMark - 1][1]),2)) - 10)/10));
-		speed2 = speed + (speed * ((Mathf.Sqrt(100 + Mathf.Pow((candPositions1[pMark][1] - candPositions1[pMark - 1][1]),2)) - 10)/10));
-		speed3 = speed + (speed * ((Mathf.Sqrt(100 + Mathf.Pow((candPositions2[pMark][1] - candPositions2[pMark - 1][1]),2)) - 10)/10));
 
 		GameObject slot = GameObject.Find("CartSlot");
 		GameObject slot2 = GameObject.Find("CartSlot1");
 		GameObject slot3 = GameObject.Find("CartSlot2");
 		
+		if (passedWayPoint != 3)
 		
-		
-			if(transform.position.z >= waypointCart[2] - .5)
+		{
+			if (state == 1)
 			{
-				pMark = pMark+1;
-				if (pMark >= candPositions.Length)
-				{
-					Application.LoadLevel(1);
-				}
-				
-				waypointCart = candPositions[pMark];
-				waypointCart1 = candPositions1[pMark];
-				waypointCart2 = candPositions2[pMark];			
+				getMovement(waypointCart, candPositions);
 			}
 		
+			else if (state == 2)
+			{
+				getMovement(waypointCart1, candPositions1);
+			}
+			else
+			{
+				getMovement(waypointCart2, candPositions2);
+			}
+		}
 		
+		if (transform.position.z >= candPositions1[candPositions1.Length-1][2])
+		{
+			Application.LoadLevel(1);
+		}
+			
 
-		
+			Debug.Log(candPositions1[pMark - 1][1]);
+			Debug.Log(candPositions1[pMark][1]);
+				
 					var targetRotation = Quaternion.LookRotation(waypointCart - slot.transform.position);
 			        slot.transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, speed1 * Time.deltaTime);
 					slot.transform.position = Vector3.MoveTowards(slot.transform.position, waypointCart, speed1 * Time.deltaTime);
 					
 					var targetRotation2 = Quaternion.LookRotation(waypointCart1 - slot2.transform.position);
-					slot2.transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation2, speed2 * Time.deltaTime);
+					slot2.transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation2, 10f * Time.deltaTime);
 					slot2.transform.position = Vector3.MoveTowards(slot2.transform.position, waypointCart1, speed2 * Time.deltaTime);
 
 					var targetRotation3 = Quaternion.LookRotation(waypointCart2 - slot3.transform.position);
@@ -208,20 +208,210 @@ public class Cart : MonoBehaviour {
 					currentCandidate = createLine.Position3Candidate;
 					
 					Debug.Log(currentDate);
+		
 				}
-		//Debug.Log (pMark);
-		//Debug.Log (currentPercent);
 				
 				//transform.position = Vector3.MoveTowards(transform.position, waypointCart1, speed * Time.deltaTime);
 				//GetComponent<Camera>().transform.position += boost;
 		
 	}
 	
-	void MoveBackwards ()	//Same as Move, but modified to make the movement go backwards
+	void getMovement(Vector3 currentwayPointCart, Vector3[] currentCandPositions) // This function looks ahead on the graph to apply anti-clipping physics.
 	{
-		speed1 = speed + (speed * ((Mathf.Sqrt(100 + Mathf.Pow((candPositions[pMark][1] - candPositions[pMark + 1][1]),2)) - 10)/10));
-		speed2 = speed + (speed * ((Mathf.Sqrt(100 + Mathf.Pow((candPositions1[pMark][1] - candPositions1[pMark + 1][1]),2)) - 10)/10));
-		speed3 = speed + (speed * ((Mathf.Sqrt(100 + Mathf.Pow((candPositions2[pMark][1] - candPositions2[pMark + 1][1]),2)) - 10)/10));
+			
+			if (currentCandPositions[pMark][1] >= currentCandPositions[pMark + 1][1])  //if the next hill is going down or flat
+			{
+			
+			Debug.Log("next hill is going down or flat.");
+
+			
+			
+				
+			if(transform.position.z >= currentwayPointCart[2] ) // if the segment has been traversed
+				{
+					Debug.Log("Current Hill going down, next hill going down sharp.");
+			
+					if (passedWayPoint == 1)
+					{
+						if(transform.position.z >= currentwayPointCart[2])
+						{
+							//currentwayPointCart = waypointCartTemp1;
+							pMark = pMark+1;
+							passedWayPoint = 0;
+							if (pMark >= candPositions.Length-1)
+							{
+								passedWayPoint = 3;
+								
+							}
+							waypointCart = candPositions[pMark];
+							waypointCart1 = candPositions1[pMark];
+							waypointCart2 = candPositions2[pMark];		
+						}
+					}
+					
+					if (passedWayPoint == 0)
+					{
+						float slope = (currentCandPositions[pMark][1] - currentCandPositions[pMark - 1][1]) / (currentCandPositions[pMark][2] - currentCandPositions[pMark - 1][2]);
+						float yIntercept = currentCandPositions[pMark][1] - (slope * currentCandPositions[pMark][1]);
+						if ((currentCandPositions[pMark][1] - currentCandPositions[pMark + 1][1]) > 8) // if the slope is large
+						{
+						//waypointCartTemp1 = currentwayPointCart;
+							
+							passedWayPoint = 1;
+							if (currentCandPositions[pMark - 1][1] > currentCandPositions[pMark][1]) //if the current hill is going down
+							{
+								//currentwayPointCart[2] = currentwayPointCart[2] + 2f;
+								//currentwayPointCart[1] = (slope * currentwayPointCart[2]) + yIntercept;
+								Debug.Log("Current Hill going down, next hill going down sharp.");
+							}
+							else if (currentCandPositions[pMark - 1][1] <= currentCandPositions[pMark][1])// if the current hill is going up or flat
+							{
+								currentwayPointCart[2] = currentwayPointCart[2] + 3f;
+								currentwayPointCart[1] = (slope * currentwayPointCart[2]) + yIntercept;
+								Debug.Log("Current Hill going up, next hill going down sharp.");
+								
+							}
+							
+						}
+						else if ((currentCandPositions[pMark][1] - currentCandPositions[pMark + 1][1]) <= 8) // if the slope is small
+							{
+									passedWayPoint = 1;
+									
+									if (currentCandPositions[pMark - 1][1] > currentCandPositions[pMark][1]) //if the current hill is going down
+									{
+										currentwayPointCart[2] = currentwayPointCart[2] + 3.5f;
+										currentwayPointCart[1] = currentwayPointCart[1] + 2f;
+										Debug.Log("Current Hill going down, next hill going down mild.");
+									}
+									else if (currentCandPositions[pMark - 1][1] <= currentCandPositions[pMark][1]) //if the current hill is going up or flat
+									{
+										currentwayPointCart[2] = currentwayPointCart[2] + 3f;
+										currentwayPointCart[1] = (slope * currentwayPointCart[2]) + yIntercept;
+											Debug.Log("Current Hill going up, next hill going down mild.");
+									}
+									
+							}
+						
+					}
+						
+				}
+		}
+			
+			else if (currentCandPositions[pMark][1] < currentCandPositions[pMark + 1][1]) // if the next hill is going up
+			{
+			
+				Debug.Log("next hill is going up.");
+				Debug.Log(currentwayPointCart[2]);
+				Debug.Log(currentwayPointCart[1]);
+				Debug.Log(transform.position.z);
+				//if(transform.position.z >= currentwayPointCart[2]) // if the segment has been traversed
+				//{
+					float slope = (currentCandPositions[pMark][1] - currentCandPositions[pMark - 1][1]) / (currentCandPositions[pMark][2] - currentCandPositions[pMark - 1][2]);
+					float yIntercept = currentCandPositions[pMark][1] - (slope * currentCandPositions[pMark][1]);
+			
+					if (passedWayPoint == 1)
+					{
+						
+					
+						if(transform.position.z >= currentwayPointCart[2] - .5)
+						{
+							//currentwayPointCart = waypointCartTemp1;
+							pMark = pMark+1;
+							passedWayPoint = 0;
+							if (pMark >= candPositions.Length)
+							{
+								Application.LoadLevel(1);
+							}
+							waypointCart = candPositions[pMark];
+							waypointCart1 = candPositions1[pMark];
+							waypointCart2 = candPositions2[pMark];		
+						}
+					}
+					
+					if (passedWayPoint == 0)
+					{
+						passedWayPoint = 1;
+						if ((currentCandPositions[pMark + 1][1] - currentCandPositions[pMark][1]) > 8) // if the slope is large
+						{
+						//waypointCartTemp1 = currentwayPointCart;
+						Debug.Log(" next hill going up");	
+							
+
+							if (currentCandPositions[pMark - 1][1] <= currentCandPositions[pMark][1])// if the current hill is going up or flat
+							{
+								currentwayPointCart[2] = currentwayPointCart[2] - 1f; // stops clipping when going into a steep valley.
+								//currentwayPointCart[1] = currentwayPointCart[1] + 1f;
+								Debug.Log("Current Hill going up, next hill going up sharp.");
+								
+							}
+							
+							else if (currentCandPositions[pMark - 1][1] <= currentCandPositions[pMark][1]) //if the current hill is going up
+									{
+										Debug.Log("PEAK.");
+										//currentwayPointCart[2] = currentwayPointCart[2] + 4f;
+										currentwayPointCart[1] = currentwayPointCart[1] + 4f;//this fixes bug on large peaks.
+										
+									}
+							
+						}
+						else if ((currentCandPositions[pMark + 1][1] - currentCandPositions[pMark][1]) <= 8) // if the slope is small
+							{
+									passedWayPoint = 1;
+
+									if (currentCandPositions[pMark - 1][1] <= currentCandPositions[pMark][1]) //if the current hill is going up
+									{
+										Debug.Log("PEAK.");
+										//currentwayPointCart[2] = currentwayPointCart[2] + 4f;
+										currentwayPointCart[1] = currentwayPointCart[1] + 4f;//this fixes bug on large peaks.
+										
+									}
+									
+							}
+						
+					}
+						
+				//}
+			}
+			
+		
+			// the following if statements modify the speed of each cart depending on whether it is going downhill or uphill.
+			if (currentCandPositions[pMark - 1][1] > currentCandPositions[pMark][1]) //if the current hill is going down
+			{
+				if (speed2 < 12)
+				{
+					speed2 = speed2 * 1.05f;
+				}
+				if (speed1 < 12)
+				{
+					speed1 = speed1 * 1.05f;
+				}
+				if (speed3 < 12)
+				{
+					speed3 = speed3 * 1.05f;
+				}
+			}
+			
+			else if (currentCandPositions[pMark-1][1] < currentCandPositions[pMark][1]) //if the current hill is going up
+			{
+				if (speed2 > 4)
+				{
+					speed2 = speed2 * .995f;
+				}
+				if (speed3 > 4)
+				{
+					speed3 = speed3 * .995f;
+				}
+				if (speed1 > 4)
+				{
+					speed1 = speed1 * .995f;
+				}
+			}
+		
+	}
+	
+	void MoveBackwards ()	//Same as Move, but modified to make the movement go backwards // Non-clipping physics not applied.
+	{
+
 
 		GameObject slot = GameObject.Find("CartSlot");
 		GameObject slot2 = GameObject.Find("CartSlot1");
@@ -238,11 +428,6 @@ public class Cart : MonoBehaviour {
 				    waypointCart2 = candPositions2[pMark];
 					
 				}
-				
-				
-				
-				
-				
 	
 			}		      
 			
@@ -278,6 +463,38 @@ public class Cart : MonoBehaviour {
 				
 				//transform.position = Vector3.MoveTowards(transform.position, waypointCart1, speed * Time.deltaTime);
 				//GetComponent<Camera>().transform.position += boost;
+		
+	}
+	
+	public void vehicleSelect(int vehicleNum)
+	{
+		
+		car = GameObject.FindWithTag("car");
+		pmover = GameObject.FindWithTag("pmover");
+
+		
+		if (vehicleNum == 0) //if cart is selected as vehicle...
+		{
+			car.transform.localScale = new Vector3(0f,0f,0f);// scale to make invisible.
+			pmover.transform.localScale = new Vector3(1.5f,1.5f,1.5f);// scale to make appropriate size.
+			vehicle = 1;	
+		}
+		
+		else if (vehicleNum == 1)
+		{
+			car.transform.localScale = new Vector3(0.018f,0.018f,0.018f);
+			pmover.transform.localScale = new Vector3(0f,0f,0f);
+			vehicle = 2;	
+		}
+		
+		else
+		{
+			car.transform.localScale = new Vector3(0f,0f,0f);
+			pmover.transform.localScale = new Vector3(0f,0f,0f);
+			vehicle = 0;	
+		}
+	
+		
 		
 	}
 	
@@ -322,7 +539,24 @@ public class Cart : MonoBehaviour {
 	
 	if (Input.GetKey("right") || Input.GetKey(KeyCode.JoystickButton5)) //fast forward
 	{
-		speed = 7;
+		
+
+		
+		speed1 = 45;
+		speed2 = 45;
+		speed3 = 45;
+		
+		Move();
+            print("button 5 fast forward");
+	}
+	
+	if (Input.GetKeyUp("right") || Input.GetKey(KeyCode.JoystickButton5)) //fast forward release
+	{
+		
+		speed1 = 5;
+		speed2 = 5;
+		speed3 = 5;
+		
 		Move();
             print("button 5 fast forward");
 	}
@@ -337,10 +571,10 @@ public class Cart : MonoBehaviour {
 		{
 			pause = 1;
 		}
-		else
-		{
-			pause = 0;
-		}
+		//else
+		//{
+		//	pause = 0;
+		//}
             print("button 9 pause");
 	}
 	
@@ -348,6 +582,25 @@ public class Cart : MonoBehaviour {
 	{
 		MoveBackwards();
             print("button 4 rewind");
+	}
+	
+	if (Input.GetKeyDown("c")) //vehicle select
+	{
+			if (vehicle == 1)
+			{
+				vehicleSelect(2);
+			}
+			
+			else if (vehicle == 2)
+			{
+				vehicleSelect(0);
+			}
+			
+			if (vehicle == 0)
+			{
+				vehicleSelect(1);
+			}
+            //print("vehicle select");
 	}
 
 	

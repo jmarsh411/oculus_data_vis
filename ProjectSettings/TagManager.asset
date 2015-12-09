@@ -15,6 +15,15 @@ TagManager:
   - CamContainer
   - overlay
   - LookCursor
+  - CartSlot2
+  - CartSlot1
+  - CartSlot3
+  - TimerText
+  - car
+  - pmover
+  - vSelect1
+  - vSelect2
+  - vSelect3
   layers:
   - Default
   - TransparentFX
@@ -24,7 +33,7 @@ TagManager:
   - UI
   - 
   - 
-  - 
+  - rings
   - 
   - 
   - 
@@ -51,4 +60,7 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: ring
+    uniqueID: 3274322047
     locked: 0
