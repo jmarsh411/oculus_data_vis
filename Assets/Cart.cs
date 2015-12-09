@@ -264,7 +264,7 @@ public class Cart : MonoBehaviour {
 							}
 							else if (currentCandPositions[pMark - 1][1] <= currentCandPositions[pMark][1])// if the current hill is going up or flat
 							{
-								currentwayPointCart[2] = currentwayPointCart[2] + 1f;
+								currentwayPointCart[2] = currentwayPointCart[2] + 3f;
 								currentwayPointCart[1] = (slope * currentwayPointCart[2]) + yIntercept;
 								Debug.Log("Current Hill going up, next hill going down sharp.");
 								
@@ -277,13 +277,13 @@ public class Cart : MonoBehaviour {
 									
 									if (currentCandPositions[pMark - 1][1] > currentCandPositions[pMark][1]) //if the current hill is going down
 									{
-										//currentwayPointCart[2] = currentwayPointCart[2] + 3.5f;
-										//currentwayPointCart[1] = currentwayPointCart[1] + 2f;
+										currentwayPointCart[2] = currentwayPointCart[2] + 3.5f;
+										currentwayPointCart[1] = currentwayPointCart[1] + 2f;
 										Debug.Log("Current Hill going down, next hill going down mild.");
 									}
 									else if (currentCandPositions[pMark - 1][1] <= currentCandPositions[pMark][1]) //if the current hill is going up or flat
 									{
-										currentwayPointCart[2] = currentwayPointCart[2] + .5f;
+										currentwayPointCart[2] = currentwayPointCart[2] + 3f;
 										currentwayPointCart[1] = (slope * currentwayPointCart[2]) + yIntercept;
 											Debug.Log("Current Hill going up, next hill going down mild.");
 									}
@@ -343,6 +343,14 @@ public class Cart : MonoBehaviour {
 								
 							}
 							
+							else if (currentCandPositions[pMark - 1][1] <= currentCandPositions[pMark][1]) //if the current hill is going up
+									{
+										Debug.Log("PEAK.");
+										//currentwayPointCart[2] = currentwayPointCart[2] + 4f;
+										currentwayPointCart[1] = currentwayPointCart[1] + 4f;//this fixes bug on large peaks.
+										
+									}
+							
 						}
 						else if ((currentCandPositions[pMark + 1][1] - currentCandPositions[pMark][1]) <= 8) // if the slope is small
 							{
@@ -351,8 +359,8 @@ public class Cart : MonoBehaviour {
 									if (currentCandPositions[pMark - 1][1] <= currentCandPositions[pMark][1]) //if the current hill is going up
 									{
 										Debug.Log("PEAK.");
-										//currentwayPointCart[2] = currentwayPointCart[2] + 3f;
-										currentwayPointCart[1] = currentwayPointCart[1] + 1f;//this fixes bug on large peaks.
+										//currentwayPointCart[2] = currentwayPointCart[2] + 4f;
+										currentwayPointCart[1] = currentwayPointCart[1] + 4f;//this fixes bug on large peaks.
 										
 									}
 									
@@ -401,9 +409,7 @@ public class Cart : MonoBehaviour {
 	
 	void MoveBackwards ()	//Same as Move, but modified to make the movement go backwards // Non-clipping physics not applied.
 	{
-		speed1 = speed + (speed * ((Mathf.Sqrt(100 + Mathf.Pow((candPositions[pMark][1] - candPositions[pMark + 1][1]),2)) - 10)/10));
-		speed2 = speed + (speed * ((Mathf.Sqrt(100 + Mathf.Pow((candPositions1[pMark][1] - candPositions1[pMark + 1][1]),2)) - 10)/10));
-		speed3 = speed + (speed * ((Mathf.Sqrt(100 + Mathf.Pow((candPositions2[pMark][1] - candPositions2[pMark + 1][1]),2)) - 10)/10));
+
 
 		GameObject slot = GameObject.Find("CartSlot");
 		GameObject slot2 = GameObject.Find("CartSlot1");
@@ -578,7 +584,20 @@ public class Cart : MonoBehaviour {
 	
 	if (Input.GetKeyDown("c")) //vehicle select
 	{
-			//vehicleSelect();
+			if (vehicle == 1)
+			{
+				vehicleSelect(2);
+			}
+			
+			else if (vehicle == 2)
+			{
+				vehicleSelect(0);
+			}
+			
+			if (vehicle == 0)
+			{
+				vehicleSelect(1);
+			}
             //print("vehicle select");
 	}
 
