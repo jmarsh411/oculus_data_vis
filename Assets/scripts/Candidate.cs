@@ -21,6 +21,19 @@ public class Candidate {
 		colors.Enqueue (Color.cyan);
 		colors.Enqueue (Color.black);
 		colors.Enqueue (Color.grey);
+		colors.Enqueue (Color.Lerp (Color.red, Color.yellow, 0.5f));
+		colors.Enqueue (Color.Lerp (Color.red, Color.white, 0.5f));
+		colors.Enqueue (Color.Lerp (Color.blue, Color.white, 0.5f));
+		colors.Enqueue (Color.Lerp (Color.green, Color.white, 0.5f));
+		colors.Enqueue (Color.Lerp (Color.yellow, Color.white, 0.5f));
+		colors.Enqueue (Color.Lerp (Color.magenta, Color.white, 0.5f));
+		colors.Enqueue (Color.Lerp (Color.cyan, Color.white, 0.5f));
+		colors.Enqueue (Color.Lerp (Color.red, Color.black, 0.5f));
+		colors.Enqueue (Color.Lerp (Color.green, Color.black, 0.5f));
+		colors.Enqueue (Color.Lerp (Color.blue, Color.black, 0.5f));
+		colors.Enqueue (Color.Lerp (Color.yellow, Color.black, 0.5f));
+		colors.Enqueue (Color.Lerp (Color.magenta, Color.black, 0.5f));
+		colors.Enqueue (Color.Lerp (Color.cyan, Color.black, 0.5f));
 	}
 	 
 	public Candidate(string n, int cN) {
