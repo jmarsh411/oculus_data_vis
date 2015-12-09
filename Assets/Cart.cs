@@ -521,21 +521,73 @@ public class Cart : MonoBehaviour {
             print("button 6 shift left");
         }
 
-	if (Input.GetKeyDown("space")) // switches cart location to other graphs
+		if (Input.GetKeyDown("space")) // switches cart location to other graphs
 	{
 		if (state == 1)
 		{
+			GameObject slot = GameObject.Find("CartSlot1");
+			transform.position = candPositions1[0];
+			slot.transform.position = candPositions1[0];//initiate camera location to first point
+			slot.transform.LookAt(candPositions1[1]);//initiate camera aim to second point
+			pMark=0;
+			waypointCart = candPositions1[1];
+			
 			state = 2;
 		}
 		else if (state == 2)
 		{
+			GameObject slot = GameObject.Find("CartSlot2");
+			transform.position = candPositions2[0];
+			slot.transform.position = candPositions2[0];//initiate camera location to first point
+			slot.transform.LookAt(candPositions2[1]);//initiate camera aim to second point
+			pMark=0;
+			waypointCart = candPositions2[1];
+			
 			state = 3;
 		}
 		else
 		{
+			
+			GameObject slot = GameObject.Find("CartSlot");
+			transform.position = candPositions[0];
+			slot.transform.position = candPositions[0];//initiate camera location to first point
+			slot.transform.LookAt(candPositions[1]);//initiate camera aim to second point
+			pMark=0;
+			waypointCart = candPositions[1];
 			state = 1;
 		}
+		
+		
+		
 	}
+	
+	if (Input.GetKeyDown("s")) // switches cart location to other graphs
+	{
+		if (state == 1)
+		{
+			
+			
+			state = 2;
+		}
+		else if (state == 2)
+		{
+			
+			
+			state = 3;
+		}
+		else
+		{
+			
+			
+			state = 1;
+		}
+		
+		
+		
+	}
+	
+	
+	
 	
 	if (Input.GetKey("right") || Input.GetKey(KeyCode.JoystickButton5)) //fast forward
 	{
