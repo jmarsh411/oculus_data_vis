@@ -69,8 +69,8 @@ public class Cart : MonoBehaviour {
 		GameObject line2 = Instantiate (line2DPrefab);
 		GameObject line3 = Instantiate (line2DPrefab);
 
-		line1.GetComponent<Make2DLine> ().Initialize (createLine.Positions1, CSVReader.topThreeCandidates [0]);
-		line2.GetComponent<Make2DLine> ().Initialize (createLine.Positions2, CSVReader.topThreeCandidates [1]);
+		line1.GetComponent<Make2DLine> ().Initialize (createLine.Positions2, CSVReader.topThreeCandidates [0]);
+		line2.GetComponent<Make2DLine> ().Initialize (createLine.Positions1, CSVReader.topThreeCandidates [1]);
 		line3.GetComponent<Make2DLine> ().Initialize (createLine.Positions3, CSVReader.topThreeCandidates [2]);
 		Make2DLine.followParent (line1, graphCanvas);
 		Make2DLine.followParent (line2, graphCanvas);
