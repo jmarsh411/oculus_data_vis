@@ -24,6 +24,8 @@ public class StartTimer : MonoBehaviour {
 			
 		Debug.Log("3");
 		gameObject.transform.GetChild(0).GetComponent<Text>().text = "3";		
+		Camera cam = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
+		gameObject.transform.GetChild(0).GetComponent<Canvas>().worldCamera = cam;
 		
 	}
 	
