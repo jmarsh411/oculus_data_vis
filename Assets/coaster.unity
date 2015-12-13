@@ -1513,7 +1513,7 @@ Canvas:
   serializedVersion: 2
   m_RenderMode: 1
   m_Camera: {fileID: 1171233455}
-  m_PlaneDistance: .310000002
+  m_PlaneDistance: .100000001
   m_PixelPerfect: 0
   m_ReceivesEvents: 1
   m_OverrideSorting: 0
@@ -1608,7 +1608,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 400258, guid: 73329366d403e804685ad530a6d70076, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 1.60000002
+      value: 1.45000005
       objectReference: {fileID: 0}
     - target: {fileID: 400258, guid: 73329366d403e804685ad530a6d70076, type: 3}
       propertyPath: m_LocalRotation.x
@@ -2484,6 +2484,10 @@ Prefab:
     - target: {fileID: 2019978, guid: 22cee15886ce9434e8f3e35a1e29b7f3, type: 2}
       propertyPath: far clip plane
       value: 1500
+      objectReference: {fileID: 0}
+    - target: {fileID: 2019978, guid: 22cee15886ce9434e8f3e35a1e29b7f3, type: 2}
+      propertyPath: near clip plane
+      value: .00999999978
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 22cee15886ce9434e8f3e35a1e29b7f3, type: 2}
