@@ -654,6 +654,13 @@ public class Cart : MonoBehaviour {
 			}
             //print("vehicle select");
 	}
+	
+	if (Input.GetKey(KeyCode.Escape)) //|| Input.GetKey(KeyCode.JoystickButton5)) //Needs to be mapped to JoystickButton
+			{
+						
+				Application.LoadLevel(0); // Goes Back to Menu
+
+			}
 
 	
 	if (!Input.anyKey) // if no key is pressed and the game is not paused move forward.
