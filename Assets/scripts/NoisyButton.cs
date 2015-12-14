@@ -12,12 +12,12 @@ public class NoisyButton : Button, IPointerExitHandler, IPointerEnterHandler {
 	public void OnPointerEnter(PointerEventData eventData) {
 		base.OnPointerEnter (eventData);
 		highlighted = true;
-		Debug.Log ("User looking at button");
+		Debug.Log ("User looking at " + name);
 	}
 
 	public void OnPointerExit(PointerEventData eventData) {
 		base.OnPointerExit (eventData);
 		highlighted = false;
-		Debug.Log ("User no longer looking at button");
+		Debug.Log ("User no longer looking at " + name);
 	}
 }
