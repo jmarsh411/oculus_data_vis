@@ -9,12 +9,12 @@ public class UITimeline : MonoBehaviour {
 	void Start () {
 		// get cart transform reference
 		GameObject cart = GameObject.Find("Cart");
-		cartTrans = cart.transform;
+//		cartTrans = cart.transform;
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		matchUserHeight ();
+		// matchUserHeight ();
 		adjustTransparency ();
 	}
 
