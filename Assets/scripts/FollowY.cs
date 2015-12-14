@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class UITimeline : MonoBehaviour {
+public class FollowY : MonoBehaviour {
 	private GameObject contextPanel;
 	private Transform cartTrans;
 
@@ -9,13 +9,12 @@ public class UITimeline : MonoBehaviour {
 	void Start () {
 		// get cart transform reference
 		GameObject cart = GameObject.Find("Cart");
-//		cartTrans = cart.transform;
+		cartTrans = cart.transform;
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		// matchUserHeight ();
-		adjustTransparency ();
+		matchUserHeight ();
 	}
 
 	void matchUserHeight() {
@@ -23,9 +22,4 @@ public class UITimeline : MonoBehaviour {
 		                                 cartTrans.position.y,
 		                                 transform.position.z);
 	}
-
-	void adjustTransparency(){
-
-	}
-
 }
