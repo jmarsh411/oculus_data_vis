@@ -1358,6 +1358,8 @@ GameObject:
   - 223: {fileID: 643016081}
   - 114: {fileID: 643016080}
   - 114: {fileID: 643016079}
+  - 225: {fileID: 643016082}
+  - 114: {fileID: 643016083}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: overlay
@@ -1438,6 +1440,28 @@ Canvas:
   m_OverridePixelPerfect: 0
   m_SortingLayerID: 0
   m_SortingOrder: 0
+--- !u!225 &643016082
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 643016077}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
+--- !u!114 &643016083
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 643016077}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbd10c77fa831bc46876e3a385737ecf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &645905740
 GameObject:
   m_ObjectHideFlags: 0
