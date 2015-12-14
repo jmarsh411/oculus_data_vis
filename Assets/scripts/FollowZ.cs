@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class GraphFollow : MonoBehaviour {
+public class FollowZ : MonoBehaviour {
 	float z_offset;
 	Transform cartTrans;
 
