@@ -99,10 +99,6 @@ public class CreateLine : MonoBehaviour {
             Position1Candidate = name;
             Debug.Log("ok1.");
 
-			// create a timeline for this
-			GameObject timeline1 = (GameObject)Instantiate(timelinePrefab);
-			timeline1.GetComponent<CoasterTimeline> ().Initialize(Positions1);
-
 		}
 		else if (candNum/20 == 2)
 		{
@@ -120,7 +116,17 @@ public class CreateLine : MonoBehaviour {
 			
 		}		
 				
-			
+		// this is janky, but I the code is all over the place and I only want to call this when all lines
+		// have points
+		if ((Positions1 != null) && (Positions2 != null) && (Positions3 != null)) {
+			// create a timeline for this
+			GameObject timeline1 = (GameObject)Instantiate(timelinePrefab);
+			timeline1.GetComponent<CoasterTimeline> ().Initialize(Positions1);
+			// positions this halfway between the left and center line
+
+			// note transform.position and rectTransform.position didn't work. try other positions
+//			timeline1.GetComponent<RectTransform>().position = new Vector3(Mathf.Lerp(Positions1[0].x,Positions2[0].x, 0.5f), 0f, 0f);
+		}
 			
 		
 	
@@ -175,7 +181,7 @@ public class CreateLine : MonoBehaviour {
 		}
 		
 		
-		
+
 		
 		
 

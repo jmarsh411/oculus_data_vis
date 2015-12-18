@@ -24,7 +24,7 @@ public class CoasterTimeline : MonoBehaviour {
 			// become the parent of this newly instantiated object
 			textObj.transform.SetParent(transform, false);
 			// set its text to the point's value
-			textObj.GetComponent<Text> ().text = linePoints[pointNum].y.ToString();
+			textObj.GetComponent<Text> ().text = Mathf.Round(linePoints[pointNum].y).ToString();
 			// set its local Position to the z value
 			RectTransform rectTrans = textObj.GetComponent<RectTransform> ();
 			rectTrans.anchoredPosition3D = new Vector3(linePoints[pointNum].z, 0f, 0f);
