@@ -26,6 +26,8 @@ public class CreateLine : MonoBehaviour {
 	public UnityEngine.Object trackPiece;
 	public UnityEngine.Object eventRing;
 
+	static UnityEngine.Object timelinePrefab;
+
 
     public int pMark; //Marker to find current position of cart.
 	//public Vector3 test;
@@ -38,7 +40,12 @@ public class CreateLine : MonoBehaviour {
 	Color color = Color.red;
 	float TrackLength;
 	candNum = candNum * 20; // Space candidates apart horizontally by 10 units.
-
+	
+	// load timeline prefab
+	if (timelinePrefab == null) {
+		timelinePrefab = (GameObject)Resources.Load ("prefabs/TimelineCanvas");
+	}
+	
 		Vector3[] positions = new Vector3[CSVReader.pollByDateCoaster.Count];
 		DateTime[] dates = new DateTime[CSVReader.pollByDateCoaster.Count];
 		int posI = 0;
@@ -81,6 +88,7 @@ public class CreateLine : MonoBehaviour {
             Position2Dates = dates;
             Position2Candidate = name;
 			Debug.Log("ok0.");
+
 		}
 
 
@@ -90,7 +98,11 @@ public class CreateLine : MonoBehaviour {
             Position1Dates = dates;
             Position1Candidate = name;
             Debug.Log("ok1.");
-			
+
+			// create a timeline for this
+			GameObject timeline1 = (GameObject)Instantiate(timelinePrefab);
+			timeline1.GetComponent<CoasterTimeline> ().Initialize(Positions1);
+
 		}
 		else if (candNum/20 == 2)
 		{
