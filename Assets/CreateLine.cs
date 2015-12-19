@@ -26,9 +26,6 @@ public class CreateLine : MonoBehaviour {
 	public UnityEngine.Object trackPiece;
 	public UnityEngine.Object eventRing;
 
-	static UnityEngine.Object timelinePrefab;
-
-
     public int pMark; //Marker to find current position of cart.
 	//public Vector3 test;
 	//public Vector3 boost = new Vector3(0,.8f,0);
@@ -40,11 +37,7 @@ public class CreateLine : MonoBehaviour {
 	Color color = Color.red;
 	float TrackLength;
 	candNum = candNum * 20; // Space candidates apart horizontally by 10 units.
-	
-	// load timeline prefab
-	if (timelinePrefab == null) {
-		timelinePrefab = (GameObject)Resources.Load ("prefabs/TimelineCanvas");
-	}
+
 	
 		Vector3[] positions = new Vector3[CSVReader.pollByDateCoaster.Count];
 		DateTime[] dates = new DateTime[CSVReader.pollByDateCoaster.Count];
@@ -115,19 +108,6 @@ public class CreateLine : MonoBehaviour {
 			Debug.Log("Invalid Candidate Number");
 			
 		}		
-				
-		// this is janky, but I the code is all over the place and I only want to call this when all lines
-		// have points
-		if ((Positions1 != null) && (Positions2 != null) && (Positions3 != null)) {
-			// create a timeline for this
-			GameObject timeline1 = (GameObject)Instantiate(timelinePrefab);
-			timeline1.GetComponent<CoasterTimeline> ().Initialize(Positions1);
-			// positions this halfway between the left and center line
-
-			// note transform.position and rectTransform.position didn't work. try other positions
-//			timeline1.GetComponent<RectTransform>().position = new Vector3(Mathf.Lerp(Positions1[0].x,Positions2[0].x, 0.5f), 0f, 0f);
-		}
-			
 		
 	
 		trackPiece = Resources.Load("TrackPiece");

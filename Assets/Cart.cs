@@ -45,6 +45,8 @@ public class Cart : MonoBehaviour {
 		
 		Vector3 boost;
 
+		static UnityEngine.Object timelinePrefab;
+
 	// Use this for initialization
 	void Start () {
 		
@@ -76,6 +78,18 @@ public class Cart : MonoBehaviour {
 		Make2DLine.followParent (line2, graphCanvas);
 		Make2DLine.followParent (line3, graphCanvas);
 
+
+		// load timeline prefab
+		if (timelinePrefab == null) {
+			timelinePrefab = (GameObject)Resources.Load ("prefabs/TimelineCanvas");
+		}
+		// create a timeline
+		GameObject midTimelineR = (GameObject)Instantiate(
+			timelinePrefab,
+			// positions this 1/10 between the left and center line
+			new Vector3(Mathf.Lerp(createLine.Positions1[0].x, createLine.Positions3[0].x, 0.1f), 0f, 0f),
+			Quaternion.AngleAxis(270f, Vector3.up));
+		midTimelineR.GetComponent<CoasterTimeline> ().Initialize(createLine.Positions1);
 
 
 		slot.transform.position = createLine.Positions1[0];//initiate camera location to first point

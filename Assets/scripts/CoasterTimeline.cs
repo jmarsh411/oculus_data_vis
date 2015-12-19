@@ -1,14 +1,19 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
+using System.Collections.Generic;
 
 public class CoasterTimeline : MonoBehaviour {
 	static UnityEngine.Object textPrefab;
-	
+	public static List<GameObject> timelineList;
+
 	void Awake () {
 		// load the text prefab only if it's not already loaded
 		if (textPrefab == null)
 			textPrefab = Resources.Load ("prefabs/Text");
+		if (timelineList == null) {
+			timelineList = new List<GameObject>();
+		}
 	}
 	
 	// Update is called once per frame
@@ -29,5 +34,7 @@ public class CoasterTimeline : MonoBehaviour {
 			RectTransform rectTrans = textObj.GetComponent<RectTransform> ();
 			rectTrans.anchoredPosition3D = new Vector3(linePoints[pointNum].z, 0f, 0f);
 		}
+		// add this newly instantiated timeline to the global timeline list
+		timelineList.Add (gameObject);
 	}
 }

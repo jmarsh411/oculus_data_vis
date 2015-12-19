@@ -52,7 +52,7 @@ public class StartTimer : MonoBehaviour {
 					cart1.GetComponent<Cart>().pause = 0;
 					started = 1;
 				}
-				
+			Destroy(this.gameObject);
 			}
 
 	}
