@@ -26,7 +26,6 @@ public class CreateLine : MonoBehaviour {
 	public UnityEngine.Object trackPiece;
 	public UnityEngine.Object eventRing;
 
-
     public int pMark; //Marker to find current position of cart.
 	//public Vector3 test;
 	//public Vector3 boost = new Vector3(0,.8f,0);
@@ -39,6 +38,7 @@ public class CreateLine : MonoBehaviour {
 	float TrackLength;
 	candNum = candNum * 20; // Space candidates apart horizontally by 10 units.
 
+	
 		Vector3[] positions = new Vector3[CSVReader.pollByDateCoaster.Count];
 		DateTime[] dates = new DateTime[CSVReader.pollByDateCoaster.Count];
 		int posI = 0;
@@ -81,6 +81,7 @@ public class CreateLine : MonoBehaviour {
             Position2Dates = dates;
             Position2Candidate = name;
 			Debug.Log("ok0.");
+
 		}
 
 
@@ -90,7 +91,7 @@ public class CreateLine : MonoBehaviour {
             Position1Dates = dates;
             Position1Candidate = name;
             Debug.Log("ok1.");
-			
+
 		}
 		else if (candNum/20 == 2)
 		{
@@ -107,9 +108,6 @@ public class CreateLine : MonoBehaviour {
 			Debug.Log("Invalid Candidate Number");
 			
 		}		
-				
-			
-			
 		
 	
 		trackPiece = Resources.Load("TrackPiece");
@@ -163,7 +161,7 @@ public class CreateLine : MonoBehaviour {
 		}
 		
 		
-		
+
 		
 		
 
